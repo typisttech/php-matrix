@@ -17,4 +17,4 @@
 /README.md      -export-ignore
 
 # Ignore internal scripts.
-/bin/update-all-version     -export-ignore
+/bin/update-all-versions    -export-ignore

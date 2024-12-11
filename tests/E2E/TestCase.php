@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\E2E;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Tests\TestCase as BaseTestCase;
-use TypistTech\PhpMatrix\Command\SatisfyCommand;
+use TypistTech\PhpMatrix\Console\Application;
 
 abstract class TestCase extends BaseTestCase
 {
     protected function applicationTester(): ApplicationTester
     {
-        $application = new Application('php-matrix', 'testing');
+        $application = Application::make();
         $application->setAutoExit(false);
-
-        $application->add(new SatisfyCommand);
 
         return new ApplicationTester($application);
     }

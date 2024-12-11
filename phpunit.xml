@@ -15,4 +15,11 @@
             <directory suffix=".php">./src</directory>
         </include>
     </source>
+
+    <php>
+        <!-- Height of the terminal -->
+        <env name="LINES" value="50" force="true"/>
+        <!-- Width of the terminal -->
+        <env name="COLUMNS" value="80" force="true"/>
+    </php>
 </phpunit>

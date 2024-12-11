@@ -3,14 +3,9 @@
 
 declare(strict_types=1);
 
+use TypistTech\PhpMatrix\Console\Application;
+
 include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-use TypistTech\PhpMatrix\Command\SatisfyCommand;
-
-// TODO: How to auto-bump version on tag?
-$application = new Application('php-matrix', '0.1.0');
-
-$application->add(new SatisfyCommand);
-
-$application->run();
+Application::make()
+    ->run();

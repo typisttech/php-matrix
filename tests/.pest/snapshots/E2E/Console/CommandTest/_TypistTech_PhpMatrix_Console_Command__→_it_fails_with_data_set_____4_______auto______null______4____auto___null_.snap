@@ -1,0 +1,8 @@
+
+In Command.php line 116:
+                                                             
+  Error! No PHP versions could satisfy the constraint '^4'.  
+                                                             
+
+php-matrix [--source SOURCE] [--mode MODE] [--] <constraint>
+

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix;
 
-use Composer\Semver\Semver;
-
 readonly class MinorOnlyMatrix extends Matrix implements MatrixInterface
 {
     /**
@@ -28,17 +26,5 @@ readonly class MinorOnlyMatrix extends Matrix implements MatrixInterface
         $versions = array_unique($versions);
 
         return array_values($versions);
-    }
-
-    public function lowestAndHighest(string $version, string ...$versions): array
-    {
-        if (empty($versions)) {
-            return [$version, $version];
-        }
-
-        $sorted = Semver::sort([$version, ...$versions]);
-        $count = count($sorted);
-
-        return [$sorted[0], $sorted[$count - 1]];
     }
 }

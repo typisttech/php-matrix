@@ -1,0 +1,8 @@
+
+In VersionParser.php line 526:
+                                                                  
+  Could not parse version constraint : Invalid version string ""  
+                                                                  
+
+php-matrix [--source SOURCE] [--mode MODE] [--] <constraint>
+
