@@ -1,0 +1,94 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  pest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: "--optimize-autoloader"
+
+      - run: composer pest:unit -- --ci --coverage-clover coverage-unit.xml
+      - run: composer pest:feature -- --ci --coverage-clover coverage-feature.xml
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ matrix.coverage == 'xdebug' }}
+        with:
+          name: coverage
+          path: |
+            coverage-unit.xml
+            coverage-feature.xml
+
+  pest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: "--optimize-autoloader"
+
+      - run: composer pest:unit -- --ci --coverage-clover coverage-unit.xml
+      - run: composer pest:feature -- --ci --coverage-clover coverage-feature.xml
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ matrix.coverage == 'xdebug' }}
+        with:
+          name: coverage
+          path: coverage.xml
+
+  codecov:
+    needs: pest
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage
+
+      - uses: codecov/codecov-action@v5
+        with:
+          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+          fail_ci_if_error: true
+          disable_search: true
+          files: coverage-unit.xml
+          flags: unit
+      - uses: codecov/codecov-action@v5
+        with:
+          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+          fail_ci_if_error: true
+          disable_search: true
+          files: coverage-feature.xml
+          flags: feature

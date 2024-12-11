@@ -1,0 +1,8 @@
+
+In SatisfyCommand.php line 66:
+                                                    
+  Error! No versions could satisfy the constraint.  
+                                                    
+
+satisfy [--offline] [--mode MODE] [--] <constraint>
+

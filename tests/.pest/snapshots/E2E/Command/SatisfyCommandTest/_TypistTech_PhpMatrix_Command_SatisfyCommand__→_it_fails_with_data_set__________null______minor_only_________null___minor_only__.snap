@@ -1,0 +1,8 @@
+
+In VersionParser.php line 526:
+                                                                  
+  Could not parse version constraint : Invalid version string ""  
+                                                                  
+
+satisfy [--offline] [--mode MODE] [--] <constraint>
+

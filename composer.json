@@ -1,0 +1,78 @@
+{
+  "name": "typisttech/php-matrix",
+  "description": "TODO.",
+  "type": "project",
+  "keywords": [
+    "ci",
+    "cli",
+    "github-actions"
+  ],
+  "homepage": "https://github.com/typisttech/php-matrix",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Typist Tech",
+      "homepage": "https://typist.tech"
+    },
+    {
+      "name": "Tang Rufus",
+      "email": "tangrufus@gmail.com",
+      "homepage": "https://tangrufus.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/typisttech/php-matrix/issues",
+    "source": "https://github.com/typisttech/php-matrix"
+  },
+  "require": {
+    "php": "^8.4",
+    "composer-runtime-api": "^2.2",
+    "composer/semver": "^3.4",
+    "guzzlehttp/guzzle": "^7.9",
+    "symfony/console": "^7.2"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.10",
+    "mockery/mockery": "^1.6",
+    "pestphp/pest": "^3.5",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "TypistTech\\PhpMatrix\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "data:update": [
+      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=5' | jq . > ./tests/data/releases-5.json",
+      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=7' | jq . > ./tests/data/releases-7.json",
+      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=8' | jq . > ./tests/data/releases-8.json",
+      "@php ./bin/update-all-versions",
+      "pest --update-snapshots --parallel"
+    ],
+    "pint": "pint",
+    "pest": "pest",
+    "pest:e2e": "pest --group=e2e --parallel",
+    "pest:feature": "pest --group=feature --parallel",
+    "pest:unit": "pest --group=unit --parallel",
+    "test": [
+      "pint --test",
+      "pest --parallel"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    },
+    "sort-packages": true
+  },
+  "bin": [
+    "bin/php-matrix"
+  ]
+}
