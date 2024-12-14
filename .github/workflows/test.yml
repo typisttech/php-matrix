@@ -34,8 +34,8 @@ jobs:
 
       # TODO: `--fail-on-incomplete` doesn't fail
       # See: https://github.com/pestphp/pest/issues/1328
-      - run: composer pest:unit --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
-      - run: composer pest:feature --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
+      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
+      - run: composer pest:feature -- --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
 
       - uses: actions/upload-artifact@v4
         with:
