@@ -3,7 +3,7 @@
 # PHP Matrix
 
 [![Packagist Version](https://img.shields.io/packagist/v/typisttech/php-matrix)](https://packagist.org/packages/typisttech/php-matrix)
-[![PHP Version Require](https://img.shields.io/packagist/dependency-v/typisttech/php-matrix/php)](https://github.com/typisttech/php-matrix/blob/readme/composer.json)
+[![PHP Version Require](https://img.shields.io/packagist/dependency-v/typisttech/php-matrix/php)]([https://github.com/typisttech/php-matrix/blob/readme/composer.json](https://github.com/typisttech/php-matrix/blob/main/composer.json))
 [![Test](https://github.com/typisttech/php-matrix/actions/workflows/test.yml/badge.svg)](https://github.com/typisttech/php-matrix/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/typisttech/php-matrix/graph/badge.svg?token=HV5UDLPMMQ)](https://codecov.io/gh/typisttech/php-matrix)
 [![License](https://img.shields.io/github/license/typisttech/php-matrix.svg)](https://github.com/typisttech/php-matrix/blob/master/LICENSE)
