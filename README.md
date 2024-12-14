@@ -109,7 +109,7 @@ php-matrix --help
 ```bash
 composer create-project typisttech/php-matrix
 cd php-matrix
-php-matrix --help
+./bin/php-matrix --help
 ```
 
 ## Credits
