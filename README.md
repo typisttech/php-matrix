@@ -82,18 +82,16 @@ $ php-matrix --mode=minor-only  ">=7.2 <8.4"
 
 #### `--mode`
 
-| Value                  | Description                                                  |
-|------------------------|--------------------------------------------------------------|
-| `minor-only` (default) | Report `MAJOR.MINOR` versions only                           |
-| `full`                 | Report all satisfying versions in `MAJOR.MINOR.PATCH` format |
+Available modes:
+- `minor-only` *(default)*: Report `MAJOR.MINOR` versions only
+- `full`: Report all satisfying versions in `MAJOR.MINOR.PATCH` format
 
 #### `--source`
 
-| Value            | Description                                                                                                 |
-|------------------|-------------------------------------------------------------------------------------------------------------|
-| `auto` (default) | Use `offline` in `minor-only` mode. Otherwise, fetch from [php.net](https://www.php.net/releases/index.php) |
-| `php.net`        | Fetch releases information from [php.net](https://www.php.net/releases/index.php)                           |
-| `offline`        | Use [hardcoded releases](resources/all-versions.json) information                                           |
+Available sources:
+- `auto` *(default)*: Use `offline` in `minor-only` mode. Otherwise, fetch from [php.net](https://www.php.net/releases/index.php)
+- `php.net`: Fetch releases information from [php.net](https://www.php.net/releases/index.php)
+- `offline`: Use [hardcoded releases](resources/all-versions.json) information
 
 ## Installation
 
