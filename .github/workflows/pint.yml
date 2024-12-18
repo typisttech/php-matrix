@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.php'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'pint.json'
+      - '.github/workflows/pint.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
