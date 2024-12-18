@@ -9,12 +9,8 @@ on:
 permissions: {}
 
 jobs:
-  update-release-draft:
-    runs-on: ubuntu-latest
+  release-drafter:
+    uses: typisttech/.github/.github/workflows/release-drafter.yml@v2
     permissions:
       contents: write
       pull-requests: read
-    steps:
-      - uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

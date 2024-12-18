@@ -18,19 +18,27 @@ permissions: {}
 jobs:
   pest:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - dependency-versions: lowest
+            coverage: none
+          - dependency-versions: highest
+            coverage: xdebug
     steps:
       - uses: actions/checkout@v4
 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          coverage: xdebug
+          coverage: ${{ matrix.coverage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ramsey/composer-install@v3
         with:
-          composer-options: --optimize-autoloader
+          dependency-versions: ${{ matrix.dependency-versions }}
+          composer-options: --no-audit --optimize-autoloader
 
       # TODO: `--fail-on-incomplete` doesn't fail
       # See: https://github.com/pestphp/pest/issues/1328
@@ -38,6 +46,7 @@ jobs:
       - run: composer pest:feature -- --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
 
       - uses: actions/upload-artifact@v4
+        if: matrix.coverage == 'xdebug'
         with:
           name: coverage
           path: |
@@ -47,6 +56,9 @@ jobs:
   e2e:
     needs: pest
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dependency-versions: [lowest, highest]
     steps:
       - uses: actions/checkout@v4
 
@@ -59,7 +71,8 @@ jobs:
 
       - uses: ramsey/composer-install@v3
         with:
-          composer-options: --optimize-autoloader
+          dependency-versions: ${{ matrix.dependency-versions }}
+          composer-options: --no-audit --optimize-autoloader
 
       # TODO: `--fail-on-incomplete` doesn't fail
       # See: https://github.com/pestphp/pest/issues/1328

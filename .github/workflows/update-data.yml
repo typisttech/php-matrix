@@ -3,7 +3,18 @@ name: Update Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '13 3 * * 1' # Weekly on Monday
+    - cron: 13 3 * * 1 # Weekly on Monday
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/**
+      - .gitattributes
+      - .gitignore
+      - LICENSE
+      - pint.json
+      - README.md
+      - '!.github/workflows/update-data.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -20,8 +31,5 @@ jobs:
       command: composer data:update
       php-version: '8.4'
       branch: "tastendruck/github_actions/update-data/${{ github.ref_name }}"
-      labels: |
-        tastendruck
-        github_actions
-        update-data
+      labels: update_data
     secrets: inherit
