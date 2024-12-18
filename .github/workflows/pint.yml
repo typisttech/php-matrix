@@ -6,11 +6,10 @@ on:
     branches:
       - main
     paths:
+      - .github/workflows/pint.yml
       - '**.php'
-      - 'composer.json'
-      - 'composer.lock'
-      - 'pint.json'
-      - '.github/workflows/pint.yml'
+      - composer.*
+      - pint.json
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
