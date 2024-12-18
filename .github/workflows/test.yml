@@ -76,7 +76,7 @@ jobs:
 
       # TODO: `--fail-on-incomplete` doesn't fail
       # See: https://github.com/pestphp/pest/issues/1328
-      - run: composer pest:e2e --ci --bail --stop-on-incomplete --fail-on-incomplete
+      - run: composer pest:e2e -- --ci --bail --stop-on-incomplete --fail-on-incomplete
 
   codecov:
     needs: pest
