@@ -1,9 +1,5 @@
 * text=auto eol=lf
 
-/resources/all-versions.json    -diff linguist-generated=true
-/tests/.pest/snapshots          -diff linguist-generated=true
-/tests/data                     -diff linguist-generated=true
-
 # Ignore everything.
 /* export-ignore
 
