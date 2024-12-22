@@ -20,8 +20,6 @@ permissions: {}
 jobs:
   pint:
     uses: typisttech/.github/.github/workflows/pint.yml@v2
-    permissions:
-      contents: read
     with:
       php-version: '8.4'
     secrets: inherit

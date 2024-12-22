@@ -13,9 +13,6 @@ permissions: {}
 
 jobs:
   dependabot:
-    permissions:
-      contents: write
-      pull-requests: write
     uses: typisttech/.github/.github/workflows/dependabot-auto-merge.yml@v2
     with:
       minor: true
