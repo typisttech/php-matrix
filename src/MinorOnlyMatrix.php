@@ -9,22 +9,15 @@ readonly class MinorOnlyMatrix extends Matrix implements MatrixInterface
     /**
      * @return string[]
      */
-    public function satisfiedBy(string $constraint): array  {
+    public function satisfiedBy(string $constraint): array
+    {
         $satisfieds = parent::satisfiedBy($constraint);
 
         /** @var string[] $versions */
         $versions = [];
-        
-        
-        
-        foreach ($satisfieds as $satisfied) 
-        {
-        
-            
-            
-            
-            
-            
+
+        foreach ($satisfieds as $satisfied) {
+
             [$major, $minor] = explode('.', "{$satisfied}..", 3);
             $versions[] = "{$major}.{$minor}";
         }
