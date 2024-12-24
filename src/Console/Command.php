@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TypistTech\PhpMatrix\Versions;
 
 #[AsCommand(
     name: 'php-matrix',
@@ -118,14 +119,12 @@ HELP;
             );
         }
 
-        [$lowest, $highest] = $matrix->lowestAndHighest(...$versions);
-
         $result = json_encode(
             (object) [
                 self::CONSTRAINT_ARGUMENT_NAME => $constraint,
-                'versions' => $versions,
-                'lowest' => $lowest,
-                'highest' => $highest,
+                'versions' => Versions::sort(...$versions),
+                'lowest' => Versions::lowest(...$versions),
+                'highest' => Versions::highest(...$versions),
             ],
             JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT
         );

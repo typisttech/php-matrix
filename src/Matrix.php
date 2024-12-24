@@ -22,16 +22,4 @@ readonly class Matrix implements MatrixInterface
             $constraint
         );
     }
-
-    public function lowestAndHighest(string $version, string ...$versions): array
-    {
-        if (empty($versions)) {
-            return [$version, $version];
-        }
-
-        $sorted = Semver::sort([$version, ...$versions]);
-        $count = count($sorted);
-
-        return [$sorted[0], $sorted[$count - 1]];
-    }
 }

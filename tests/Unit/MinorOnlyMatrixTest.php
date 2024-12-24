@@ -64,34 +64,4 @@ describe(MinorOnlyMatrix::class, static function (): void {
             expect($actual)->toBe($expected);
         })->with('satisfied_by');
     });
-
-    describe('::lowestAndHighest()', static function (): void {
-        dataset('lowest_and_highest', [
-            [['1.2.3'], '1.2.3', '1.2.3'],
-            [['1.2.3', '1.2.3'], '1.2.3', '1.2.3'],
-            [['1.2.3', '2.2.3'], '1.2.3', '2.2.3'],
-            [['1.2.3', '2.2.3', '3.2.3'], '1.2.3', '3.2.3'],
-
-            [['1.2'], '1.2', '1.2'],
-            [['1.2', '1.2'], '1.2', '1.2'],
-            [['1.2', '2.2'], '1.2', '2.2'],
-            [['1.2', '2.2', '3.2'], '1.2', '3.2'],
-        ]);
-
-        it(
-            'returns lowest and highest versions',
-            function (array $versions, string $expectedLowest, string $expectedHighest): void {
-                $releases = Mockery::mock(ReleasesInterface::class);
-
-                $matrix = new MinorOnlyMatrix($releases);
-
-                shuffle($versions);
-
-                [$actualLowest, $actualHighest] = $matrix->lowestAndHighest(...$versions);
-
-                expect($actualLowest)->toBe($expectedLowest);
-                expect($actualHighest)->toBe($expectedHighest);
-            }
-        )->with('lowest_and_highest');
-    });
 });
