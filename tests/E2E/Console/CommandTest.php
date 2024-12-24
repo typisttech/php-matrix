@@ -76,8 +76,8 @@ describe(Command::class, static function (): void {
         $expected = [
             'constraint' => '^7.3 || ~8.1.1',
             'versions' => [
-                '7.4',
                 '7.3',
+                '7.4',
                 '8.1',
             ],
             'lowest' => '7.3',

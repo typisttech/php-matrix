@@ -1,5 +1,5 @@
 
-In Command.php line 99:
+In Command.php line 100:
                                                                          
   Error! Invalid mode 'not-a-mode'. Available modes: [full, minor-only]  
                                                                          

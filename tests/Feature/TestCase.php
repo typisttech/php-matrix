@@ -42,8 +42,8 @@ abstract class TestCase extends BaseTestCase
         $constraint = '^1.2.3';
         $expectedObject = (object) [
             'constraint' => $constraint,
-            'versions' => ['1.2.4', '1.2.2', '1.3.3', '1.4.4'],
-            'lowest' => '1.2.4',
+            'versions' => ['1.2.2', '1.2.4', '1.3.3', '1.4.4'],
+            'lowest' => '1.2.2',
             'highest' => '1.4.4',
         ];
 
@@ -52,10 +52,6 @@ abstract class TestCase extends BaseTestCase
         $matrix->expects()
             ->satisfiedBy($constraint)
             ->andReturn($expectedObject->versions);
-
-        $matrix->expects()
-            ->lowestAndHighest(...$expectedObject->versions)
-            ->andReturn([$expectedObject->lowest, $expectedObject->highest]);
 
         return [
             'matrix' => $matrix,
