@@ -1,9 +1,0 @@
-{
-    "constraint": "^7.3",
-    "versions": [
-        "7.3",
-        "7.4"
-    ],
-    "lowest": "7.3",
-    "highest": "7.4"
-}
