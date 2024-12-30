@@ -1,0 +1,9 @@
+
+In Command.php line 87:
+                                                                               
+  Error! Invalid source 'not-a-source'. Available sources: [auto, php.net, of  
+  fline]                                                                       
+                                                                               
+
+php-matrix [--source SOURCE] [--mode MODE] [--] <constraint>
+
