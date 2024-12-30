@@ -60,6 +60,7 @@
     "pest:feature": "pest --group=feature",
     "pest:unit": "pest --group=unit",
     "test": [
+      "@composer normalize --dry-run",
       "pint --test",
       "XDEBUG_MODE=off pest"
     ]
