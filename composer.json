@@ -33,7 +33,6 @@
     "symfony/console": "^7.2.1"
   },
   "require-dev": {
-    "laravel/pint": "^1.18.3",
     "mockery/mockery": "^1.6.12",
     "pestphp/pest": "^3.7.1",
     "roave/security-advisories": "dev-latest"
@@ -56,7 +55,6 @@
       "@php ./bin/update-all-versions",
       "XDEBUG_MODE=off pest --update-snapshots"
     ],
-    "pint": "pint",
     "pest": "pest",
     "pest:e2e": "XDEBUG_MODE=off pest --group=e2e",
     "pest:feature": "pest --group=feature",
