@@ -1,14 +1,13 @@
 {
   "name": "typisttech/php-matrix",
   "description": "List PHP versions that satisfy the given constraint.",
+  "license": "MIT",
   "type": "project",
   "keywords": [
     "ci",
     "cli",
     "github-actions"
   ],
-  "homepage": "https://github.com/typisttech/php-matrix",
-  "license": "MIT",
   "authors": [
     {
       "name": "Typist Tech",
@@ -21,6 +20,7 @@
       "role": "Developer"
     }
   ],
+  "homepage": "https://github.com/typisttech/php-matrix",
   "support": {
     "issues": "https://github.com/typisttech/php-matrix/issues",
     "source": "https://github.com/typisttech/php-matrix"
@@ -47,6 +47,15 @@
       "Tests\\": "tests/"
     }
   },
+  "bin": [
+    "bin/php-matrix"
+  ],
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    },
+    "sort-packages": true
+  },
   "scripts": {
     "data:update": [
       "curl 'https://www.php.net/releases/index.php?json&max=1000&version=5' | jq . > ./tests/data/releases-5.json",
@@ -64,14 +73,5 @@
       "pint --test",
       "XDEBUG_MODE=off pest"
     ]
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    },
-    "sort-packages": true
-  },
-  "bin": [
-    "bin/php-matrix"
-  ]
+  }
 }
