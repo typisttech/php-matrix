@@ -16,8 +16,8 @@ concurrency:
 permissions: {}
 
 jobs:
-  pint:
-    uses: typisttech/.github/.github/workflows/composer-normalize.yml@composer-normalize
+  composer-normalize:
+    uses: typisttech/.github/.github/workflows/composer-normalize.yml@v2
     permissions:
       contents: read
     secrets: inherit
