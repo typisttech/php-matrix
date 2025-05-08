@@ -1,2 +1,0 @@
-fixes:
-  - "php-matrix/::" # reduce root e.g., "php-matrix/src/" => "src/"
