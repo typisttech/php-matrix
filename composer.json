@@ -34,7 +34,7 @@
   },
   "require-dev": {
     "mockery/mockery": "^1.6.12",
-    "pestphp/pest": "^3.7.1",
+    "pestphp/pest": "^4.0.3",
     "roave/security-advisories": "dev-latest"
   },
   "autoload": {
