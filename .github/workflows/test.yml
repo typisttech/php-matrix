@@ -18,35 +18,19 @@ permissions: {}
 jobs:
   pest:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - dependency-versions: lowest
-            coverage: none
-          - dependency-versions: highest
-            coverage: xdebug
     steps:
       - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          coverage: ${{ matrix.coverage }}
-
+          coverage: xdebug
       - uses: ramsey/composer-install@v3
-        with:
-          dependency-versions: ${{ matrix.dependency-versions }}
-          composer-options: --no-audit --optimize-autoloader
 
-      - run: composer pest:unit -- ${COVERAGE} --ci --bail --stop-on-incomplete --fail-on-all-issues
-        env:
-          COVERAGE: ${{ matrix.coverage == 'xdebug' && '--coverage-clover coverage-unit.xml' || '' }}
-      - run: composer pest:feature -- ${COVERAGE} --ci --bail --stop-on-incomplete --fail-on-all-issues
-        env:
-          COVERAGE: ${{ matrix.coverage == 'xdebug' && '--coverage-clover coverage-feature.xml' || '' }}
+      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-all-issues
+      - run: composer pest:feature -- --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-all-issues
 
       - uses: actions/upload-artifact@v4
-        if: matrix.coverage == 'xdebug'
         with:
           name: coverage
           path: |
@@ -56,9 +40,6 @@ jobs:
   e2e:
     needs: pest
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dependency-versions: [lowest, highest]
     steps:
       - uses: actions/checkout@v5
 
@@ -66,11 +47,7 @@ jobs:
         with:
           php-version: '8.4'
           coverage: none
-
       - uses: ramsey/composer-install@v3
-        with:
-          dependency-versions: ${{ matrix.dependency-versions }}
-          composer-options: --no-audit --optimize-autoloader
 
       - run: composer pest:e2e -- --ci --bail --stop-on-incomplete --fail-on-all-issues
 
