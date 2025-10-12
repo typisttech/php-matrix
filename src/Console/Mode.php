@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 use TypistTech\PhpMatrix\Matrix;
 use TypistTech\PhpMatrix\MatrixInterface;
 use TypistTech\PhpMatrix\MinorOnlyMatrix;
