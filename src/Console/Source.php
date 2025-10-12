@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
-use Symfony\Component\Console\Attribute\Option;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 use TypistTech\PhpMatrix\Releases\OfflineReleases;
 use TypistTech\PhpMatrix\Releases\PhpNetReleases;
 use TypistTech\PhpMatrix\ReleasesInterface;
@@ -37,10 +35,10 @@ enum Source: string
 
     public static function description(): string
     {
-        $desc = 'Available sources:' . PHP_EOL;
+        $desc = 'Available sources:'.PHP_EOL;
 
         foreach (self::cases() as $source) {
-            $desc .= "- <comment>{$source->value}</comment>: {$source->explanation()}" . PHP_EOL;
+            $desc .= "- <comment>{$source->value}</comment>: {$source->explanation()}".PHP_EOL;
         }
 
         $desc .= PHP_EOL;

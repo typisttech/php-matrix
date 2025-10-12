@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
-use RuntimeException;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -61,7 +60,7 @@ class ConstraintCommand extends Command
         }
 
         $result = json_encode(
-            (object)[
+            (object) [
                 'constraint' => $constraint,
                 'versions' => Versions::sort(...$versions),
                 'lowest' => Versions::lowest(...$versions),
