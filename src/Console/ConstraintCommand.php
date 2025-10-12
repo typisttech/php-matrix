@@ -50,7 +50,7 @@ class ConstraintCommand extends Command
             return Command::FAILURE;
         }
 
-        if (empty($versions)) {
+        if ($versions === []) {
             $this->printError(
                 $io,
                 sprintf('No PHP versions could satisfy the constraint "%s".', $constraint)

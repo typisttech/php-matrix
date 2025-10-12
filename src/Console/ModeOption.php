@@ -15,7 +15,7 @@ class ModeOption extends Option
             Mode::description(),
             Mode::NAME,
             null,
-            Mode::cases(),
+            array_column(Mode::cases(), 'value'),
         );
     }
 }

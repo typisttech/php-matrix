@@ -9,9 +9,12 @@ use UnexpectedValueException;
 
 readonly class Versions
 {
+    /**
+     * @return string[]
+     */
     public static function sort(string ...$versions): array
     {
-        if (empty($versions)) {
+        if ($versions === []) {
             throw new UnexpectedValueException('Argument #1 ($versions) must not be empty');
         }
 

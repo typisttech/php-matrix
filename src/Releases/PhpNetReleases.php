@@ -28,7 +28,7 @@ class PhpNetReleases implements ReleasesInterface
     {
         $promises = [];
         foreach (self::MAJORS as $major) {
-            $promises[$major] = $this->http->getAsync(self::ENDPOINT, [
+            $promises[$major] = $this->http->requestAsync('GET', self::ENDPOINT, [
                 'query' => [
                     'json' => true,
                     'max' => 1000,
@@ -37,8 +37,12 @@ class PhpNetReleases implements ReleasesInterface
             ]);
         }
 
-        // Wait for the requests to complete; throws a ConnectException
-        // if any of the requests fail
+        /**
+         * Wait for the requests to complete; throws a ConnectException
+         * if any of the requests fail
+         *
+         * @var ResponseInterface[] $responses
+         */
         $responses = Utils::unwrap($promises);
 
         $contents = array_map(
@@ -48,14 +52,15 @@ class PhpNetReleases implements ReleasesInterface
 
         $releases = [];
         foreach ($contents as $content) {
+            /** @var mixed[] $data */
             $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
             $releases[] = array_keys($data);
         }
 
         $releases = array_merge(...$releases);
-        $releases = array_filter($releases);
         $releases = array_filter($releases, 'is_string');
+        $releases = array_filter($releases, static fn (string $release) => $release !== '');
         $releases = array_unique($releases);
 
         return array_values($releases);
