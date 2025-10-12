@@ -13,19 +13,15 @@ class Application
 
     public static function make(): ConsoleApplication
     {
-        $application = new ConsoleApplication(
+        $app = new ConsoleApplication(
             self::NAME,
             InstalledVersions::getPrettyVersion('typisttech/php-matrix') ?? 'unknown',
         );
 
-        $command = new Command;
+        $app->addCommands([
+            new ConstraintCommand,
+        ]);
 
-        $application->add($command);
-        $application->setDefaultCommand(
-            $command->getName(),
-            true
-        );
-
-        return $application;
+        return $app;
     }
 }

@@ -1,0 +1,7 @@
+
+                                                                                        
+  [ERROR] Invalid --source "not-a-source". Available sources: [auto, php.net, offline]  
+                                                                                        
+
+constraint [--source SOURCE] [--mode MODE] [--] <constraint>
+

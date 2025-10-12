@@ -28,14 +28,13 @@
   "require": {
     "php": "^8.4",
     "composer-runtime-api": "^2.2",
-    "composer/semver": "^3.4.3",
-    "guzzlehttp/guzzle": "^7.9.2",
-    "symfony/console": "^7.2.1"
+    "composer/semver": "^3.4.4",
+    "guzzlehttp/guzzle": "^7.10",
+    "symfony/console": "^7.3.4"
   },
   "require-dev": {
     "mockery/mockery": "^1.6.12",
-    "pestphp/pest": "^3.7.1",
-    "roave/security-advisories": "dev-latest"
+    "pestphp/pest": "^4.1.2"
   },
   "autoload": {
     "psr-4": {

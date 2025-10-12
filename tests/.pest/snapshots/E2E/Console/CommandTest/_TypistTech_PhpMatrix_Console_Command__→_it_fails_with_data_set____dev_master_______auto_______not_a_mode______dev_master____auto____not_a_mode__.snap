@@ -1,8 +1,0 @@
-
-In Command.php line 100:
-                                                                         
-  Error! Invalid mode 'not-a-mode'. Available modes: [full, minor-only]  
-                                                                         
-
-php-matrix [--source SOURCE] [--mode MODE] [--] <constraint>
-

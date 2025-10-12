@@ -32,18 +32,18 @@ jobs:
         with:
           php-version: '8.4'
           coverage: ${{ matrix.coverage }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependency-versions }}
           composer-options: --no-audit --optimize-autoloader
 
-      # TODO: `--fail-on-incomplete` doesn't fail
-      # See: https://github.com/pestphp/pest/issues/1328
-      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
-      - run: composer pest:feature -- --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-incomplete
+      - run: composer pest:unit -- ${COVERAGE} --ci --bail --stop-on-incomplete --fail-on-all-issues
+        env:
+          COVERAGE: ${{ matrix.coverage == 'xdebug' && '--coverage-clover coverage-unit.xml' || '' }}
+      - run: composer pest:feature -- ${COVERAGE} --ci --bail --stop-on-incomplete --fail-on-all-issues
+        env:
+          COVERAGE: ${{ matrix.coverage == 'xdebug' && '--coverage-clover coverage-feature.xml' || '' }}
 
       - uses: actions/upload-artifact@v4
         if: matrix.coverage == 'xdebug'
@@ -66,17 +66,13 @@ jobs:
         with:
           php-version: '8.4'
           coverage: none
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependency-versions }}
           composer-options: --no-audit --optimize-autoloader
 
-      # TODO: `--fail-on-incomplete` doesn't fail
-      # See: https://github.com/pestphp/pest/issues/1328
-      - run: composer pest:e2e -- --ci --bail --stop-on-incomplete --fail-on-incomplete
+      - run: composer pest:e2e -- --ci --bail --stop-on-incomplete --fail-on-all-issues
 
   codecov:
     needs: pest
