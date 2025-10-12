@@ -1,5 +1,2 @@
-### Composer template
-composer.phar
-composer.lock
 /vendor/
 /coverage*.xml
