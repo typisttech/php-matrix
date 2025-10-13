@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Releases;
 
-use RuntimeException;
+use TypistTech\PhpMatrix\Exceptions\RuntimeException;
 use TypistTech\PhpMatrix\ReleasesInterface;
 
 class OfflineReleases implements ReleasesInterface

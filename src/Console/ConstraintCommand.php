@@ -8,8 +8,9 @@ use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use TypistTech\PhpMatrix\Exceptions\ExceptionInterface;
+use TypistTech\PhpMatrix\Exceptions\RuntimeException;
 use TypistTech\PhpMatrix\Versions;
-use UnexpectedValueException;
 
 #[AsCommand(
     name: 'constraint',
@@ -34,14 +35,33 @@ class ConstraintCommand extends Command
         #[ModeOption]
         string $mode = Mode::MinorOnly->value,
     ): int {
-        $matrix = $this->matrixFactory->make(
-            Source::fromValue($source),
-            Mode::fromValue($mode),
-        );
-
         try {
+            $matrix = $this->matrixFactory->make(
+                Source::fromValue($source),
+                Mode::fromValue($mode),
+            );
+
             $versions = $matrix->satisfiedBy($constraint);
-        } catch (UnexpectedValueException $e) {
+            if ($versions === []) {
+                throw new RuntimeException(
+                    sprintf('No PHP versions could satisfy the constraint "%s".', $constraint),
+                );
+            }
+
+            $result = json_encode(
+                (object) [
+                    'constraint' => $constraint,
+                    'versions' => Versions::sort(...$versions),
+                    'lowest' => Versions::lowest(...$versions),
+                    'highest' => Versions::highest(...$versions),
+                ],
+                JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT
+            );
+
+            $io->writeln($result);
+
+            return Command::SUCCESS;
+        } catch (ExceptionInterface $e) {
             $this->printError(
                 $io,
                 $e->getMessage()
@@ -49,28 +69,5 @@ class ConstraintCommand extends Command
 
             return Command::FAILURE;
         }
-
-        if ($versions === []) {
-            $this->printError(
-                $io,
-                sprintf('No PHP versions could satisfy the constraint "%s".', $constraint)
-            );
-
-            return Command::FAILURE;
-        }
-
-        $result = json_encode(
-            (object) [
-                'constraint' => $constraint,
-                'versions' => Versions::sort(...$versions),
-                'lowest' => Versions::lowest(...$versions),
-                'highest' => Versions::highest(...$versions),
-            ],
-            JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT
-        );
-
-        $io->writeln($result);
-
-        return Command::SUCCESS;
     }
 }

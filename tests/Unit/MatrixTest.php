@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Releases;
 
 use Mockery;
+use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException;
 use TypistTech\PhpMatrix\Matrix;
 use TypistTech\PhpMatrix\MatrixInterface;
 use TypistTech\PhpMatrix\ReleasesInterface;
@@ -68,5 +69,17 @@ describe(Matrix::class, static function (): void {
 
             expect($actual)->toBe($expected);
         })->with('satisfied_by');
+
+        it('throws on invalid constraint', function () {
+            $releases = Mockery::mock(ReleasesInterface::class);
+
+            $releases->allows()
+                ->all()
+                ->andReturn(['1.0.0', '2.0.0']);
+
+            $matrix = new Matrix($releases);
+
+            $matrix->satisfiedBy('invalid constraint');
+        })->throws(UnexpectedValueException::class);
     });
 });
