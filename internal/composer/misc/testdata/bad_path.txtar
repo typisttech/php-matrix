@@ -1,0 +1,10 @@
+! exec php-matrix composer composer2.json
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+ [ERROR] The file is not readable or does not exist at path "composer2.json".                                           
+
+-- composer.json --
+{"require":{"php":"^7.4"}}

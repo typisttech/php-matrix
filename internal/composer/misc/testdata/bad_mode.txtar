@@ -1,0 +1,14 @@
+! exec php-matrix composer --mode=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                     
+  [ERROR] Invalid --mode "bad". Available modes: [full, minor-only]  
+                                                                     
+
+composer [--source SOURCE] [--mode MODE] [--] [<path>]
+
+-- composer.json --
+{"require":{"php":"^7.4"}}

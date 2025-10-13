@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Tests\E2E\TestCase as E2ETestCase;
 use Tests\Unit\TestCase as UnitTestCase;
 
 /*
@@ -11,9 +10,6 @@ use Tests\Unit\TestCase as UnitTestCase;
 |--------------------------------------------------------------------------
 |
 */
-
-pest()->group('e2e')
-    ->in('E2E');
 
 pest()->group('unit')
     ->in('Unit');
@@ -28,9 +24,6 @@ pest()->group('unit')
 | need to change it using the "pest()" function to bind a different classes or traits.
 |
 */
-
-pest()->extend(E2ETestCase::class)
-    ->in('E2E');
 
 pest()->extend(UnitTestCase::class)
     ->in('Unit');

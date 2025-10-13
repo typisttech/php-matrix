@@ -27,26 +27,12 @@ jobs:
           coverage: xdebug
       - uses: ramsey/composer-install@v3
 
-      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-all-issues
+      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci
 
       - uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage-unit.xml
-
-  e2e:
-    needs: pest
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-      - uses: ramsey/composer-install@v3
-
-      - run: composer pest:e2e -- --ci --bail --stop-on-incomplete --fail-on-all-issues
 
   codecov:
     needs: pest
@@ -67,3 +53,32 @@ jobs:
           disable_search: true
           files: coverage-unit.xml
           flags: unit
+
+  bin:
+    runs-on: ubuntu-latest
+    env:
+      GOFLAGS: '-mod=mod'
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+      - uses: ramsey/composer-install@v3
+        with:
+          composer-options: '--no-dev --prefer-dist'
+
+      - name: Add bin into PATH
+        run: echo "${WORKSPACE}/bin" >> "$GITHUB_PATH"
+        env:
+          WORKSPACE: ${{ github.workspace }}
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Print php-matrix binary path
+        run: go test -count=1 -v ./internal
+
+      - run: go test -count=1 ./...

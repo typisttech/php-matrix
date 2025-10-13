@@ -1,0 +1,12 @@
+! exec php-matrix constraint  '^7' --source=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                               
+  [ERROR] Invalid --source "bad". Available sources: [auto, php.net, offline]  
+                                                                               
+
+constraint [--source SOURCE] [--mode MODE] [--] <constraint>
+
