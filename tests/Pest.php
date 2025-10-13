@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Tests\E2E\TestCase as E2ETestCase;
-use Tests\Feature\TestCase as FeatureTestCase;
 use Tests\Unit\TestCase as UnitTestCase;
 
 /*
@@ -15,9 +14,6 @@ use Tests\Unit\TestCase as UnitTestCase;
 
 pest()->group('e2e')
     ->in('E2E');
-
-pest()->group('feature')
-    ->in('Feature');
 
 pest()->group('unit')
     ->in('Unit');
@@ -35,9 +31,6 @@ pest()->group('unit')
 
 pest()->extend(E2ETestCase::class)
     ->in('E2E');
-
-pest()->extend(FeatureTestCase::class)
-    ->in('Feature');
 
 pest()->extend(UnitTestCase::class)
     ->in('Unit');

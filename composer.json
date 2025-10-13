@@ -75,7 +75,6 @@
     ],
     "pest": "pest",
     "pest:e2e": "XDEBUG_MODE=off pest --group=e2e",
-    "pest:feature": "pest --group=feature",
     "pest:unit": "pest --group=unit"
   }
 }
