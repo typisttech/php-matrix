@@ -24,4 +24,8 @@ resources/all-versions.json: bin tests/data/releases-5.json tests/data/releases-
 	go generate ./...
 
 txtar: resources/all-versions.json --go-generate
-	$(MAKE) UPDATE_SCRIPTS=1 test-bin
+	UPDATE_SCRIPTS=1 \
+	PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
+	go test -count=1 ./...
+
+update-data: txtar resources/all-versions.json tests/data/releases-5.json tests/data/releases-7.json tests/data/releases-8.json
