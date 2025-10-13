@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
-use TypistTech\PhpMatrix\MatrixInterface;
+use TypistTech\PhpMatrix\Matrices\MatrixInterface;
 
 class MatrixFactory
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Releases;
+namespace Tests\Unit\Releases;
 
 use Mockery;
 use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException;
-use TypistTech\PhpMatrix\Matrix;
-use TypistTech\PhpMatrix\MatrixInterface;
+use TypistTech\PhpMatrix\Matrices\Matrix;
+use TypistTech\PhpMatrix\Matrices\MatrixInterface;
 use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(Matrix::class);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TypistTech\PhpMatrix;
+namespace TypistTech\PhpMatrix\Matrices;
 
-readonly class MinorOnlyMatrix extends Matrix implements MatrixInterface
+readonly class MinorOnlyMatrix extends Matrix
 {
     /**
      * @return string[]

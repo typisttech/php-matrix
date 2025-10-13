@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TypistTech\PhpMatrix;
+namespace TypistTech\PhpMatrix\Matrices;
 
 use Composer\Semver\Semver;
+use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException as AppUnexpectedValueException;
 use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 use UnexpectedValueException;
 
@@ -25,7 +26,7 @@ readonly class Matrix implements MatrixInterface
                 $constraint
             );
         } catch (UnexpectedValueException $e) {
-            throw new Exceptions\UnexpectedValueException(
+            throw new AppUnexpectedValueException(
                 $e->getMessage(),
                 previous: $e
             );
