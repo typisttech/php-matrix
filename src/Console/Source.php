@@ -6,7 +6,7 @@ namespace TypistTech\PhpMatrix\Console;
 
 use TypistTech\PhpMatrix\Releases\OfflineReleases;
 use TypistTech\PhpMatrix\Releases\PhpNetReleases;
-use TypistTech\PhpMatrix\ReleasesInterface;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 enum Source: string
 {

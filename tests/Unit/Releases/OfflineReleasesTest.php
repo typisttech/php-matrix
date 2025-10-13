@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Releases;
+namespace Tests\Unit\Releases;
 
 use TypistTech\PhpMatrix\Releases\OfflineReleases;
-use TypistTech\PhpMatrix\ReleasesInterface;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(OfflineReleases::class);
 

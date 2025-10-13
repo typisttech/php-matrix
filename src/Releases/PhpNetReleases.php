@@ -8,7 +8,6 @@ use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\Utils;
 use Psr\Http\Message\ResponseInterface;
-use TypistTech\PhpMatrix\ReleasesInterface;
 
 class PhpNetReleases implements ReleasesInterface
 {

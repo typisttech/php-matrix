@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Releases;
+namespace Tests\Unit\Releases;
 
 use Mockery;
-use TypistTech\PhpMatrix\MatrixInterface;
-use TypistTech\PhpMatrix\MinorOnlyMatrix;
-use TypistTech\PhpMatrix\ReleasesInterface;
+use TypistTech\PhpMatrix\Matrices\MatrixInterface;
+use TypistTech\PhpMatrix\Matrices\MinorOnlyMatrix;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(MinorOnlyMatrix::class);
 

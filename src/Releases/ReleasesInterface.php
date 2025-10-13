@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TypistTech\PhpMatrix;
+namespace TypistTech\PhpMatrix\Releases;
 
 interface ReleasesInterface
 {
