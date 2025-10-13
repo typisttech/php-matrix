@@ -69,13 +69,13 @@
       "@php ./bin/update-all-versions",
       "XDEBUG_MODE=off pest --update-snapshots"
     ],
-    "pest": "pest",
-    "pest:e2e": "XDEBUG_MODE=off pest --group=e2e",
-    "pest:feature": "pest --group=feature",
-    "pest:unit": "pest --group=unit",
     "lint": [
       "pint --test",
       "phpstan analyse"
-    ]
+    ],
+    "pest": "pest",
+    "pest:e2e": "XDEBUG_MODE=off pest --group=e2e",
+    "pest:feature": "pest --group=feature",
+    "pest:unit": "pest --group=unit"
   }
 }
