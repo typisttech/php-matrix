@@ -20,7 +20,6 @@ readonly class MinorOnlyMatrix extends Matrix implements MatrixInterface
             $versions[] = "{$major}.{$minor}";
         }
 
-        $versions = array_filter($versions);
         $versions = array_filter($versions, static fn (string $version) => ! str_starts_with($version, '.'));
         $versions = array_filter($versions, static fn (string $version) => ! str_ends_with($version, '.'));
         $versions = array_unique($versions);

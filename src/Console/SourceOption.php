@@ -15,7 +15,7 @@ class SourceOption extends Option
             Source::description(),
             Source::NAME,
             null,
-            Source::cases(),
+            array_column(Source::cases(), 'value'),
         );
     }
 }
