@@ -12,20 +12,32 @@ bin: vendor
 
 test-%: %
 	PATH="$(shell pwd)/$*:$(shell echo $$PATH)" \
-	go test -count=1 ./...
+		go test -count=1 ./...
 
-tests/data/releases-%.json: FORCE
-	curl 'https://www.php.net/releases/index.php?json&max=1000&version=$*' | jq . > ./tests/data/releases-$*.json
+.PHONY: tests/data/versions
+tests/data/versions: majors := 5 7 8
+tests/data/versions:
+	rm -rf tests/data/versions
+	mkdir -p tests/data/versions
+	$(MAKE) $(foreach major,$(majors),tests/data/versions/v$(major).json)
 
-resources/all-versions.json: bin tests/data/releases-5.json tests/data/releases-7.json tests/data/releases-8.json
+tests/data/versions/v%.json: FORCE
+	curl 'https://www.php.net/releases/index.php?json&max=1000&version=$*' | \
+		jq . > tests/data/versions/v$*.json
+
+.PHONY: resources/all-versions.json
+resources/all-versions.json: bin
 	./bin/update-all-versions
 
---go-generate:
+.PHONY: go-generate
+go-generate:
 	go generate ./...
 
-txtar: resources/all-versions.json --go-generate
+.PHONY: txtar
+txtar: resources/all-versions.json go-generate bin
 	UPDATE_SCRIPTS=1 \
-	PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
-	go test -count=1 ./...
+		PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
+		go test -count=1 ./...
 
-update-data: txtar resources/all-versions.json tests/data/releases-5.json tests/data/releases-7.json tests/data/releases-8.json
+.PHONY: update-data
+update-data: resources/all-versions.json tests/data/versions txtar
