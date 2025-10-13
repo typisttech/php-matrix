@@ -25,8 +25,8 @@ tests/data/versions/v%.json: FORCE
 	curl 'https://www.php.net/releases/index.php?json&max=1000&version=$*' | \
 		jq . > tests/data/versions/v$*.json
 
-.PHONY: resources/all-versions.json
-resources/all-versions.json: bin
+.PHONY: data/all-versions.json
+data/all-versions.json: bin
 	./bin/update-all-versions
 
 .PHONY: go-generate
@@ -34,10 +34,10 @@ go-generate:
 	go generate ./...
 
 .PHONY: txtar
-txtar: resources/all-versions.json go-generate bin
+txtar: data/all-versions.json go-generate bin
 	UPDATE_SCRIPTS=1 \
 		PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
 		go test -count=1 ./...
 
 .PHONY: update-data
-update-data: resources/all-versions.json tests/data/versions txtar
+update-data: data/all-versions.json tests/data/versions txtar

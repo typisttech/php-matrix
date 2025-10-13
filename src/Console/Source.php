@@ -51,7 +51,7 @@ enum Source: string
         return match ($this) {
             self::Auto => 'Use <comment>offline</comment> in <comment>minor-only</comment> mode. Otherwise, fetch from <comment>php.net</comment>',
             self::PhpNet => 'Fetch releases information from <href=https://www.php.net/releases/index.php>php.net</>',
-            self::Offline => 'Use <href=https://github.com/typisttech/php-matrix/blob/main/resources/all-versions.json>hardcoded releases</> information',
+            self::Offline => 'Use <href=https://github.com/typisttech/php-matrix/blob/main/data/all-versions.json>hardcoded releases</> information',
         };
     }
 }
