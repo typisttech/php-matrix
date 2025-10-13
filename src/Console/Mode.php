@@ -7,7 +7,7 @@ namespace TypistTech\PhpMatrix\Console;
 use TypistTech\PhpMatrix\Matrix;
 use TypistTech\PhpMatrix\MatrixInterface;
 use TypistTech\PhpMatrix\MinorOnlyMatrix;
-use TypistTech\PhpMatrix\ReleasesInterface;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 enum Mode: string
 {

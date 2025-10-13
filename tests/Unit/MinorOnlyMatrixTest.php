@@ -7,7 +7,7 @@ namespace Tests\Feature\Releases;
 use Mockery;
 use TypistTech\PhpMatrix\MatrixInterface;
 use TypistTech\PhpMatrix\MinorOnlyMatrix;
-use TypistTech\PhpMatrix\ReleasesInterface;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(MinorOnlyMatrix::class);
 

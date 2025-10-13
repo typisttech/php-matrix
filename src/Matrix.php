@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TypistTech\PhpMatrix;
 
 use Composer\Semver\Semver;
+use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 use UnexpectedValueException;
 
 readonly class Matrix implements MatrixInterface
