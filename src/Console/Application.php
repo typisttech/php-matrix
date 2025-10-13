@@ -19,6 +19,7 @@ class Application
         );
 
         $app->addCommands([
+            new ComposerCommand,
             new ConstraintCommand,
         ]);
 

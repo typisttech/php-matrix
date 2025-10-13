@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TypistTech\PhpMatrix;
 
 use Composer\Semver\Semver;
+use UnexpectedValueException;
 
 readonly class Matrix implements MatrixInterface
 {
@@ -17,9 +18,17 @@ readonly class Matrix implements MatrixInterface
      */
     public function satisfiedBy(string $constraint): array
     {
-        return Semver::satisfiedBy(
-            $this->releases->all(),
-            $constraint
-        );
+        try {
+            return Semver::satisfiedBy(
+                $this->releases->all(),
+                $constraint
+            );
+        } catch (UnexpectedValueException $e) {
+            throw new Exceptions\UnexpectedValueException(
+                $e->getMessage(),
+                previous: $e
+            );
+        }
+
     }
 }
