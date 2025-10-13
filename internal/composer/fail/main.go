@@ -81,7 +81,9 @@ func (d data) Write(f *os.File) error {
 }
 
 func main() {
-	var cases []data
+	num := len(internal.Modes) * len(rawCases)
+	cases := make([]data, 0, num)
+
 	for _, mode := range internal.Modes {
 		for _, r := range rawCases {
 			cases = append(cases, data{

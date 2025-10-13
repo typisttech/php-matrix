@@ -8,7 +8,7 @@ use TypistTech\PhpMatrix\Exceptions\RuntimeException;
 
 class OfflineReleases implements ReleasesInterface
 {
-    private const string ALL_VERSIONS_FILE = __DIR__.'/../../resources/all-versions.json';
+    private const string ALL_VERSIONS_FILE = __DIR__.'/../../data/all-versions.json';
 
     /**
      * @return string[]
