@@ -29,12 +29,14 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - run: make -j4 update-data
+      - run: make update-data
+        env:
+          MAKEFLAGS: "--jobs=4 --output-sync=target"
 
       - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@v2
         with:
           app-id: ${{ vars.TASTENDRUCK_APP_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
           branch: "tastendruck/github_actions/update-data/${{ github.ref_name }}"
-          title: ":robot: `make -j4 update-data`"
+          title: ":robot: `make update-data`"
           labels: update_data
