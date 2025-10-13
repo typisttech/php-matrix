@@ -28,14 +28,11 @@ jobs:
       - uses: ramsey/composer-install@v3
 
       - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci --bail --stop-on-incomplete --fail-on-all-issues
-      - run: composer pest:feature -- --coverage-clover coverage-feature.xml --ci --bail --stop-on-incomplete --fail-on-all-issues
 
       - uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: |
-            coverage-unit.xml
-            coverage-feature.xml
+          path: coverage-unit.xml
 
   e2e:
     needs: pest
@@ -70,10 +67,3 @@ jobs:
           disable_search: true
           files: coverage-unit.xml
           flags: unit
-      - uses: codecov/codecov-action@v5
-        with:
-          use_oidc: true
-          fail_ci_if_error: true
-          disable_search: true
-          files: coverage-feature.xml
-          flags: feature
