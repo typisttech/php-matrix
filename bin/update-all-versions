@@ -6,11 +6,11 @@ declare(strict_types=1);
 use Composer\Semver\Semver;
 use TypistTech\PhpMatrix\Releases\PhpNetReleases;
 
-include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
+include $_composer_autoload_path ?? __DIR__.'/../vendor/autoload.php';
 
 $releases = new PhpNetReleases;
 $data = $releases->all();
 $data = Semver::rsort($data);
 
 $content = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-file_put_contents(__DIR__ . '/../resources/all-versions.json', $content);
+file_put_contents(__DIR__.'/../resources/all-versions.json', $content);

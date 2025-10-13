@@ -10,8 +10,7 @@ trait PrintErrorTrait
 {
     private function printError(SymfonyStyle $io, string $message): void
     {
-        $io
-            ->getErrorStyle()
+        $io->getErrorStyle()
             ->error($message);
     }
 }
