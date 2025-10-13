@@ -1,0 +1,14 @@
+! exec php-matrix composer --not-an-option=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                
+  The "--not-an-option" option does not exist.  
+                                                
+
+composer [--source SOURCE] [--mode MODE] [--] [<path>]
+
+-- composer.json --
+{"require":{"php":"^7.4"}}

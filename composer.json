@@ -62,19 +62,11 @@
     "sort-packages": true
   },
   "scripts": {
-    "data:update": [
-      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=5' | jq . > ./tests/data/releases-5.json",
-      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=7' | jq . > ./tests/data/releases-7.json",
-      "curl 'https://www.php.net/releases/index.php?json&max=1000&version=8' | jq . > ./tests/data/releases-8.json",
-      "@php ./bin/update-all-versions",
-      "XDEBUG_MODE=off pest --update-snapshots"
-    ],
     "lint": [
       "pint --test",
       "phpstan analyse"
     ],
     "pest": "pest",
-    "pest:e2e": "XDEBUG_MODE=off pest --group=e2e",
     "pest:unit": "pest --group=unit"
   }
 }

@@ -1,0 +1,12 @@
+! exec php-matrix constraint '^7' '^8'
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                                
+  Too many arguments to "constraint" command, expected arguments "constraint".  
+                                                                                
+
+constraint [--source SOURCE] [--mode MODE] [--] <constraint>
+

@@ -1,0 +1,17 @@
+! exec php-matrix composer composer.json composer2.json
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                        
+  Too many arguments to "composer" command, expected arguments "path".  
+                                                                        
+
+composer [--source SOURCE] [--mode MODE] [--] [<path>]
+
+-- composer.json --
+{"require":{"php":"^7.4"}}
+
+-- composer2.json --
+{"require":{"php":"^8.0"}}

@@ -1,7 +1,0 @@
-
-                                                                            
-  [ERROR] Invalid --mode "not-a-mode". Available modes: [full, minor-only]  
-                                                                            
-
-constraint [--source SOURCE] [--mode MODE] [--] <constraint>
-

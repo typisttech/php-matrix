@@ -1,0 +1,12 @@
+! exec php-matrix constraint  '^7' --not-an-option=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                
+  The "--not-an-option" option does not exist.  
+                                                
+
+constraint [--source SOURCE] [--mode MODE] [--] <constraint>
+

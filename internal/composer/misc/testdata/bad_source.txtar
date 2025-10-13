@@ -1,0 +1,14 @@
+! exec php-matrix composer --source=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                               
+  [ERROR] Invalid --source "bad". Available sources: [auto, php.net, offline]  
+                                                                               
+
+composer [--source SOURCE] [--mode MODE] [--] [<path>]
+
+-- composer.json --
+{"require":{"php":"^7.4"}}

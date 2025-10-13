@@ -1,0 +1,12 @@
+! exec php-matrix constraint '^7' --mode=bad
+! stdout .
+cmp stderr stderr.golden
+
+-- stderr.golden --
+
+                                                                     
+  [ERROR] Invalid --mode "bad". Available modes: [full, minor-only]  
+                                                                     
+
+constraint [--source SOURCE] [--mode MODE] [--] <constraint>
+
