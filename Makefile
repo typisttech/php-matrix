@@ -29,15 +29,15 @@ tests/data/versions/v%.json: FORCE
 data/all-versions.json: bin
 	./bin/update-all-versions
 
+.PHONY: update-data
+update-data: data/all-versions.json tests/data/versions
+
 .PHONY: go-generate
 go-generate:
 	go generate ./...
 
 .PHONY: txtar
-txtar: data/all-versions.json go-generate bin
+txtar: go-generate bin
 	UPDATE_SCRIPTS=1 \
 		PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
 		go test -count=1 ./...
-
-.PHONY: update-data
-update-data: data/all-versions.json tests/data/versions txtar
