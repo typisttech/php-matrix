@@ -1,0 +1,42 @@
+name: Update Version Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 13 3 * * 1 # Weekly on Monday
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: 'go.mod'
+
+      - run: make version-data
+        env:
+          MAKEFLAGS: "--jobs=4 --output-sync=target"
+
+      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@v2
+        with:
+          app-id: ${{ vars.TASTENDRUCK_APP_ID }}
+          private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
+          branch: "tastendruck/github_actions/update-data/${{ github.ref_name }}"
+          title: ":robot: `make version-data`"
+          labels: update_data

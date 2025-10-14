@@ -91,7 +91,7 @@ Available modes:
 Available sources:
 - `auto` *(default)*: Use `offline` in `minor-only` mode. Otherwise, fetch from [php.net](https://www.php.net/releases/index.php)
 - `php.net`: Fetch releases information from [php.net](https://www.php.net/releases/index.php)
-- `offline`: Use [hardcoded releases](resources/all-versions.json) information
+- `offline`: Use [hardcoded releases](data/all-versions.json) information
 
 ## Installation
 
