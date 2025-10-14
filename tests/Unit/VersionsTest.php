@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Releases;
+namespace Tests\Unit;
 
 use TypistTech\PhpMatrix\Versions;
 use UnexpectedValueException;
