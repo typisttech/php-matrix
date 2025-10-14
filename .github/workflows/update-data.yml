@@ -29,7 +29,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - run: make update-data
+      - run: make version-data
         env:
           MAKEFLAGS: "--jobs=4 --output-sync=target"
 
@@ -38,5 +38,5 @@ jobs:
           app-id: ${{ vars.TASTENDRUCK_APP_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
           branch: "tastendruck/github_actions/update-data/${{ github.ref_name }}"
-          title: ":robot: `make update-data`"
+          title: ":robot: `make version-data`"
           labels: update_data

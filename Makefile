@@ -15,11 +15,11 @@ test-%: %
 		go test -count=1 ./...
 
 .PHONY: tests/data/versions
-tests/data/versions: majors := 5 7 8
+tests/data/versions: MAJORS := 5 7 8
 tests/data/versions:
 	rm -rf tests/data/versions
 	mkdir -p tests/data/versions
-	$(MAKE) $(foreach major,$(majors),tests/data/versions/v$(major).json)
+	$(MAKE) $(foreach MAJOR,$(MAJORS),tests/data/versions/v$(MAJOR).json)
 
 tests/data/versions/v%.json: FORCE
 	curl 'https://www.php.net/releases/index.php?json&max=1000&version=$*' | \
@@ -29,15 +29,10 @@ tests/data/versions/v%.json: FORCE
 data/all-versions.json: bin
 	./bin/update-all-versions
 
-.PHONY: update-data
-update-data: data/all-versions.json tests/data/versions
-
-.PHONY: go-generate
-go-generate:
-	go generate ./...
+.PHONY: version-data
+version-data: data/all-versions.json tests/data/versions
 
 .PHONY: txtar
-txtar: go-generate bin
-	UPDATE_SCRIPTS=1 \
-		PATH="$(shell pwd)/bin:$(shell echo $$PATH)" \
-		go test -count=1 ./...
+txtar:
+	go generate ./...
+	UPDATE_SCRIPTS=1 $(MAKE) test-bin
