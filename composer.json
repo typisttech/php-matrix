@@ -23,18 +23,19 @@
   "homepage": "https://github.com/typisttech/php-matrix",
   "support": {
     "issues": "https://github.com/typisttech/php-matrix/issues",
-    "source": "https://github.com/typisttech/php-matrix"
+    "source": "https://github.com/typisttech/php-matrix",
+    "security": "https://github.com/typisttech/php-matrix/security"
   },
   "require": {
     "php": "^8.4",
     "composer-runtime-api": "^2.2",
-    "composer/semver": "^3.4.4",
+    "composer/semver": "^3.4",
     "guzzlehttp/guzzle": "^7.10",
-    "symfony/console": "^7.3.4"
+    "symfony/console": "^7.3"
   },
   "require-dev": {
-    "mockery/mockery": "^1.6.12",
-    "pestphp/pest": "^4.1.2",
+    "mockery/mockery": "^1.6",
+    "pestphp/pest": "^4.1",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-deprecation-rules": "^2.0",

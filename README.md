@@ -26,7 +26,7 @@
 ## Usage
 
 ```console
-$ php-matrix "^7 || ^8"
+$ php-matrix constraint "^7 || ^8"
 {
     "constraint": "^7 || ^8",
     "versions": [
@@ -45,7 +45,7 @@ $ php-matrix "^7 || ^8"
     "highest": "8.4"
 }
 
-$ php-matrix --mode=full  "~7.4.29 || ~8.1.29"
+$ php-matrix constraint --mode=full  "~7.4.29 || ~8.1.29"
 {
     "constraint": "~7.4.29 || ~8.1.29",
     "versions": [
@@ -61,7 +61,7 @@ $ php-matrix --mode=full  "~7.4.29 || ~8.1.29"
     "highest": "8.1.31"
 }
 
-$ php-matrix --mode=minor-only  ">=7.2 <8.4"
+$ php-matrix constraint --mode=minor-only  ">=7.2 <8.4"
 {
     "constraint": ">=7.2 <8.4",
     "versions": [
@@ -91,7 +91,7 @@ Available modes:
 Available sources:
 - `auto` *(default)*: Use `offline` in `minor-only` mode. Otherwise, fetch from [php.net](https://www.php.net/releases/index.php)
 - `php.net`: Fetch releases information from [php.net](https://www.php.net/releases/index.php)
-- `offline`: Use [hardcoded releases](data/all-versions.json) information
+- `offline`: Use [hardcoded releases](./data/all-versions.json) information
 
 ## Installation
 
