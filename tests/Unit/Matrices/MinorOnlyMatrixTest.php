@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Releases;
+namespace Tests\Unit\Matrices;
 
 use Mockery;
 use TypistTech\PhpMatrix\Matrices\MatrixInterface;
