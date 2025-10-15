@@ -54,31 +54,29 @@ jobs:
           files: coverage-unit.xml
           flags: unit
 
-  bin:
-    runs-on: ubuntu-latest
-    env:
-      GOFLAGS: '-mod=mod'
+  phar:
+    runs-on: ubuntu-24.04
+    outputs:
+      php-version: ${{ steps.setup-php.outputs.php-version }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: shivammathur/setup-php@v2
+        id: setup-php
         with:
           php-version: '8.4'
           coverage: none
+          tools: box:4
       - uses: ramsey/composer-install@v3
         with:
-          composer-options: '--no-dev --prefer-dist'
+          composer-options: --no-dev --prefer-dist
 
-      - name: Add bin into PATH
-        run: echo "${WORKSPACE}/bin" >> "$GITHUB_PATH"
-        env:
-          WORKSPACE: ${{ github.workspace }}
+      - run: box compile
 
-      - uses: actions/setup-go@v6
+      - uses: actions/upload-artifact@v4
         with:
-          go-version-file: 'go.mod'
-
-      - name: Print php-matrix binary path
-        run: go test -count=1 -v ./internal
-
-      - run: go test -count=1 ./...
+          name: php-matrix.phar
+          path: phar/php-matrix
+          if-no-files-found: error

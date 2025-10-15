@@ -10,6 +10,12 @@ vendor:
 
 bin: vendor
 
+phar: vendor
+	box compile
+	box verify phar/php-matrix
+	box info phar/php-matrix
+	php phar/php-matrix --version
+
 test-%: %
 	PATH="$(shell pwd)/$*:$(shell echo $$PATH)" \
 		go test -count=1 ./...

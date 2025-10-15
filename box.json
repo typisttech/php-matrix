@@ -1,0 +1,10 @@
+{
+  "output": "phar/php-matrix",
+  "check-requirements": false,
+  "files-bin": [
+    "data/all-versions.json"
+  ],
+  "datetime": "datetime",
+  "datetime-format": "Y-m-d",
+  "git-tag": "git-tag"
+}
