@@ -95,20 +95,7 @@ Available sources:
 
 ## Installation
 
-### Composer Global
-
-```bash
-composer global require typisttech/php-matrix
-php-matrix --help
-```
-
-### Composer Project
-
-```bash
-composer create-project typisttech/php-matrix
-cd php-matrix
-./bin/php-matrix --help
-```
+TODO!
 
 ## Credits
 
