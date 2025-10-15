@@ -70,7 +70,7 @@ jobs:
 
   deb:
     needs: drafter
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       attestations: write
@@ -104,10 +104,6 @@ jobs:
           run-id: ${{ inputs.run_id }}
           github-token: ${{ github.token }}
 
-      # TODO!
-      - run: ls -la .
-      - run: ls -laR dist
-
       - run: mkdir -p deb
       - name: Create deb
         run: |
@@ -120,9 +116,6 @@ jobs:
         env:
           DIST_DIR: dist
           ARCHS: "arm64 amd64"
-
-      # TODO!
-      - run: ls -laR deb
 
       - uses: actions/attest-build-provenance@v3
         with:
@@ -162,10 +155,6 @@ jobs:
           run-id: ${{ inputs.run_id }}
           github-token: ${{ github.token }}
 
-      # TODO!
-      - run: ls -la .
-      - run: ls -laR dist
-
       - name: Set BIN_DIRS environment variable
         run: |
           echo 'BIN_DIRS<<EOF' >> "$GITHUB_ENV"
@@ -184,16 +173,12 @@ jobs:
         run: |
           while read -u3 -r bin_dir; do
             echo "::group::==> ${bin_dir}"
-            cp README.md LICENSE "bin/${bin_dir}/"
-            chmod +x "bin/${bin_dir}/php-matrix" && \
-            tar -C "bin/${bin_dir}" -cvf - php-matrix README.md LICENSE | \
+            cp README.md LICENSE "dist/${bin_dir}/"
+            chmod +x "dist/${bin_dir}/php-matrix" && \
+            tar -C "dist/${bin_dir}" -cvf - php-matrix README.md LICENSE | \
             gzip --best - > "tarball/${bin_dir}.tar.gz"
             echo "::endgroup::"
           done 3< <(echo "${BIN_DIRS}")
-
-      # TODO!
-      - run: ls -la .
-      - run: ls -laR tarball
 
       - name: Validate tarballs
         run: |
