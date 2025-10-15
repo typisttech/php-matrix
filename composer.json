@@ -64,6 +64,7 @@
   },
   "scripts": {
     "lint": [
+      "box validate",
       "pint --test",
       "phpstan analyse"
     ],

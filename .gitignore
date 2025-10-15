@@ -1,2 +1,8 @@
+# Composer
 /vendor/
+
+# Pest
 /coverage*.xml
+
+# Box
+/phar/

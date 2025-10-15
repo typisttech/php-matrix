@@ -28,3 +28,18 @@ jobs:
       - uses: ramsey/composer-install@v3
 
       - run: vendor/bin/phpstan analyse --error-format=github
+
+  box:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+          tools: box:4
+
+      - run: box validate
