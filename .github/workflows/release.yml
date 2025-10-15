@@ -1,0 +1,240 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Git tag for the release. For example, v1.2.3'
+        required: true
+      run_id:
+        description: 'ID of the CI workflow run that created the release assets'
+        type: number
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.version }}
+  cancel-in-progress: true
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  drafter:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Set DRAFT_RELEASES environment variable
+        run: |
+          {
+            echo 'DRAFT_RELEASES<<EOF'
+            gh api --paginate \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "/repos/${REPO}/releases" \
+              --jq 'map(select(.draft)) | .[].id'
+            echo EOF
+          } >> "$GITHUB_ENV"
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+      - run: echo "${DRAFT_RELEASES}"
+
+      - name: Delete all draft releases
+        if: env.DRAFT_RELEASES != ''
+        run: |
+          while read -u3 -r draft_release; do
+            echo "::group::==> ${draft_release}"
+            gh api \
+              --method DELETE \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "/repos/${REPO}/releases/${draft_release}"
+            echo "::endgroup::"
+          done 3< <(echo "${DRAFT_RELEASES}")
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+
+      - uses: release-drafter/release-drafter@v6
+        with:
+          version: ${{ inputs.version }}
+          tag: ${{ inputs.version }}
+          publish: false
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # Not a typo.
+
+  deb:
+    needs: drafter
+    runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
+      attestations: write
+      contents: write
+      actions: read
+    steps:
+      - name: Set VERSION environment variable
+        run: echo VERSION="${TAGISH#v}" >> $GITHUB_ENV
+        env:
+          TAGISH: ${{ github.ref_type == 'tag' && github.ref_name || format('v0.0.0-{0}+{1}', github.run_number, github.sha) }}
+      - run: echo "${VERSION}"
+
+      - name: Download nfpm
+        run: gh release download --repo goreleaser/nfpm --pattern 'nfpm_*_amd64.deb' --output nfpm.deb
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Install nfpm
+        run: sudo dpkg -i nfpm.deb
+
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            nfpm.yaml
+            README.md
+            LICENSE
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@v5
+        with:
+          name: binaries
+          path: dist
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+
+      # TODO!
+      - run: ls -la .
+      - run: ls -laR dist
+
+      - run: mkdir -p deb
+      - name: Create deb
+        run: |
+          for arch in ${ARCHS}; do
+            echo "::group::==> ${arch}"
+            DIST_DIR="dist/php-matrix_linux_${arch}" \
+            ARCH="${arch}" nfpm package --packager deb --target "deb/php-matrix_linux_${arch}.deb"
+            echo "::endgroup::"
+          done
+        env:
+          DIST_DIR: dist
+          ARCHS: "arm64 amd64"
+
+      # TODO!
+      - run: ls -laR deb
+
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: deb/*.deb
+
+      - name: Upload debs
+        run: |
+          find deb -type f -name '*.deb' -print0 | 
+            xargs -0 printf "'%s' " |
+            xargs gh release upload --repo "${REPO}" "${TAG}"
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ inputs.version }}
+          GH_TOKEN: ${{ github.token }}
+
+  tarball:
+    needs: drafter
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            README.md
+            LICENSE
+          sparse-checkout-cone-mode: false
+          ref: ${{ inputs.version }}
+
+      - uses: actions/download-artifact@v5
+        with:
+          name: binaries
+          path: dist
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+
+      # TODO!
+      - run: ls -la .
+      - run: ls -laR dist
+
+      - name: Set BIN_DIRS environment variable
+        run: |
+          echo 'BIN_DIRS<<EOF' >> "$GITHUB_ENV"
+          while IFS= read -u3 -r -d '' full_bin_path; do
+            echo "::group::==> ${full_bin_path}"
+            full_dir=$(dirname "${full_bin_path}")
+            dir=$(basename -a "${full_dir}")
+            echo "${dir}" >> "$GITHUB_ENV"
+            echo "::endgroup::"
+          done 3< <(find dist -maxdepth 2 -mindepth 2 -type f -name 'php-matrix' -print0)
+          echo EOF >> "$GITHUB_ENV"
+      - run: echo "${BIN_DIRS}"
+
+      - run: mkdir -p tarball
+      - name: Create tarballs
+        run: |
+          while read -u3 -r bin_dir; do
+            echo "::group::==> ${bin_dir}"
+            cp README.md LICENSE "bin/${bin_dir}/"
+            chmod +x "bin/${bin_dir}/php-matrix" && \
+            tar -C "bin/${bin_dir}" -cvf - php-matrix README.md LICENSE | \
+            gzip --best - > "tarball/${bin_dir}.tar.gz"
+            echo "::endgroup::"
+          done 3< <(echo "${BIN_DIRS}")
+
+      # TODO!
+      - run: ls -la .
+      - run: ls -laR tarball
+
+      - name: Validate tarballs
+        run: |
+          while read -u3 -r bin_dir; do
+            echo "::group::==> ${bin_dir}"
+            tar -tvf "tarball/${bin_dir}.tar.gz"
+            echo "::endgroup::"
+          done 3< <(echo "${BIN_DIRS}")
+
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: tarball/*.tar.gz
+
+      - name: Upload tarballs
+        run: |
+          find tarball -type f -name '*.tar.gz' -print0 | 
+            xargs -0 printf "'%s' " |
+            xargs gh release upload --repo "${REPO}" "${TAG}"
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ inputs.version }}
+          GH_TOKEN: ${{ github.token }}
+
+  publish:
+    needs:
+      - drafter
+      - deb
+      - tarball
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.TASTENDRUCK_APP_ID }}
+          private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
+
+      - name: Publish the release
+        run: |
+          gh release edit --repo "${REPO}" "${TAG}" --draft=false
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ inputs.version }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
