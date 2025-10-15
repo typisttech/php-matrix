@@ -77,6 +77,135 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: php-matrix.phar
+          name: phar
           path: phar/php-matrix
           if-no-files-found: error
+
+  build:
+    name: build (${{ matrix.runs-on }})
+    needs: phar
+    strategy:
+      matrix:
+        include:
+          - runs-on: ubuntu-24.04-arm
+            variant: linux_arm64
+            spc-variant: linux-aarch64
+          - runs-on: ubuntu-24.04
+            variant: linux_amd64
+            spc-variant: linux-x86_64
+          - runs-on: macos-15
+            variant: darwin_arm64
+            spc-variant: macos-aarch64
+          - runs-on: macos-15-intel
+            variant: darwin_amd64
+            spc-variant: macos-x86_64
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: craft.yml
+          sparse-checkout-cone-mode: false
+
+      - name: Install spc
+        run: |
+          gh release download --repo crazywhalecc/static-php-cli --pattern "${PATTERN}" --output spc.tar.gz && \
+          mkdir -p /tmp/spc && \
+          tar -xvf spc.tar.gz --directory /tmp/spc && \
+          echo "/tmp/spc" >> "$GITHUB_PATH"
+        env:
+          PATTERN: spc-${{ matrix.spc-variant }}.tar.gz
+          GH_TOKEN: ${{ github.token }}
+
+      - uses: actions/download-artifact@v5
+        with:
+          name: phar
+          path: phar
+
+      - name: Restore cached micro.sfx
+        id: restore-micro-sfx
+        uses: actions/cache/restore@v4
+        with:
+          path: buildroot/bin/micro.sfx
+          key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ needs.phar.outputs.php-version }}-${{ hashFiles('craft.yml') }}
+
+      - name: Build micro.sfx
+        if: steps.restore-micro-sfx.outputs.cache-hit != 'true'
+        run: spc craft
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # Not a typo.
+
+      - name: Cache micro.sfx
+        id: cache-micro-sfx
+        if: steps.restore-micro-sfx.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: buildroot/bin/micro.sfx
+          key: ${{ steps.restore-micro-sfx.outputs.cache-primary-key }}
+
+      - run: mkdir -p out
+      - run: spc micro:combine phar/php-matrix --output out/php-matrix
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: php-matrix_${{ matrix.variant }}
+          path: out/php-matrix
+          if-no-files-found: error
+
+  e2e:
+    name: e2e (${{ matrix.runs-on }})
+    needs: build
+    strategy:
+      matrix:
+        include:
+          - runs-on: ubuntu-24.04-arm
+            variant: linux_arm64
+          - runs-on: ubuntu-24.04
+            variant: linux_amd64
+          - runs-on: macos-15
+            variant: darwin_arm64
+          - runs-on: macos-15-intel
+            variant: darwin_amd64
+    runs-on: ${{ matrix.runs-on }}
+    env:
+      GOFLAGS: '-mod=mod'
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: 'go.mod'
+
+      - run: echo OS="$(go env GOOS)" >> $GITHUB_ENV
+      - run: echo ARCH="$(go env GOARCH)" >> $GITHUB_ENV
+
+      - uses: actions/download-artifact@v5
+        with:
+          name: php-matrix_${{ matrix.variant }}
+          path: out
+
+      - name: Grant the binary execute permission
+        run: chmod +x out/php-matrix
+
+      - name: Add the binary into PATH
+        run: echo "${WORKSPACE}/out" >> "$GITHUB_PATH"
+        env:
+          WORKSPACE: ${{ github.workspace }}
+
+      - name: Print the binary path
+        run: go test -count=1 -v ./internal
+
+      - run: go test -count=1 ./...
+
+  merge:
+    needs:
+     - build
+     - e2e
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Merge binary artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: binaries
+          pattern: php-matrix_*
+          separate-directories: true
+          delete-merged: true

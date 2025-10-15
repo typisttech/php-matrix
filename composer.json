@@ -31,7 +31,8 @@
     "composer-runtime-api": "^2.2",
     "composer/semver": "^3.4",
     "guzzlehttp/guzzle": "^7.10",
-    "symfony/console": "^7.3"
+    "symfony/console": "^7.3",
+    "symfony/polyfill-iconv": "^1.33"
   },
   "require-dev": {
     "mockery/mockery": "^1.6",
