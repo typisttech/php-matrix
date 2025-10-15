@@ -211,3 +211,28 @@ jobs:
           pattern: php-matrix_*
           separate-directories: true
           delete-merged: true
+
+  dispatch:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs:
+      - pest
+      - build
+      - e2e
+      - merge
+    permissions:
+      actions: write
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Dispatch Release Workflow
+        run: |
+          gh workflow run release.yml \
+            --repo "${REPO}" \
+            --ref "${REF}" \
+            -f version="${VERSION}" \
+            -f run_id="${RUN_ID}"
+        env:
+          REPO: ${{ github.repository }}
+          REF: ${{ github.ref }}
+          VERSION: ${{ github.ref_name }}
+          RUN_ID: ${{ github.run_id }}
+          GH_TOKEN: ${{ github.token }}
