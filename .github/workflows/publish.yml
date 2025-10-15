@@ -1,0 +1,90 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Git tag for the release. For example, v1.2.3'
+        required: false
+  release:
+    types:
+      - published
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ inputs.version }}
+  cancel-in-progress: true
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  homebrew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.TASTENDRUCK_APP_ID }}
+          private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: homebrew-tap
+          permission-actions: write
+
+      - name: Dispatch Update Workflow on Homebrew Tap Repository
+        run: |
+          gh workflow run update.yml \
+            --repo "typisttech/homebrew-tap" \
+            --ref "main"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+  cloudsmith:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh release download --repo "${REPO}" --pattern '*.deb' "${TAG}"
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ inputs.version || github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Attestation verification
+        run: |
+          for arch in ${ARCHS}; do
+            echo "::group::==> ${arch}"
+            gh attestation verify --repo "${REPO}" "php-matrix_linux_${arch}.deb"
+            echo "::endgroup::"
+          done
+        env:
+          REPO: ${{ github.repository }}
+          ARCHS: "arm64 amd64"
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Push php-matrix_linux_arm64.deb
+        uses: cloudsmith-io/action@v0.6.14
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY_TASTENDRUCK }}
+          command: push
+          format: deb
+          owner: typisttech
+          repo: oss
+          distro: any-distro
+          release: any-version
+          no-wait-for-sync: true
+          file: php-matrix_linux_arm64.deb
+
+      - name: Push php-matrix_linux_amd64.deb
+        uses: cloudsmith-io/action@v0.6.14
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY_TASTENDRUCK }}
+          command: push
+          format: deb
+          owner: typisttech
+          repo: oss
+          distro: any-distro
+          release: any-version
+          no-wait-for-sync: true
+          file: php-matrix_linux_amd64.deb
