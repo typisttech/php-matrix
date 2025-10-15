@@ -63,7 +63,7 @@ class Application extends SymfonyConsoleApplication
         );
         $longVersion .= PHP_EOL.$phpSapi;
 
-        $longVersion .= PHP_EOL.PHP_EOL.'<comment>Support Composer SemVer:</>';
+        $longVersion .= PHP_EOL.PHP_EOL.'<comment>Support PHP Matrix:</>';
 
         $supportBlock = (new FormatterHelper)
             ->formatBlock(
