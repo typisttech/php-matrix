@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Matrices;
 
 use Mockery;
+use Throwable;
 use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException;
 use TypistTech\PhpMatrix\Matrices\Matrix;
 use TypistTech\PhpMatrix\Matrices\MatrixInterface;
@@ -81,5 +82,22 @@ describe(Matrix::class, static function (): void {
 
             $matrix->satisfiedBy('invalid constraint');
         })->throws(UnexpectedValueException::class);
+
+        it('does not invoke ReleasesInterface::all() when invalid constraint', function () {
+            $releases = Mockery::mock(ReleasesInterface::class);
+
+            $releases->expects()
+                ->all()
+                ->withAnyArgs()
+                ->never();
+
+            $matrix = new Matrix($releases);
+
+            try {
+                $matrix->satisfiedBy('invalid constraint');
+            } catch (Throwable $e) {
+                // No-op.
+            }
+        });
     });
 });

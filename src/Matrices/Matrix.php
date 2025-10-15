@@ -14,7 +14,7 @@ readonly class Matrix implements MatrixInterface
 {
     public function __construct(
         private ReleasesInterface $releases,
-        private VersionParser $versionParser = new VersionParser(),
+        private VersionParser $versionParser = new VersionParser,
     ) {}
 
     /**
@@ -36,6 +36,5 @@ readonly class Matrix implements MatrixInterface
                 previous: $e
             );
         }
-
     }
 }
