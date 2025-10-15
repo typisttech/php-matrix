@@ -1,0 +1,9 @@
+php-version: 8.4
+extensions:
+  - phar
+  - filter # For Symfony CompleteCommand
+  - curl # For guzzlehttp/guzzle
+sapi:
+  - micro
+download-options:
+  prefer-pre-built: true
