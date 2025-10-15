@@ -216,7 +216,6 @@ jobs:
     if: github.event_name == 'push' && github.ref_type == 'tag'
     needs:
       - pest
-      - build
       - e2e
       - merge
     permissions:
