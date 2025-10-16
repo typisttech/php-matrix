@@ -4,9 +4,10 @@
   "license": "MIT",
   "type": "project",
   "keywords": [
-    "ci",
     "cli",
-    "github-actions"
+    "composer",
+    "php",
+    "version"
   ],
   "authors": [
     {
