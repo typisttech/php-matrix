@@ -13,33 +13,22 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
-  phpstan:
+  php:
+    uses: typisttech/.github/.github/workflows/lint-php.yml@v3
+    with:
+      box: true
+  
+  go:
+    uses: typisttech/.github/.github/workflows/lint-go.yml@v3
+
+  wait-for-all-lint:
+    needs:
+      - php
+      - go
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-      - uses: ramsey/composer-install@v3
-
-      - run: vendor/bin/phpstan analyse --error-format=github
-
-  box:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          coverage: none
-          tools: box:4
-
-      - run: box validate
+      - run: exit 0
