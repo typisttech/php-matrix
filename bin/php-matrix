@@ -5,17 +5,19 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix;
 
-use TypistTech\PhpMatrix\Console\Runner;
-use function in_array;
 use const PHP_EOL;
 use const PHP_SAPI;
 
+use TypistTech\PhpMatrix\Console\Runner;
+
+use function in_array;
+
 // Taken from https://box-project.github.io/box/faq/#what-is-the-canonical-way-to-write-a-cli-entry-file
-if (!in_array(PHP_SAPI, ['micro', 'cli', 'phpdbg', 'embed'], true)) {
-    echo PHP_EOL . 'This app may only be invoked from a command line, got "' . PHP_SAPI . '"' . PHP_EOL;
+if (! in_array(PHP_SAPI, ['micro', 'cli', 'phpdbg', 'embed'], true)) {
+    echo PHP_EOL.'This app may only be invoked from a command line, got "'.PHP_SAPI.'"'.PHP_EOL;
     exit(1);
 }
 
-include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
+include $_composer_autoload_path ?? __DIR__.'/../vendor/autoload.php';
 
 Runner::run();
