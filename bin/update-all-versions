@@ -16,6 +16,6 @@ $dir = __DIR__.'/../data';
 @mkdir($dir, 0755);
 
 $content = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-file_put_contents($dir .'/all-versions.json', $content);
+file_put_contents($dir.'/all-versions.json', $content);
 
 echo "Done: '{$dir}/all-versions.json' updated".PHP_EOL;
