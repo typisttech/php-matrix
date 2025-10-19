@@ -215,6 +215,17 @@ Available sources:
 > If you are hiring PHP / Ruby / Go developers,
 > contact me at https://typist.tech/contact/
 
+### Dump Shell Completion Scripts
+
+For shell completions, follow the instructions from:
+
+```console
+$ php-matrix completion --help
+```
+
+If you installed `PHP Matrix` [via Homebrew](#homebrew-macos--linux-recommended), completion scripts are managed by Homebrew.
+Read more at https://docs.brew.sh/Shell-Completion
+
 ## Installation
 
 ### Homebrew (macOS / Linux) (Recommended)
@@ -238,8 +249,7 @@ Instead of the automatic setup script, you can manually configure the repository
 > [!WARNING]
 > If you install the `.deb` file manually, you have to take care of updating it by yourself.
 
-Download the latest `.deb` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest),
-or via [`gh`](https://cli.github.com/):
+Download the latest `.deb` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/):
 
 ```sh
 # Both arm64 (aarch64) and amd64 (x86_64) architectures are available.
@@ -263,8 +273,7 @@ sudo dpkg -i php-matrix_linux_arm64.deb
 > [!WARNING]
 > If you install the binary manually, you have to take care of updating it by yourself.
 
-Download the latest `.tar.gz` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest),
-or via [`gh`](https://cli.github.com/):
+Download the latest `.tar.gz` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/):
 
 ```sh
 # Both darwin (macOS) and linux operating systems are available.
