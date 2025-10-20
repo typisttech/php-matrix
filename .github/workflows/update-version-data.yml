@@ -33,7 +33,7 @@ jobs:
         env:
           MAKEFLAGS: "--jobs=4 --output-sync=target"
 
-      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@v2
+      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@v3
         with:
           app-id: ${{ vars.TASTENDRUCK_APP_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
