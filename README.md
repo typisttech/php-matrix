@@ -35,6 +35,50 @@
 
 ## Usage
 
+### GitHub Actions
+
+For generating PHP version matrix in GitHub Actions, use [PHP Matrix Action](https://github.com/marketplace/actions/php-matrix).
+
+<details>
+
+<summary>Example</summary>
+
+```yml
+name: Test
+
+on:
+  push:
+
+jobs:
+  php-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.php-matrix.outputs.versions }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: composer.json
+          sparse-checkout-cone-mode: false
+
+      - uses: typisttech/php-matrix-action@v2
+        id: php-matrix
+
+  test:
+    runs-on: ubuntu-latest
+    needs: php-matrix
+    strategy:
+      matrix:
+        php-version: ${{ fromJSON(needs.php-matrix.outputs.versions) }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+      - run: composer install
+      - run: composer test
+```
+</details>
+
 ### List PHP versions that satisfy the required PHP constraint in `composer.json`
 
 ```console
