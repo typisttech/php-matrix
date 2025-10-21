@@ -7,7 +7,7 @@ version: ${VERSION}
 
 maintainer: "Typist Tech Limited <opensource+${NAME}@typist.tech>"
 description: |
-  List PHP versions that satisfy the given constraint.
+  List PHP versions that satisfy the required PHP constraint in composer.json.
 homepage: "https://github.com/typisttech/${NAME}"
 license: MIT
 section: utils

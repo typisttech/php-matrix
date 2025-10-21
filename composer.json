@@ -1,6 +1,6 @@
 {
   "name": "typisttech/php-matrix",
-  "description": "List PHP versions that satisfy the given constraint.",
+  "description": "List PHP versions that satisfy the required PHP constraint in composer.json.",
   "license": "MIT",
   "type": "project",
   "keywords": [
