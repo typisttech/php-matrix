@@ -12,7 +12,7 @@
 [![Hire Typist Tech](https://img.shields.io/badge/Hire-Typist%20Tech-778899)](https://typist.tech/contact/)
 
 <p>
-  <strong>List PHP versions that satisfy the given constraint.</strong>
+  <strong>List PHP versions that satisfy the required PHP constraint in <code>composer.json</code>.</strong>
   <br>
   <br>
   Built with ♥ by <a href="https://typist.tech/">Typist Tech</a>
