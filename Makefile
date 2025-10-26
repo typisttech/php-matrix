@@ -18,7 +18,7 @@ phar: vendor
 
 test-%: %
 	PATH="$(shell pwd)/$*:$(shell echo $$PATH)" \
-		go test -count=1 ./...
+		go test -count=1 -shuffle=on ./...
 
 .PHONY: tests/data/versions
 tests/data/versions: MAJORS := 5 7 8
