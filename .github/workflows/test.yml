@@ -196,7 +196,7 @@ jobs:
       - name: Print the binary path
         run: go test -count=1 -v ./internal
 
-      - run: go test -count=1 ./...
+      - run: go test -count=1 -shuffle=on ./...
 
   merge:
     needs:
