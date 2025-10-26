@@ -90,7 +90,7 @@ class Application extends SymfonyConsoleApplication
             ->formatBlock(
                 [
                     'I am looking for my next role, freelance or full-time.',
-                    'If you find this tool useful, I can build you more weird stuffs like this.',
+                    'If you find this tool useful, I can build you more weird stuff like this.',
                     "Let's talk if you are hiring PHP / Ruby / Go developers.",
                 ],
                 'error',
