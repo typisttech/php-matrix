@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           name: coverage
 
@@ -118,7 +118,7 @@ jobs:
           PATTERN: spc-${{ matrix.spc-variant }}.tar.gz
           GH_TOKEN: ${{ github.token }}
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           name: phar
           path: phar
@@ -180,7 +180,7 @@ jobs:
       - run: echo OS="$(go env GOOS)" >> $GITHUB_ENV
       - run: echo ARCH="$(go env GOARCH)" >> $GITHUB_ENV
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out
