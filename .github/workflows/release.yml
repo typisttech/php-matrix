@@ -90,7 +90,7 @@ jobs:
       - name: Install nfpm
         run: sudo dpkg -i nfpm.deb
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: |
             nfpm.yaml
@@ -140,7 +140,7 @@ jobs:
       contents: write
       actions: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: |
             README.md
