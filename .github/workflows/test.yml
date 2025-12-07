@@ -87,7 +87,7 @@ jobs:
     name: build (${{ matrix.runs-on }})
     needs: phar
     strategy:
-      matrix:
+      matrix: &matrix
         include:
           - runs-on: ubuntu-24.04-arm
             variant: linux_arm64
@@ -157,16 +157,7 @@ jobs:
     name: e2e (${{ matrix.runs-on }})
     needs: build
     strategy:
-      matrix:
-        include:
-          - runs-on: ubuntu-24.04-arm
-            variant: linux_arm64
-          - runs-on: ubuntu-24.04
-            variant: linux_amd64
-          - runs-on: macos-15
-            variant: darwin_arm64
-          - runs-on: macos-15-intel
-            variant: darwin_amd64
+      matrix: *matrix
     runs-on: ${{ matrix.runs-on }}
     env:
       GOFLAGS: '-mod=mod'
