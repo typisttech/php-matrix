@@ -31,7 +31,7 @@ jobs:
 
       - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: coverage-unit.xml
@@ -77,7 +77,7 @@ jobs:
 
       - run: box compile
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: phar
           path: phar/php-matrix
@@ -147,7 +147,7 @@ jobs:
       - run: mkdir -p out
       - run: spc micro:combine phar/php-matrix --output out/php-matrix
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out/php-matrix
@@ -196,7 +196,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Merge binary artifacts
-        uses: actions/upload-artifact/merge@v5
+        uses: actions/upload-artifact/merge@v6
         with:
           name: binaries
           pattern: php-matrix_*
