@@ -125,7 +125,7 @@ jobs:
 
       - name: Restore cached micro.sfx
         id: restore-micro-sfx
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: buildroot/bin/micro.sfx
           key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ needs.phar.outputs.php-version }}-${{ hashFiles('craft.yml') }}
@@ -139,7 +139,7 @@ jobs:
       - name: Cache micro.sfx
         id: cache-micro-sfx
         if: steps.restore-micro-sfx.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: buildroot/bin/micro.sfx
           key: ${{ steps.restore-micro-sfx.outputs.cache-primary-key }}
