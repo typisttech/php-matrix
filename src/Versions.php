@@ -25,13 +25,13 @@ readonly class Versions
     {
         $sorted = self::sort(...$versions);
 
-        return $sorted[0];
+        return (string) array_first($sorted);
     }
 
     public static function highest(string ...$versions): string
     {
         $sorted = self::sort(...$versions);
 
-        return $sorted[array_key_last($sorted)];
+        return (string) array_last($sorted);
     }
 }
