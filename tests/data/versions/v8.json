@@ -108,7 +108,9 @@
     ]
   },
   "8.1.34": {
-    "announcement": true,
+    "announcement": {
+      "English": "/releases/8_1_34.php"
+    },
     "tags": [
       "security"
     ],
@@ -132,7 +134,8 @@
         "sha256": "ffa9e0982e82eeaea848f57687b425ed173aa278fe563001310ae2638db5c251",
         "date": "18 Dec 2025"
       }
-    ]
+    ],
+    "museum": false
   },
   "8.1.33": {
     "announcement": {
