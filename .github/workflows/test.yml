@@ -168,8 +168,8 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - run: echo OS="$(go env GOOS)" >> $GITHUB_ENV
-      - run: echo ARCH="$(go env GOARCH)" >> $GITHUB_ENV
+      - run: echo OS="$(go env GOOS)" >> "$GITHUB_ENV"
+      - run: echo ARCH="$(go env GOARCH)" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v7
         with:

@@ -78,7 +78,7 @@ jobs:
       actions: read
     steps:
       - name: Set VERSION environment variable
-        run: echo VERSION="${TAGISH#v}" >> $GITHUB_ENV
+        run: echo VERSION="${TAGISH#v}" >> "$GITHUB_ENV"
         env:
           TAGISH: ${{ github.ref_type == 'tag' && github.ref_name || format('v0.0.0-{0}+{1}', github.run_number, github.sha) }}
       - run: echo "${VERSION}"
