@@ -97,7 +97,7 @@ jobs:
             README.md
             LICENSE
           sparse-checkout-cone-mode: false
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: binaries
           path: dist
@@ -148,7 +148,7 @@ jobs:
           sparse-checkout-cone-mode: false
           ref: ${{ inputs.version }}
 
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: binaries
           path: dist

@@ -31,7 +31,7 @@ jobs:
 
       - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: coverage-unit.xml
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: coverage
 
@@ -77,7 +77,7 @@ jobs:
 
       - run: box compile
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: phar
           path: phar/php-matrix
@@ -118,14 +118,14 @@ jobs:
           PATTERN: spc-${{ matrix.spc-variant }}.tar.gz
           GH_TOKEN: ${{ github.token }}
 
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: phar
           path: phar
 
       - name: Restore cached micro.sfx
         id: restore-micro-sfx
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: buildroot/bin/micro.sfx
           key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ needs.phar.outputs.php-version }}-${{ hashFiles('craft.yml') }}
@@ -139,7 +139,7 @@ jobs:
       - name: Cache micro.sfx
         id: cache-micro-sfx
         if: steps.restore-micro-sfx.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: buildroot/bin/micro.sfx
           key: ${{ steps.restore-micro-sfx.outputs.cache-primary-key }}
@@ -147,7 +147,7 @@ jobs:
       - run: mkdir -p out
       - run: spc micro:combine phar/php-matrix --output out/php-matrix
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out/php-matrix
@@ -171,7 +171,7 @@ jobs:
       - run: echo OS="$(go env GOOS)" >> $GITHUB_ENV
       - run: echo ARCH="$(go env GOARCH)" >> $GITHUB_ENV
 
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out
@@ -196,7 +196,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Merge binary artifacts
-        uses: actions/upload-artifact/merge@v5
+        uses: actions/upload-artifact/merge@v6
         with:
           name: binaries
           pattern: php-matrix_*
