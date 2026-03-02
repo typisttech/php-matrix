@@ -117,7 +117,7 @@ jobs:
           DIST_DIR: dist
           ARCHS: "arm64 amd64"
 
-      - uses: actions/attest-build-provenance@v3
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: deb/*.deb
 
@@ -188,7 +188,7 @@ jobs:
             echo "::endgroup::"
           done 3< <(echo "${BIN_DIRS}")
 
-      - uses: actions/attest-build-provenance@v3
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: tarball/*.tar.gz
 
