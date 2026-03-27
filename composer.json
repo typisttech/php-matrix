@@ -28,7 +28,7 @@
     "security": "https://github.com/typisttech/php-matrix/security"
   },
   "require": {
-    "php": "^8.4",
+    "php": "^8.5",
     "composer-runtime-api": "^2.2",
     "composer/semver": "^3.4",
     "guzzlehttp/guzzle": "^7.10",
