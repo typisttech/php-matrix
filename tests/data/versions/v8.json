@@ -1,51 +1,51 @@
 {
-  "8.5.4": {
+  "8.5.5": {
     "announcement": true,
     "tags": [],
-    "date": "12 Mar 2026",
+    "date": "09 Apr 2026",
     "source": [
       {
-        "filename": "php-8.5.4.tar.gz",
-        "name": "PHP 8.5.4 (tar.gz)",
-        "sha256": "4fef7f44eff3c18e329504cb0d3eb30b41cf54e2db05cb4ebe8b78fc37d38ce1",
-        "date": "12 Mar 2026"
+        "filename": "php-8.5.5.tar.gz",
+        "name": "PHP 8.5.5 (tar.gz)",
+        "sha256": "276279f637a875a514346b332bba6d8b06c036cf7979a858e5c55f72c4874884",
+        "date": "09 Apr 2026"
       },
       {
-        "filename": "php-8.5.4.tar.bz2",
-        "name": "PHP 8.5.4 (tar.bz2)",
-        "sha256": "2ac929a29a6b7ef4b8acec981a417b91bdf7f548f597df665cc56ab9ea95fc75",
-        "date": "12 Mar 2026"
+        "filename": "php-8.5.5.tar.bz2",
+        "name": "PHP 8.5.5 (tar.bz2)",
+        "sha256": "ee262beff61c431965d1f97192854b36208adeac38983c3498bb3500ae87283c",
+        "date": "09 Apr 2026"
       },
       {
-        "filename": "php-8.5.4.tar.xz",
-        "name": "PHP 8.5.4 (tar.xz)",
-        "sha256": "c1569f1f543f6b025c583cdc0e730e5c5833c603618613f1aa8e75d1524b8c91",
-        "date": "12 Mar 2026"
+        "filename": "php-8.5.5.tar.xz",
+        "name": "PHP 8.5.5 (tar.xz)",
+        "sha256": "95bec382f4bd00570a8ef52a58ec04d8d9b9a90494781f1c106d1b274a3902f2",
+        "date": "09 Apr 2026"
       }
     ]
   },
-  "8.4.19": {
+  "8.4.20": {
     "announcement": true,
     "tags": [],
-    "date": "12 Mar 2026",
+    "date": "09 Apr 2026",
     "source": [
       {
-        "filename": "php-8.4.19.tar.gz",
-        "name": "PHP 8.4.19 (tar.gz)",
-        "sha256": "9e862435ffb533dc5b0eb486170a74e5f7c8095e8eb8819a2ff5aad430292a18",
-        "date": "12 Mar 2026"
+        "filename": "php-8.4.20.tar.gz",
+        "name": "PHP 8.4.20 (tar.gz)",
+        "sha256": "a2def5d534d57c6a0236f2265de7537608af871900a4f7955eff463e9e38247d",
+        "date": "09 Apr 2026"
       },
       {
-        "filename": "php-8.4.19.tar.bz2",
-        "name": "PHP 8.4.19 (tar.bz2)",
-        "sha256": "bceb7798ed37b442fe523ae7ef345ccc2231db0b022d30735c2e378d3254a0d4",
-        "date": "12 Mar 2026"
+        "filename": "php-8.4.20.tar.bz2",
+        "name": "PHP 8.4.20 (tar.bz2)",
+        "sha256": "ce25d2610a5f9522ac8f53fbb7b8280b5c021991e9bd9137068c9c629d9ffb56",
+        "date": "09 Apr 2026"
       },
       {
-        "filename": "php-8.4.19.tar.xz",
-        "name": "PHP 8.4.19 (tar.xz)",
-        "sha256": "11f7164ab26d356c31f94d3d69cc0e0707d5d2d6494a221aaeae307c08eaaa1c",
-        "date": "12 Mar 2026"
+        "filename": "php-8.4.20.tar.xz",
+        "name": "PHP 8.4.20 (tar.xz)",
+        "sha256": "e454c6f7c89a42f41ebb06dc5c3578e8c8b5f1a3f0da6675665affab04e221f7",
+        "date": "09 Apr 2026"
       }
     ]
   },
@@ -100,6 +100,62 @@
         "date": "18 Dec 2025"
       }
     ]
+  },
+  "8.4.19": {
+    "announcement": {
+      "English": "/releases/8_4_19.php"
+    },
+    "tags": [],
+    "date": "12 Mar 2026",
+    "source": [
+      {
+        "filename": "php-8.4.19.tar.gz",
+        "name": "PHP 8.4.19 (tar.gz)",
+        "sha256": "9e862435ffb533dc5b0eb486170a74e5f7c8095e8eb8819a2ff5aad430292a18",
+        "date": "12 Mar 2026"
+      },
+      {
+        "filename": "php-8.4.19.tar.bz2",
+        "name": "PHP 8.4.19 (tar.bz2)",
+        "sha256": "bceb7798ed37b442fe523ae7ef345ccc2231db0b022d30735c2e378d3254a0d4",
+        "date": "12 Mar 2026"
+      },
+      {
+        "filename": "php-8.4.19.tar.xz",
+        "name": "PHP 8.4.19 (tar.xz)",
+        "sha256": "11f7164ab26d356c31f94d3d69cc0e0707d5d2d6494a221aaeae307c08eaaa1c",
+        "date": "12 Mar 2026"
+      }
+    ],
+    "museum": false
+  },
+  "8.5.4": {
+    "announcement": {
+      "English": "/releases/8_5_4.php"
+    },
+    "tags": [],
+    "date": "12 Mar 2026",
+    "source": [
+      {
+        "filename": "php-8.5.4.tar.gz",
+        "name": "PHP 8.5.4 (tar.gz)",
+        "sha256": "4fef7f44eff3c18e329504cb0d3eb30b41cf54e2db05cb4ebe8b78fc37d38ce1",
+        "date": "12 Mar 2026"
+      },
+      {
+        "filename": "php-8.5.4.tar.bz2",
+        "name": "PHP 8.5.4 (tar.bz2)",
+        "sha256": "2ac929a29a6b7ef4b8acec981a417b91bdf7f548f597df665cc56ab9ea95fc75",
+        "date": "12 Mar 2026"
+      },
+      {
+        "filename": "php-8.5.4.tar.xz",
+        "name": "PHP 8.5.4 (tar.xz)",
+        "sha256": "c1569f1f543f6b025c583cdc0e730e5c5833c603618613f1aa8e75d1524b8c91",
+        "date": "12 Mar 2026"
+      }
+    ],
+    "museum": false
   },
   "8.5.3": {
     "announcement": {
