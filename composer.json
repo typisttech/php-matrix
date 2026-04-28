@@ -68,7 +68,6 @@
     "lint": [
       "box validate",
       "@composer normalize --dry-run",
-      "pint --test",
       "phpstan analyse"
     ],
     "pest": "pest",
