@@ -35,9 +35,10 @@ class ComposerCommand extends Command
 
             $constraint = $composer->requiredPhpConstraint();
 
-            /** @phpstan-ignore method.notFound,return.type */
-            return $application->get('constraint')
-                ->__invoke($io, $constraint, $source, $mode);
+            /** @var ConstraintCommand $constraintCommand */
+            $constraintCommand = $application->get('constraint');
+
+            return $constraintCommand->__invoke($io, $constraint, $source, $mode);
         } catch (ExceptionInterface $e) {
             $this->printError(
                 $io,
