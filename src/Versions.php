@@ -32,6 +32,7 @@ readonly class Versions
     {
         $sorted = self::sort(...$versions);
 
+        // @phpstan-ignore offsetAccess.invalidOffset
         return $sorted[array_key_last($sorted)];
     }
 }
