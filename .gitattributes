@@ -4,7 +4,7 @@
 /* export-ignore
 
 # Export white-listed production code only.
-/bin            -export-ignore
+/bin/php-matrix -export-ignore
 /data           -export-ignore
 /src            -export-ignore
 /composer.json  -export-ignore

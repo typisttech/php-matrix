@@ -1,0 +1,46 @@
+[tools]
+# Must be kept in sync with GitHub Actions workflow @.github/workflows/lint.yml
+golangci-lint = '2.11'
+
+[env]
+GOFLAGS = '-mod=mod'
+
+[tasks.vendor]
+run = [
+  'composer install --no-dev --prefer-dist',
+  'composer reinstall --prefer-dist "*"',
+]
+
+[tasks.phar]
+depends = ['vendor']
+run = [
+  'box compile',
+  'box verify phar/php-matrix',
+  'box info phar/php-matrix',
+  'php phar/php-matrix --version',
+]
+
+[tasks.'test:bin']
+env.PATH = '{{ config_root }}/bin:{{ env.PATH }}'
+depends = [{ task = 'vendor' }]
+run = 'go test -count=1 -shuffle=on ./...'
+
+[tasks.'test:phar']
+env.PATH = '{{ config_root }}/phar:{{ env.PATH }}'
+depends = ['phar']
+run = 'go test -count=1 -shuffle=on ./...'
+
+[tasks.gen]
+depends = ['gen:test-data', 'gen:data']
+
+[tasks.'gen:test-data']
+depends = ['vendor']
+run = '{{ config_root }}/bin/generate-test-data'
+
+[tasks.'gen:data']
+depends = ['vendor']
+run = '{{ config_root }}/bin/generate-data'
+
+[tasks.'txtar']
+depends = ['gen']
+run = ['go generate ./...', 'UPDATE_SCRIPTS=0 mise run test:bin']

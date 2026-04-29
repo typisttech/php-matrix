@@ -14,3 +14,5 @@
 /out/
 /pkgroot/
 /source/
+# Added by goreleaser init:
+dist/

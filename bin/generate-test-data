@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh -x
+set -eo pipefail
+
+rm -rf tests/data/versions
+mkdir -p tests/data/versions
+curl 'https://www.php.net/releases/index.php?json&max=1000&version=5' | jq . > tests/data/versions/v5.json
+curl 'https://www.php.net/releases/index.php?json&max=1000&version=7' | jq . > tests/data/versions/v7.json
+curl 'https://www.php.net/releases/index.php?json&max=1000&version=8' | jq . > tests/data/versions/v8.json

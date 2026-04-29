@@ -21,66 +21,72 @@ jobs:
   pest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-      - uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # master
         with:
           php-version: '8.5'
           coverage: xdebug
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # 3.2.1
 
       - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: coverage
           path: coverage-unit.xml
+          archive: false
+          if-no-files-found: error
 
   codecov:
     needs: pest
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/download-artifact@v7
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          name: coverage
+          persist-credentials: false
 
-      - uses: codecov/codecov-action@v5
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: coverage-unit.xml
+
+      - uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
         with:
           use_oidc: true
           fail_ci_if_error: true
           disable_search: true
           files: coverage-unit.xml
-          flags: unit
 
   phar:
     runs-on: ubuntu-24.04
     outputs:
       php-version: ${{ steps.setup-php.outputs.php-version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           fetch-depth: 0
 
-      - uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
         id: setup-php
         with:
           php-version: '8.5'
           coverage: none
           tools: box:4
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
         with:
           composer-options: --no-dev --prefer-dist
 
       - run: box compile
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: phar
           path: phar/php-matrix
+          archive: false
           if-no-files-found: error
 
   build:
@@ -103,7 +109,7 @@ jobs:
             spc-variant: macos-x86_64
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           sparse-checkout: craft.yml
           sparse-checkout-cone-mode: false
@@ -118,14 +124,18 @@ jobs:
           PATTERN: spc-${{ matrix.spc-variant }}.tar.gz
           GH_TOKEN: ${{ github.token }}
 
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          name: phar
-          path: phar
+          name: phar/php-matrix
+
+      # TODO!
+      - run: ls
+      # TODO!
+      - run: ls phar
 
       - name: Restore cached micro.sfx
         id: restore-micro-sfx
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: buildroot/bin/micro.sfx
           key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ needs.phar.outputs.php-version }}-${{ hashFiles('craft.yml') }}
@@ -139,7 +149,7 @@ jobs:
       - name: Cache micro.sfx
         id: cache-micro-sfx
         if: steps.restore-micro-sfx.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: buildroot/bin/micro.sfx
           key: ${{ steps.restore-micro-sfx.outputs.cache-primary-key }}
@@ -147,7 +157,7 @@ jobs:
       - run: mkdir -p out
       - run: spc micro:combine phar/php-matrix --output out/php-matrix
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out/php-matrix
@@ -162,16 +172,18 @@ jobs:
     env:
       GOFLAGS: '-mod=mod'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
         with:
           go-version-file: 'go.mod'
 
       - run: echo OS="$(go env GOOS)" >> "$GITHUB_ENV"
       - run: echo ARCH="$(go env GOARCH)" >> "$GITHUB_ENV"
 
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out
@@ -188,41 +200,3 @@ jobs:
         run: go test -count=1 -v ./internal
 
       - run: go test -count=1 -shuffle=on ./...
-
-  merge:
-    needs:
-     - build
-     - e2e
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Merge binary artifacts
-        uses: actions/upload-artifact/merge@v6
-        with:
-          name: binaries
-          pattern: php-matrix_*
-          separate-directories: true
-          delete-merged: true
-
-  dispatch:
-    if: github.event_name == 'push' && github.ref_type == 'tag'
-    needs:
-      - pest
-      - e2e
-      - merge
-    permissions:
-      actions: write
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Dispatch Release Workflow
-        run: |
-          gh workflow run release.yml \
-            --repo "${REPO}" \
-            --ref "${REF}" \
-            -f version="${VERSION}" \
-            -f run_id="${RUN_ID}"
-        env:
-          REPO: ${{ github.repository }}
-          REF: ${{ github.ref }}
-          VERSION: ${{ github.ref_name }}
-          RUN_ID: ${{ github.run_id }}
-          GH_TOKEN: ${{ github.token }}
