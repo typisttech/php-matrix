@@ -5,7 +5,18 @@ version: 2
 project_name: php-matrix
 
 builds:
-  - skip: true
+  # Hack: Poor man's prebuilt builder.
+  - main: ./internal/dummy
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - arm64
+      - amd64
+    hooks:
+      # Overwrite the binary with the prebuilt one, which is what we actually want to release.
+      post:
+        - cmd: mv "out/{{ .Name }}_{{ .Os }}_{{ .Arch }}/{{ .Name }}" "{{ .Path }}"
 
 nfpms:
   - vendor: Typist Tech Limited
@@ -30,7 +41,7 @@ homebrew_casks:
   - name: php-matrix
     homepage: https://github.com/typisttech/php-matrix
     description: |-
-      List PHP versions that satisfy the required PHP constraint in composer.json 
+      List PHP versions that satisfy the required PHP constraint in composer.json
     hooks:
       post:
         install: |
