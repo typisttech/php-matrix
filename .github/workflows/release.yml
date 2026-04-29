@@ -61,6 +61,10 @@ jobs:
           name: php-matrix_darwin_amd64
           path: out/darwin_amd64
 
+
+      # TODO!
+      - run: ls -laR out
+
       - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         id: app-token
         with:

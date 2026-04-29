@@ -200,7 +200,8 @@ jobs:
       - run: go test -count=1 -shuffle=on ./...
 
   dispatch:
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    # TODO!
+    # if: github.event_name == 'push' && github.ref_type == 'tag'
     needs:
       - pest
       - e2e
