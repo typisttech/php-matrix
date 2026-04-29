@@ -11,8 +11,11 @@ on:
         type: number
         required: true
 
-permissions:
-  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.version }}
+  cancel-in-progress: true
+
+permissions: {}
 
 jobs:
   release-drafter:
