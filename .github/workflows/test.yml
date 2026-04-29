@@ -213,11 +213,9 @@ jobs:
           gh workflow run release.yml \
             --repo "${REPO}" \
             --ref "${REF}" \
-            -f version="${VERSION}" \
             -f run_id="${RUN_ID}"
         env:
           REPO: ${{ github.repository }}
           REF: ${{ github.ref }}
-          VERSION: ${{ github.ref_name }}
           RUN_ID: ${{ github.run_id }}
           GH_TOKEN: ${{ github.token }}
