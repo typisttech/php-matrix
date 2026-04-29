@@ -16,7 +16,7 @@ builds:
     hooks:
       # Overwrite the binary with the prebuilt one, which is what we actually want to release.
       post:
-        - cmd: mv "out/{{ .Name }}_{{ .Os }}_{{ .Arch }}/{{ .Name }}" "{{ .Path }}"
+        - cmd: mv "out/{{ .Os }}_{{ .Arch }}/{{ .Name }}" "{{ .Path }}"
 
 nfpms:
   - vendor: Typist Tech Limited
