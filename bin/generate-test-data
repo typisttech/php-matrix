@@ -1,5 +1,5 @@
-#!/usr/bin/env zsh -x
-set -eo pipefail
+#!/usr/bin/env bash
+set -euxo pipefail
 
 rm -rf tests/data/versions
 mkdir -p tests/data/versions
