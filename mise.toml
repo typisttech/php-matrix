@@ -33,13 +33,12 @@ run = 'go test -count=1 -shuffle=on ./...'
 [tasks.gen]
 depends = ['gen:test-data', 'gen:data']
 
-[tasks.'gen:test-data']
-depends = ['vendor']
-run = '{{ config_root }}/bin/generate-test-data'
-
 [tasks.'gen:data']
 depends = ['vendor']
 run = '{{ config_root }}/bin/generate-data'
+
+[tasks.'gen:test-data']
+run = '{{ config_root }}/bin/generate-test-data'
 
 [tasks.'txtar']
 depends = ['gen']
