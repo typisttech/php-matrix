@@ -3,7 +3,7 @@ name: Update Version Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: 13 3 * * 1 # Weekly on Monday
+    - cron: 13 3 * * * # Weekly on Monday
   push:
     branches:
       - main
@@ -34,10 +34,13 @@ jobs:
       - run: ./bin/generate-test-data
       - run: ./bin/generate-all-versions
 
-      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@45c776c6114c7493626281d38635f0578b3b2c7d # v3.5.0
+      - uses: typisttech/create-auto-merged-pull-request-action@05e85fff478e9ff9dfbb4b6d95622b6a8ebafe78 # v0.2.0
         with:
-          app-id: ${{ vars.TASTENDRUCK_APP_ID }}
+          client-id: ${{ vars.TASTENDRUCK_CLIENT_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
-          branch: "tastendruck/github_actions/update-data/${{ github.ref_name }}"
+          branch: "tastendruck/github_actions/generate-data/${{ github.ref_name }}"
           title: ":robot: `./bin/generate-test-data && ./bin/generate-all-versions`"
-          labels: update_data
+          labels: generate-data
+          add-paths: |
+            /tests/data/versions/*
+            /data/*
