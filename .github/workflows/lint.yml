@@ -18,17 +18,21 @@ permissions:
 
 jobs:
   actions:
-    uses: typisttech/.github/.github/workflows/lint-actions.yml@v3
+    uses: typisttech/.github/.github/workflows/lint-actions.yml@8c3b859e35165a6e81a660713be195ec61d2ca1d # v5.2.1
 
   php:
-    uses: typisttech/.github/.github/workflows/lint-php.yml@v3
+    uses: typisttech/.github/.github/workflows/lint-php.yml@8c3b859e35165a6e81a660713be195ec61d2ca1d # v5.2.1
     with:
+      phpstan: true
       box: true
-  
+      box-php-version: '8.5'
+      box-version: '4'
+
   go:
-    uses: typisttech/.github/.github/workflows/lint-go.yml@v3
+    uses: typisttech/.github/.github/workflows/lint-go.yml@8c3b859e35165a6e81a660713be195ec61d2ca1d # v5.2.1
     with:
-      golangci-lint: false
+      golangci-lint: true
+      golangci-lint-version: v2.11 # Must be kept in sync with @../../mise.toml
 
   wait-for-all-lint:
     needs:

@@ -11,13 +11,13 @@ type txtarWriter interface {
 }
 
 func Generate[T txtarWriter](name string, cases ...T) error {
-	os.Stdout.Write([]byte("\n==> Generating " + name + " scripts\n\n"))
+	_, _ = os.Stdout.Write([]byte("\n==> Generating " + name + " scripts\n\n"))
 
 	dir, err := filepath.Abs("testdata")
 	if err != nil {
 		return err
 	}
-	os.Stdout.Write([]byte(dir + "\n"))
+	_, _ = os.Stdout.Write([]byte(dir + "\n"))
 
 	if err := ensureDirEmpty(dir); err != nil {
 		return err
@@ -25,14 +25,14 @@ func Generate[T txtarWriter](name string, cases ...T) error {
 
 	for _, w := range cases {
 		n := sanitizeFilename(w.Name()) + ".txtar"
-		os.Stdout.Write([]byte("  - " + n + "\n"))
+		_, _ = os.Stdout.Write([]byte("  - " + n + "\n"))
 
 		p := filepath.Join(dir, n)
 		f, err := os.Create(p)
 		if err != nil {
 			return err
 		}
-		defer f.Close()
+		defer func() { _ = f.Close() }()
 
 		err = w.Write(f)
 		if err != nil {

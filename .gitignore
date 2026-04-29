@@ -14,3 +14,6 @@
 /out/
 /pkgroot/
 /source/
+
+# goreleaser
+/dist/
