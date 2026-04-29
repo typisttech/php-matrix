@@ -6,6 +6,9 @@ on:
     tags:
       - "*"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     uses: ./.github/workflows/test.yml
