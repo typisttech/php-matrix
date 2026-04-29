@@ -3,7 +3,7 @@ name: Update Version Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: 13 3 * * * # Weekly on Monday
+    - cron: '13 3 * * *'
   push:
     branches:
       - main
