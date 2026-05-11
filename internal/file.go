@@ -25,7 +25,7 @@ func ensureDirEmpty(path string) error {
 		return err
 	}
 
-	if err := os.MkdirAll(path, 0755); err != nil {
+	if err := os.MkdirAll(path, 0o750); err != nil {
 		return err
 	}
 

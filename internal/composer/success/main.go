@@ -58,8 +58,10 @@ stdout .
 {"require":{"php":"{{ .Constraint }}"}}
 `
 
-var eolFileTemplate = template.Must(template.New("").Parse(eolTemplateRaw))
-var supportedFileTemplate = template.Must(template.New("").Parse(supportedTemplateRaw))
+var (
+	eolFileTemplate       = template.Must(template.New("").Parse(eolTemplateRaw))
+	supportedFileTemplate = template.Must(template.New("").Parse(supportedTemplateRaw))
+)
 
 type data struct {
 	Mode         string
