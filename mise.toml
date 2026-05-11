@@ -1,7 +1,3 @@
-[tools]
-# Must be kept in sync with GitHub Actions workflow @.github/workflows/lint.yml
-golangci-lint = '2.11'
-
 [env]
 GOFLAGS = '-mod=mod'
 
@@ -42,4 +38,4 @@ run = '{{ config_root }}/bin/generate-test-data'
 
 [tasks.'txtar']
 depends = ['gen']
-run = ['go generate ./...', 'UPDATE_SCRIPTS=0 mise run test:bin']
+run = ['go generate ./...', 'UPDATE_SCRIPTS=1 mise run test:bin']

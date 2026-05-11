@@ -68,8 +68,9 @@ type rawData struct {
 }
 
 type data struct {
-	Mode string
 	rawData
+
+	Mode string
 }
 
 func (d data) Name() string {
