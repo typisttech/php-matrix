@@ -36,7 +36,7 @@ jobs:
       - run: ./bin/generate-data
       - run: ./bin/generate-test-data
 
-      - uses: typisttech/create-auto-merged-pull-request-action@d21095afcd351570a2cb2b794301c65f26decfa6 # v0.2.2
+      - uses: typisttech/create-auto-merged-pull-request-action@22b38db196d8c7945e1580e3b10a92651fb73b07 # v0.2.4
         with:
           client-id: ${{ vars.TASTENDRUCK_CLIENT_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
