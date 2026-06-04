@@ -1,6 +1,6 @@
 module github.com/typisttech/php-matrix
 
-go 1.26.3
+go 1.26.4
 
 require github.com/rogpeppe/go-internal v1.15.0
 
