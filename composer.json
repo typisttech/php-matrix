@@ -36,6 +36,7 @@
     "symfony/polyfill-iconv": "^1.33"
   },
   "require-dev": {
+    "laravel/pao": "^1.1",
     "mockery/mockery": "^1.6",
     "pestphp/pest": "^4.1",
     "phpstan/extension-installer": "^1.4",
