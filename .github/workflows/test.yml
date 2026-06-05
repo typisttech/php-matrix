@@ -19,7 +19,7 @@ permissions:
   contents: read
 
 jobs:
-  pest:
+  unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -32,7 +32,7 @@ jobs:
           coverage: xdebug
       - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
 
-      - run: composer pest:unit -- --coverage-clover coverage-unit.xml --ci
+      - run: composer test:unit -- --coverage-clover coverage-unit.xml --ci
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -41,7 +41,7 @@ jobs:
           if-no-files-found: error
 
   codecov:
-    needs: pest
+    needs: unit
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -202,7 +202,7 @@ jobs:
   dispatch:
     if: github.event_name == 'push' && github.ref_type == 'tag'
     needs:
-      - pest
+      - unit
       - e2e
     permissions:
       actions: write
