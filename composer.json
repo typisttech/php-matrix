@@ -65,12 +65,8 @@
     "sort-packages": true
   },
   "scripts": {
-    "lint": [
-      "box validate",
-      "@composer normalize --dry-run",
-      "phpstan analyse"
-    ],
-    "pest": "pest",
-    "pest:unit": "pest --group=unit"
+    "lint": "phpstan analyse",
+    "test": "pest",
+    "test:unit": "pest --group=unit"
   }
 }
