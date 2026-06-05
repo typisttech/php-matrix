@@ -7,6 +7,7 @@ namespace TypistTech\PhpMatrix\Console;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TypistTech\PhpMatrix\Composer;
@@ -25,10 +26,10 @@ class ComposerCommand extends Command
         Application $application,
         #[Argument(description: 'Path to composer.json file.')]
         string $path = './composer.json',
-        #[SourceOption]
-        string $source = Source::Auto->value,
-        #[ModeOption]
-        string $mode = Mode::MinorOnly->value,
+        #[Option(description: Source::DESCRIPTION)]
+        Source $source = Source::Auto,
+        #[Option(description: Mode::DESCRIPTION)]
+        Mode $mode = Mode::MinorOnly,
     ): int {
         try {
             $composer = Composer::fromFile($path);
