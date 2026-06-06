@@ -14,36 +14,18 @@ enum Mode: string
     case Full = 'full';
     case MinorOnly = 'minor-only';
 
-    use FromNameTrait;
+    public const string DESCRIPTION = <<<'DESCRIPTION'
+        Available modes:
+        - <comment>full</comment>: Report all satisfying versions in MAJOR.MINOR.PATCH format
+        - <comment>minor-only</comment>: Report MAJOR.MINOR versions only
 
-    public const string NAME = 'mode';
+        DESCRIPTION;
 
     public function matrix(ReleasesInterface $releases): MatrixInterface
     {
         return match ($this) {
             self::Full => new Matrix($releases),
             self::MinorOnly => new MinorOnlyMatrix($releases),
-        };
-    }
-
-    public static function description(): string
-    {
-        $desc = 'Available modes:'.PHP_EOL;
-
-        foreach (self::cases() as $mode) {
-            $desc .= "- <comment>{$mode->value}</comment>: {$mode->explanation()}".PHP_EOL;
-        }
-
-        $desc .= PHP_EOL;
-
-        return $desc;
-    }
-
-    private function explanation(): string
-    {
-        return match ($this) {
-            self::Full => 'Report all satisfying versions in MAJOR.MINOR.PATCH format',
-            self::MinorOnly => 'Report MAJOR.MINOR versions only',
         };
     }
 }

@@ -6,6 +6,7 @@ namespace TypistTech\PhpMatrix\Console;
 
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TypistTech\PhpMatrix\Exceptions\ExceptionInterface;
@@ -30,16 +31,13 @@ class ConstraintCommand extends Command
         SymfonyStyle $io,
         #[Argument(description: 'The version constraint.')]
         string $constraint,
-        #[SourceOption]
-        string $source = Source::Auto->value,
-        #[ModeOption]
-        string $mode = Mode::MinorOnly->value,
+        #[Option(description: Source::DESCRIPTION)]
+        Source $source = Source::Auto,
+        #[Option(description: Mode::DESCRIPTION)]
+        Mode $mode = Mode::MinorOnly,
     ): int {
         try {
-            $matrix = $this->matrixFactory->make(
-                Source::fromValue($source),
-                Mode::fromValue($mode),
-            );
+            $matrix = $this->matrixFactory->make($source, $mode);
 
             $versions = $matrix->satisfiedBy($constraint);
             if ($versions === []) {

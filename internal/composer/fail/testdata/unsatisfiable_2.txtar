@@ -20,7 +20,7 @@ cmp stderr stderr.golden
 
 -- stderr.golden --
 
- [ERROR] No PHP versions could satisfy the constraint ">999".                                                           
+ [ERROR] No PHP versions could satisfy the constraint ">999".                                                          
 
 -- composer.json --
 {"require":{"php":">999"}}

@@ -4,9 +4,9 @@ cmp stderr stderr.golden
 
 -- stderr.golden --
 
-                                                                               
-  [ERROR] Invalid --source "bad". Available sources: [auto, php.net, offline]  
-                                                                               
+                                                                                                            
+  The value "bad" is not valid for the "source" option. Supported values are "auto", "php.net", "offline".  
+                                                                                                            
 
 constraint [--source SOURCE] [--mode MODE] [--] <constraint>
 

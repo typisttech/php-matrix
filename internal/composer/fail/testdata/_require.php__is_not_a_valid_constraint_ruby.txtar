@@ -20,8 +20,8 @@ cmp stderr stderr.golden
 
 -- stderr.golden --
 
- [ERROR] The "require.php" field is not a valid version constraint: Could not parse version constraint ~>1.0: Invalid   
-         operator "~>", you probably meant to use the "~" operator                                                      
+ [ERROR] The "require.php" field is not a valid version constraint: Could not parse version constraint ~>1.0: Invalid  
+         operator "~>", you probably meant to use the "~" operator                                                     
 
 -- composer.json --
 {"require":{"php":"~>1.0"}}

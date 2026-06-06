@@ -4,9 +4,9 @@ cmp stderr stderr.golden
 
 -- stderr.golden --
 
-                                                                     
-  [ERROR] Invalid --mode "bad". Available modes: [full, minor-only]  
-                                                                     
+                                                                                                  
+  The value "bad" is not valid for the "mode" option. Supported values are "full", "minor-only".  
+                                                                                                  
 
 composer [--source SOURCE] [--mode MODE] [--] [<path>]
 

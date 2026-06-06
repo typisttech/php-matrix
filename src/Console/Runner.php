@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
+use Symfony\Component\Console\ArgumentResolver\ArgumentResolver;
+
 class Runner
 {
     private const string NAME = 'PHP Matrix';
