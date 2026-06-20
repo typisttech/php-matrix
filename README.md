@@ -33,9 +33,7 @@
 
 ---
 
-## Usage
-
-### GitHub Actions
+## GitHub Actions Usage
 
 For generating PHP version matrix in GitHub Actions, use [PHP Matrix Action](https://github.com/marketplace/actions/php-matrix).
 
@@ -55,12 +53,12 @@ jobs:
     outputs:
       versions: ${{ steps.php-matrix.outputs.versions }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: composer.json
           sparse-checkout-cone-mode: false
 
-      - uses: typisttech/php-matrix-action@v2
+      - uses: typisttech/php-matrix-action@v3
         id: php-matrix
 
   test:
@@ -70,14 +68,17 @@ jobs:
       matrix:
         php-version: ${{ fromJSON(needs.php-matrix.outputs.versions) }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
       - run: composer install
       - run: composer test
 ```
+
 </details>
+
+## CLI Usage
 
 ### List PHP versions that satisfy the required PHP constraint in `composer.json`
 
@@ -274,71 +275,49 @@ Read more at https://docs.brew.sh/Shell-Completion
 
 ### Homebrew (macOS / Linux) (Recommended)
 
-```sh
-brew tap typisttech/tap
+```bash
 brew install typisttech/tap/php-matrix
 ```
 
-### `apt-get` (Debian based distributions, for example: Ubuntu)
+### Linux (Debian & Alpine)
 
-```sh
-curl -1sLf 'https://dl.cloudsmith.io/public/typisttech/oss/setup.deb.sh' | sudo -E bash
-sudo apt-get install php-matrix
-```
+Follow the instructions on https://broadcasts.cloudsmith.com/typisttech/oss
 
-Instead of the automatic setup script, you can manually configure the repository with the instructions on [Cloudsmith](https://cloudsmith.io/~typisttech/repos/oss/setup/#formats-deb).
+![Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square&link=https%3A%2F%2Fcloudsmith.com)
 
-### Manual `.deb` (Debian based distributions, for example: Ubuntu)
+Package repository hosting is graciously provided by [Cloudsmith](https://cloudsmith.com).
+Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
+enables your organization to create, store and share packages in any format, to any place, with total
+confidence.
 
-> [!WARNING]
-> If you install the `.deb` file manually, you have to take care of updating it by yourself.
-
-Download the latest `.deb` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/):
-
-```sh
-# Both arm64 (aarch64) and amd64 (x86_64) architectures are available.
-gh release download --repo 'typisttech/php-matrix' --pattern 'php-matrix_linux_arm64.deb'
-```
-
-**Optionally**, verify the `.deb` file:
-
-```sh
-gh attestation verify --repo 'typisttech/php-matrix' 'php-matrix_linux_arm64.deb'
-```
-
-Finally, install the package:
-
-```sh
-sudo dpkg -i php-matrix_linux_arm64.deb
-```
-
-## Manual Binary
+### Pre-built `.deb` & `.apk`
 
 > [!WARNING]
-> If you install the binary manually, you have to take care of updating it by yourself.
+> If you install the `.deb` or `.apk` file manually, you have to updating them manually.
 
-Download the latest `.tar.gz` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/):
+Download the latest `.deb` or `.apk` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/).
 
-```sh
-# Both darwin (macOS) and linux operating systems are available.
-# Both arm64 (aarch64) and amd64 (x86_64) architectures are available.
-gh release download --repo 'typisttech/php-matrix' --pattern 'php-matrix_darwin_arm64.tar.gz'
-```
+Then, install it via `dpkg -install` or `apk add`.
 
-**Optionally**, verify the `.tar.gz` file:
+### Pre-built Binaries
 
-```sh
-gh attestation verify --repo 'typisttech/php-matrix' 'php-matrix_darwin_arm64.tar.gz'
-```
+> [!WARNING]
+> If you install the binaries manually, you have to updating them manually.
 
-Finally, unarchive and move the binary into `$PATH`:
+Download the latest `.tar.gz` file from [GitHub Releases](https://github.com/typisttech/php-matrix/releases/latest), or via [`gh`](https://cli.github.com/).
 
-```sh
-tar -xvf 'php-matrix_darwin_arm64.tar.gz'
+Then, unarchive and move the binary into `$PATH`.
 
-# Or, move it to any directory under `$PATH`
-mv php-matrix /usr/local/bin
-```
+## People Also Use
+
+- [PHP Matrix Action](https://github.com/typisttech/php-matrix-action)
+  Generate PHP version matrix according to `composer.json` for GitHub Actions
+- [Composer Audit to SARIF Action](https://github.com/typisttech/composer-audit-to-sarif-action)
+  Convert Composer audit reports to SARIF files in GitHub Actions
+- [WP Sec Adv](https://github.com/typisttech/wpsecadv)
+  Composer repository for WordPress security advisories
+- [WP Org Closed Plugin](https://github.com/typisttech/wp-org-closed-plugin)
+  Composer plugin to mark packages as abandoned if closed on WordPress.org
 
 ## Credits
 
