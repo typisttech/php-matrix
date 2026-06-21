@@ -53,9 +53,7 @@ describe(MinorOnlyMatrix::class, static function (): void {
 
         it('returns satisfying versions', function (string $constraint, array $allReleases, array $expected): void {
             $releases = Mockery::mock(ReleasesInterface::class);
-            $releases->expects()
-                ->all()
-                ->andReturn($allReleases);
+            $releases->expects()->all()->andReturn($allReleases);
 
             $matrix = new MinorOnlyMatrix($releases);
 

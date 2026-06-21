@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected const string DATA_DIR = __DIR__.'/data';
+    protected const string DATA_DIR = __DIR__ . '/data';
 
-    protected const string ALL_VERSIONS_FILE = __DIR__.'/../data/all-versions.json';
+    protected const string ALL_VERSIONS_FILE = __DIR__ . '/../data/all-versions.json';
 
     protected const array RELEASES_JSONS = [
-        self::DATA_DIR.'/versions/v5.json',
-        self::DATA_DIR.'/versions/v7.json',
-        self::DATA_DIR.'/versions/v8.json',
+        self::DATA_DIR . '/versions/v5.json',
+        self::DATA_DIR . '/versions/v7.json',
+        self::DATA_DIR . '/versions/v8.json',
     ];
 
     /**

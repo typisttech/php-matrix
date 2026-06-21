@@ -11,14 +11,14 @@ covers(OfflineReleases::class);
 
 describe(OfflineReleases::class, static function (): void {
     it('implements ReleasesInterface', function () {
-        $releases = new OfflineReleases;
+        $releases = new OfflineReleases();
 
         expect($releases)->toBeInstanceOf(ReleasesInterface::class);
     });
 
     describe('::all()', static function (): void {
         it('fetches all versions', function () {
-            $releases = new OfflineReleases;
+            $releases = new OfflineReleases();
 
             $actual = $releases->all();
 

@@ -61,7 +61,8 @@ describe(Composer::class, static function (): void {
             $composer = Composer::fromFile($this->tempFile);
 
             $composer->requiredPhpConstraint();
-        })->throws(UnexpectedValueException::class)
+        })
+            ->throws(UnexpectedValueException::class)
             ->with([
                 // No "require.php" is set.
                 '{"require":{"some/package":"^1.0"}}',

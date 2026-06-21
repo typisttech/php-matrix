@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Releases;
 
+use Override;
 use TypistTech\PhpMatrix\Exceptions\RuntimeException;
 
 class OfflineReleases implements ReleasesInterface
 {
-    private const string ALL_VERSIONS_FILE = __DIR__.'/../../data/all-versions.json';
+    private const string ALL_VERSIONS_FILE = __DIR__ . '/../../data/all-versions.json';
 
     /**
      * @return string[]
      */
+    #[Override]
     public function all(): array
     {
         $content = file_get_contents(self::ALL_VERSIONS_FILE);

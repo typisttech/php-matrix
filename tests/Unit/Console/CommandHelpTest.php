@@ -14,16 +14,18 @@ covers(Source::class);
 covers(Mode::class);
 
 it('renders the source & mode descriptions as option help', function (string $commandName): void {
-    $application = new Application;
+    $application = new Application();
     $application->addCommands([
-        new ComposerCommand,
-        new ConstraintCommand,
+        new ComposerCommand(),
+        new ConstraintCommand(),
     ]);
 
     $definition = $application->get($commandName)->getDefinition();
 
-    expect($definition->getOption('source')->getDescription())->toBe(Source::DESCRIPTION)
-        ->and($definition->getOption('mode')->getDescription())->toBe(Mode::DESCRIPTION);
+    expect($definition->getOption('source')->getDescription())
+        ->toBe(Source::DESCRIPTION)
+        ->and($definition->getOption('mode')->getDescription())
+        ->toBe(Mode::DESCRIPTION);
 })->with([
     'composer',
     'constraint',

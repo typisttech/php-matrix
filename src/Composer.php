@@ -13,21 +13,15 @@ readonly class Composer
 {
     public static function fromFile(string $path): self
     {
-        if (! is_readable($path)) {
-            $message = sprintf(
-                'The file is not readable or does not exist at path "%s".',
-                $path,
-            );
+        if (!is_readable($path)) {
+            $message = sprintf('The file is not readable or does not exist at path "%s".', $path);
             throw new InvalidArgumentException($message);
         }
 
         $content = (string) file_get_contents($path);
 
-        if (! json_validate($content)) {
-            $message = sprintf(
-                'The file is not a valid JSON at path "%s".',
-                $path,
-            );
+        if (!json_validate($content)) {
+            $message = sprintf('The file is not a valid JSON at path "%s".', $path);
             throw new JsonException($message);
         }
 
@@ -42,28 +36,27 @@ readonly class Composer
      */
     private function __construct(
         private array $data,
-        private VersionParser $versionParser = new VersionParser,
+        private VersionParser $versionParser = new VersionParser(),
     ) {}
 
     public function requiredPhpConstraint(): string
     {
+        /** @var mixed $require */
         $require = $this->data['require'] ?? [];
-        if (! is_array($require)) {
+        if (!is_array($require)) {
             $require = [];
         }
+        /** @var mixed $constraint */
         $constraint = $require['php'] ?? null;
 
-        if (! is_string($constraint)) {
+        if (!is_string($constraint)) {
             throw new UnexpectedValueException('The "require.php" field is not set or not a string.');
         }
 
         try {
             $this->versionParser->parseConstraints($constraint);
         } catch (\UnexpectedValueException $e) {
-            $message = sprintf(
-                'The "require.php" field is not a valid version constraint: %s',
-                $e->getMessage(),
-            );
+            $message = sprintf('The "require.php" field is not a valid version constraint: %s', $e->getMessage());
             throw new UnexpectedValueException($message, previous: $e);
         }
 

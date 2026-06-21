@@ -11,8 +11,14 @@ mise run test:bin
 mise run txtar
 
 # Run linters
+mago analyze
+mago lint
 composer phpstan -- analyse
+mago format --check
 
-# Fix linting issues
-composer phpstan -- analyse --fix --quiet || true
+# Format & fix linting issues
+mago analyze --fix
+mago lint --fix
+composer phpstan -- analyse --fix
+mago format
 ```

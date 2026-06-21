@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TypistTech\PhpMatrix\Console;
 
-use Symfony\Component\Console\ArgumentResolver\ArgumentResolver;
-
 class Runner
 {
     private const string NAME = 'PHP Matrix';
@@ -17,8 +15,8 @@ class Runner
         $app = new Application(self::NAME, self::GIT_TAG);
 
         $app->addCommands([
-            new ComposerCommand,
-            new ConstraintCommand,
+            new ComposerCommand(),
+            new ConstraintCommand(),
         ]);
 
         return $app->run();

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Matrices;
 
 use Mockery;
-use Throwable;
 use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException;
 use TypistTech\PhpMatrix\Matrices\Matrix;
 use TypistTech\PhpMatrix\Matrices\MatrixInterface;
@@ -60,9 +59,7 @@ describe(Matrix::class, static function (): void {
         it('returns satisfying versions', function (string $constraint, array $allReleases, array $expected) {
             $releases = Mockery::mock(ReleasesInterface::class);
 
-            $releases->expects()
-                ->all()
-                ->andReturn($allReleases);
+            $releases->expects()->all()->andReturn($allReleases);
 
             $matrix = new Matrix($releases);
 
@@ -74,9 +71,7 @@ describe(Matrix::class, static function (): void {
         it('throws on invalid constraint', function () {
             $releases = Mockery::mock(ReleasesInterface::class);
 
-            $releases->allows()
-                ->all()
-                ->andReturn(['1.0.0', '2.0.0']);
+            $releases->allows()->all()->andReturn(['1.0.0', '2.0.0']);
 
             $matrix = new Matrix($releases);
 
@@ -86,18 +81,11 @@ describe(Matrix::class, static function (): void {
         it('does not invoke ReleasesInterface::all() when invalid constraint', function () {
             $releases = Mockery::mock(ReleasesInterface::class);
 
-            $releases->expects()
-                ->all()
-                ->withAnyArgs()
-                ->never();
+            $releases->expects()->all()->withAnyArgs()->never();
 
             $matrix = new Matrix($releases);
 
-            try {
-                $matrix->satisfiedBy('invalid constraint');
-            } catch (Throwable $e) {
-                // No-op.
-            }
+            expect(fn() => $matrix->satisfiedBy('invalid constraint'))->toThrow(UnexpectedValueException::class);
         });
     });
 });
