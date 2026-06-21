@@ -2,7 +2,7 @@
 
 ```bash
 # Run PHP tests
-composer test
+composer pest
 # Run integration tests
 mise run test:bin
 
@@ -11,5 +11,8 @@ mise run test:bin
 mise run txtar
 
 # Run linters
-composer lint
+composer phpstan -- analyse
+
+# Fix linting issues
+composer phpstan -- analyse --fix --quiet || true
 ```
