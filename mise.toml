@@ -1,14 +1,11 @@
 [env]
 GOFLAGS = '-mod=mod'
 
-[tasks.vendor]
-run = [
-  'composer install --no-dev --prefer-dist',
-  'composer reinstall --prefer-dist "*"',
-]
+[tools]
+mago = "1.30" # Must be kept in sync with @.github/workflows/lint.yml
 
 [tasks.phar]
-depends = ['vendor']
+depends = ['vendor:no-dev']
 run = [
   'box compile',
   'box verify phar/php-matrix',
@@ -18,7 +15,7 @@ run = [
 
 [tasks.'test:bin']
 env.PATH = '{{ config_root }}/bin:{{ env.PATH }}'
-depends = [{ task = 'vendor' }]
+depends = [{ task = 'vendor:no-dev' }]
 run = 'go test -count=1 -shuffle=on ./...'
 
 [tasks.'test:phar']
@@ -30,7 +27,7 @@ run = 'go test -count=1 -shuffle=on ./...'
 depends = ['gen:test-data', 'gen:data']
 
 [tasks.'gen:data']
-depends = ['vendor']
+depends = ['vendor:no-dev']
 run = '{{ config_root }}/bin/generate-data'
 
 [tasks.'gen:test-data']
@@ -39,3 +36,29 @@ run = '{{ config_root }}/bin/generate-test-data'
 [tasks.'txtar']
 depends = ['gen']
 run = ['go generate ./...', 'UPDATE_SCRIPTS=1 mise run test:bin']
+
+[tasks.'lint']
+depends = ['vendor']
+run = [
+  'mago analyze',
+  'mago lint',
+  'composer phpstan -- analyse',
+  'mago format --check',
+  'mise fmt --check',
+]
+
+[tasks.'fix']
+depends = ['vendor']
+run = [
+  'mago analyze --fix',
+  'mago lint --fix',
+  'composer phpstan -- analyse --fix --quiet || true',
+  'mago format',
+  'mise fmt',
+]
+
+[tasks."vendor"]
+run = 'composer install --prefer-dist'
+
+[tasks."vendor:no-dev"]
+run = 'composer install --no-dev --prefer-dist'

@@ -2,7 +2,7 @@
 
 ```bash
 # Run PHP tests
-composer test
+composer pest
 # Run integration tests
 mise run test:bin
 
@@ -11,5 +11,14 @@ mise run test:bin
 mise run txtar
 
 # Run linters
-composer lint
+mago analyze
+mago lint
+composer phpstan -- analyse
+mago format --check
+
+# Format & fix linting issues
+mago analyze --fix
+mago lint --fix
+composer phpstan -- analyse --fix
+mago format
 ```

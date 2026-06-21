@@ -7,6 +7,7 @@ namespace TypistTech\PhpMatrix\Releases;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\Utils;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 
 class PhpNetReleases implements ReleasesInterface
@@ -17,12 +18,13 @@ class PhpNetReleases implements ReleasesInterface
     private const array MAJORS = [5, 7, 8];
 
     public function __construct(
-        private readonly ClientInterface $http = new GuzzleHttpClient,
+        private readonly ClientInterface $http = new GuzzleHttpClient(),
     ) {}
 
     /**
      * @return string[]
      */
+    #[Override]
     public function all(): array
     {
         $promises = [];
@@ -44,10 +46,9 @@ class PhpNetReleases implements ReleasesInterface
          */
         $responses = Utils::unwrap($promises);
 
-        $contents = array_map(
-            static fn (ResponseInterface $response) => $response->getBody()->getContents(),
-            $responses,
-        );
+        $contents = array_map(static fn(ResponseInterface $response) => $response
+            ->getBody()
+            ->getContents(), $responses);
 
         $releases = [];
         foreach ($contents as $content) {
@@ -59,7 +60,7 @@ class PhpNetReleases implements ReleasesInterface
 
         $releases = array_merge(...$releases);
         $releases = array_filter($releases, 'is_string');
-        $releases = array_filter($releases, static fn (string $release) => $release !== '');
+        $releases = array_filter($releases, static fn(string $release) => $release !== '');
         $releases = array_unique($releases);
 
         return array_values($releases);

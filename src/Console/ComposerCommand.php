@@ -41,10 +41,7 @@ class ComposerCommand extends Command
 
             return $constraintCommand->__invoke($io, $constraint, $source, $mode);
         } catch (ExceptionInterface $e) {
-            $this->printError(
-                $io,
-                $e->getMessage()
-            );
+            $this->printError($io, $e->getMessage());
 
             return Command::FAILURE;
         }

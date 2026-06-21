@@ -26,14 +26,14 @@ enum Source: string
     {
         if ($this === self::Auto) {
             return match ($mode) {
-                Mode::Full => new PhpNetReleases,
-                Mode::MinorOnly => new OfflineReleases,
+                Mode::Full => new PhpNetReleases(),
+                Mode::MinorOnly => new OfflineReleases(),
             };
         }
 
         return match ($this) {
-            self::PhpNet => new PhpNetReleases,
-            self::Offline => new OfflineReleases,
+            self::PhpNet => new PhpNetReleases(),
+            self::Offline => new OfflineReleases(),
         };
     }
 }

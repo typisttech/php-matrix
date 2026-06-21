@@ -20,19 +20,4 @@ readonly class Versions
 
         return Semver::sort($versions);
     }
-
-    public static function lowest(string ...$versions): string
-    {
-        $sorted = self::sort(...$versions);
-
-        return $sorted[0];
-    }
-
-    public static function highest(string ...$versions): string
-    {
-        $sorted = self::sort(...$versions);
-
-        // @phpstan-ignore offsetAccess.invalidOffset
-        return $sorted[array_key_last($sorted)];
-    }
 }
