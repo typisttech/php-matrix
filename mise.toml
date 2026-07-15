@@ -2,7 +2,7 @@
 GOFLAGS = '-mod=mod'
 
 [tools]
-mago = "1.30" # Must be kept in sync with @.github/workflows/lint.yml
+mago = "1.42" # Must be kept in sync with @.github/workflows/lint.yml
 
 [tasks.phar]
 depends = ['vendor:no-dev']
