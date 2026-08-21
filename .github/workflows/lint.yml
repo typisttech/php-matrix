@@ -25,6 +25,7 @@ jobs:
     with:
       phpstan: true
       mago: true
+      version: '1.42'
       box: true
       box-php-version: '8.5'
       box-version: '4'
