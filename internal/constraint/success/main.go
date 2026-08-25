@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"slices"
 	"text/template"
 
 	"github.com/typisttech/php-matrix/internal"
@@ -74,8 +73,6 @@ func (d data) Write(f *os.File) error {
 }
 
 func appendCases(cases []data, mode string, constraints []string, fileTemplate *template.Template) []data {
-	cases = slices.Grow(cases, len(constraints))
-
 	for _, constraint := range constraints {
 		cases = append(cases, data{
 			Mode:         mode,
