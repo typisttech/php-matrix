@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"slices"
 	"text/template"
 
 	"github.com/typisttech/php-matrix/internal"
@@ -74,16 +75,18 @@ func main() {
 	cases := make([]data, 0, num)
 
 	for _, mode := range internal.Modes {
+		cases = slices.Grow(cases, len(rawCases))
+
 		for _, r := range rawCases {
 			cases = append(cases, data{
 				Mode:    mode,
 				rawData: r,
 			})
 		}
+	}
 
-		err := internal.Generate("constraint/fail", cases...)
-		if err != nil {
-			panic(err)
-		}
+	err := internal.Generate("constraint/fail", cases...)
+	if err != nil {
+		panic(err)
 	}
 }

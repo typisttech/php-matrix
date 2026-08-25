@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"slices"
 	"text/template"
 
 	"github.com/typisttech/php-matrix/internal"
@@ -77,26 +78,27 @@ func (d data) Write(f *os.File) error {
 	return d.fileTemplate.Execute(f, d)
 }
 
+func appendCases(cases []data, mode string, constraints []string, fileTemplate *template.Template) []data {
+	cases = slices.Grow(cases, len(constraints))
+
+	for _, constraint := range constraints {
+		cases = append(cases, data{
+			Mode:         mode,
+			Constraint:   constraint,
+			fileTemplate: fileTemplate,
+		})
+	}
+
+	return cases
+}
+
 func main() {
 	num := len(internal.Modes) * (len(internal.EOLConstraints) + len(internal.SupportedConstraints))
 	cases := make([]data, 0, num)
 
 	for _, mode := range internal.Modes {
-		for _, constraint := range internal.EOLConstraints {
-			cases = append(cases, data{
-				Mode:         mode,
-				Constraint:   constraint,
-				fileTemplate: eolFileTemplate,
-			})
-		}
-
-		for _, constraint := range internal.SupportedConstraints {
-			cases = append(cases, data{
-				Mode:         mode,
-				Constraint:   constraint,
-				fileTemplate: supportedFileTemplate,
-			})
-		}
+		cases = appendCases(cases, mode, internal.EOLConstraints, eolFileTemplate)
+		cases = appendCases(cases, mode, internal.SupportedConstraints, supportedFileTemplate)
 	}
 
 	err := internal.Generate("composer/success", cases...)
