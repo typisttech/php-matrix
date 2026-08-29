@@ -1,28 +1,28 @@
 {
-  "8.5.9": {
+  "8.5.10": {
     "announcement": true,
     "tags": [
-      "security"
+      ""
     ],
-    "date": "30 Jul 2026",
+    "date": "27 Aug 2026",
     "source": [
       {
-        "filename": "php-8.5.9.tar.gz",
-        "name": "PHP 8.5.9 (tar.gz)",
-        "sha256": "d735459c2cbaeb0673d416c33d372d9ff261d562f6b29da48f3e6aeaeca083af",
-        "date": "30 Jul 2026"
+        "filename": "php-8.5.10.tar.gz",
+        "name": "PHP 8.5.10 (tar.gz)",
+        "sha256": "f5c0ac99b85b3d677de475c2e4f509f9b4f54663f3ee5a84d6d9481a521d4100",
+        "date": "27 Aug 2026"
       },
       {
-        "filename": "php-8.5.9.tar.bz2",
-        "name": "PHP 8.5.9 (tar.bz2)",
-        "sha256": "703c082ad9d2946ac647f3596812300d2c62b360d2f31a999021692a9b39476c",
-        "date": "30 Jul 2026"
+        "filename": "php-8.5.10.tar.bz2",
+        "name": "PHP 8.5.10 (tar.bz2)",
+        "sha256": "d79bd4f3a9248e5cb5833766ba0d51cd35dd01b8727f23f30bcdba6fabc51d3e",
+        "date": "27 Aug 2026"
       },
       {
-        "filename": "php-8.5.9.tar.xz",
-        "name": "PHP 8.5.9 (tar.xz)",
-        "sha256": "0db7855f25bcd0ab1d592cdb35e284d6f6a5d2ae0f6f621122e364cc39b708f4",
-        "date": "30 Jul 2026"
+        "filename": "php-8.5.10.tar.xz",
+        "name": "PHP 8.5.10 (tar.xz)",
+        "sha256": "6a8bebaa4d5a979a38db29a9373e9851f60c6b11f72172c585947e78f3081957",
+        "date": "27 Aug 2026"
       }
     ]
   },
@@ -106,6 +106,36 @@
         "date": "30 Jul 2026"
       }
     ]
+  },
+  "8.5.9": {
+    "announcement": {
+      "English": "/releases/8_5_9.php"
+    },
+    "tags": [
+      "security"
+    ],
+    "date": "30 Jul 2026",
+    "source": [
+      {
+        "filename": "php-8.5.9.tar.gz",
+        "name": "PHP 8.5.9 (tar.gz)",
+        "sha256": "d735459c2cbaeb0673d416c33d372d9ff261d562f6b29da48f3e6aeaeca083af",
+        "date": "30 Jul 2026"
+      },
+      {
+        "filename": "php-8.5.9.tar.bz2",
+        "name": "PHP 8.5.9 (tar.bz2)",
+        "sha256": "703c082ad9d2946ac647f3596812300d2c62b360d2f31a999021692a9b39476c",
+        "date": "30 Jul 2026"
+      },
+      {
+        "filename": "php-8.5.9.tar.xz",
+        "name": "PHP 8.5.9 (tar.xz)",
+        "sha256": "0db7855f25bcd0ab1d592cdb35e284d6f6a5d2ae0f6f621122e364cc39b708f4",
+        "date": "30 Jul 2026"
+      }
+    ],
+    "museum": false
   },
   "8.4.24": {
     "announcement": {
