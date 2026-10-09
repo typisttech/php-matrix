@@ -16,4 +16,4 @@ permissions:
 
 jobs:
   release-drafter:
-    uses: typisttech/.github/.github/workflows/release-drafter.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
+    uses: typisttech/.github/.github/workflows/release-drafter.yml@68b2ff84a9d7b58ee3943e697f76cd9a3a51f8cc
