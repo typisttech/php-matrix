@@ -18,7 +18,9 @@ permissions: {}
 jobs:
   actions:
     permissions:
+      security-events: write
       contents: read
+      actions: read
     uses: typisttech/.github/.github/workflows/lint-actions.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
 
   php:
@@ -34,9 +36,7 @@ jobs:
 
   go:
     permissions:
-      security-events: write
       contents: read
-      actions: read
     uses: typisttech/.github/.github/workflows/lint-go.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
     with:
       golangci-lint: true
