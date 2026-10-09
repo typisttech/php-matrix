@@ -16,6 +16,76 @@ concurrency:
 permissions: {}
 
 jobs:
+  composer-normalize-slim:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.5'
+          coverage: none
+          tools: "composer-normalize:2"
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: composer.json
+          sparse-checkout-cone-mode: false
+
+      - run: composer-normalize --dry-run
+
+  composer-normalize-26:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.5'
+          coverage: none
+          tools: "composer-normalize:2"
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: composer.json
+          sparse-checkout-cone-mode: false
+
+      - run: composer-normalize --dry-run
+
+  composer-normalize-slim-parallel:
+    runs-on: ubuntu-slim
+    steps:
+      - parallel:
+        - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+          with:
+            php-version: '8.5'
+            coverage: none
+            tools: "composer-normalize:2"
+
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+          with:
+            persist-credentials: false
+            sparse-checkout: composer.json
+            sparse-checkout-cone-mode: false
+
+      - run: composer-normalize --dry-run
+
+  composer-normalize-26-parallel:
+    runs-on: ubuntu-26.04
+    steps:
+      - parallel:
+        - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+          with:
+            php-version: '8.5'
+            coverage: none
+            tools: "composer-normalize:2"
+
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+          with:
+            persist-credentials: false
+            sparse-checkout: composer.json
+            sparse-checkout-cone-mode: false
+
+      - run: composer-normalize --dry-run
+
   actions:
     permissions:
       security-events: write
