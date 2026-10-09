@@ -13,14 +13,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   actions:
+    permissions:
+      contents: read
     uses: typisttech/.github/.github/workflows/lint-actions.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
 
   php:
+    permissions:
+      contents: read
     uses: typisttech/.github/.github/workflows/lint-php.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
     with:
       phpstan: true
@@ -30,6 +33,10 @@ jobs:
       box-version: '4'
 
   go:
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
     uses: typisttech/.github/.github/workflows/lint-go.yml@d16ec3549bdab47d10e9863e52ac148e5edd348e
     with:
       golangci-lint: true
