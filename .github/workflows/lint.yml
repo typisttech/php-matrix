@@ -18,10 +18,10 @@ permissions:
 
 jobs:
   actions:
-    uses: typisttech/.github/.github/workflows/lint-actions.yml@f421090f96b7e7a728b6286546e314d383b46e6e
+    uses: typisttech/.github/.github/workflows/lint-actions.yml@a6c5c9608df629d886e4201ffd20a2df71ed34e8
 
   php:
-    uses: typisttech/.github/.github/workflows/lint-php.yml@f421090f96b7e7a728b6286546e314d383b46e6e
+    uses: typisttech/.github/.github/workflows/lint-php.yml@a6c5c9608df629d886e4201ffd20a2df71ed34e8
     with:
       phpstan: true
       mago: true
@@ -30,7 +30,7 @@ jobs:
       box-version: '4'
 
   go:
-    uses: typisttech/.github/.github/workflows/lint-go.yml@f421090f96b7e7a728b6286546e314d383b46e6e
+    uses: typisttech/.github/.github/workflows/lint-go.yml@a6c5c9608df629d886e4201ffd20a2df71ed34e8
     with:
       golangci-lint: true
       golangci-lint-version-file: .tool-versions

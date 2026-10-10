@@ -28,7 +28,7 @@ jobs:
           php-version: '8.5'
           coverage: none
 
-      - uses: typisttech/.github/.github/actions/composer-install@f421090f96b7e7a728b6286546e314d383b46e6e
+      - uses: typisttech/.github/.github/actions/composer-install@a6c5c9608df629d886e4201ffd20a2df71ed34e8
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
