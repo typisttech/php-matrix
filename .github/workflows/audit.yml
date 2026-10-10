@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   php:
-    uses: typisttech/.github/.github/workflows/audit-php.yml@f5f58e1acfcb05820612eb7edc25ed0eeabc625d # v6.2.0
+    uses: typisttech/.github/.github/workflows/audit-php.yml@d8e6912bb9b5b5050af3dc7fe18bafc68cac626c
 
   go:
-    uses: typisttech/.github/.github/workflows/audit-go.yml@f5f58e1acfcb05820612eb7edc25ed0eeabc625d # v6.2.0
+    uses: typisttech/.github/.github/workflows/audit-go.yml@d8e6912bb9b5b5050af3dc7fe18bafc68cac626c

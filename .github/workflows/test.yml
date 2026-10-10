@@ -30,7 +30,8 @@ jobs:
         with:
           php-version: '8.5'
           coverage: xdebug
-      - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+
+      - uses: typisttech/.github/.github/actions/composer-install@d8e6912bb9b5b5050af3dc7fe18bafc68cac626c
 
       - run: composer pest -- --group=unit --coverage-clover coverage-unit.xml --ci
 
@@ -79,7 +80,8 @@ jobs:
           php-version: '8.5'
           coverage: none
           tools: box:4
-      - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+
+      - uses: typisttech/.github/.github/actions/composer-install@d8e6912bb9b5b5050af3dc7fe18bafc68cac626c
         with:
           composer-options: --no-dev --prefer-dist
 
