@@ -34,7 +34,7 @@ jobs:
 
       - run: composer pest -- --group=unit --coverage-clover coverage-unit.xml --ci
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           path: coverage-unit.xml
           archive: false
@@ -85,7 +85,7 @@ jobs:
 
       - run: box compile
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           path: phar/php-matrix
           archive: false
@@ -155,7 +155,7 @@ jobs:
       - run: mkdir -p out
       - run: spc micro:combine phar/php-matrix --output out/php-matrix
 
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: php-matrix_${{ matrix.variant }}
           path: out/php-matrix
