@@ -1,18 +1,17 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: 'ID of the CI workflow run that created the release assets'
-        type: number
-        required: true
+  push:
+    tags:
+      - "*"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions: {}
+
+cache-mode: none
 
 jobs:
   release-drafter:
