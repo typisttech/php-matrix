@@ -195,7 +195,6 @@ jobs:
       - build
     permissions:
       contents: read
-    cache-mode: ${{ github.ref_type == 'tag' && 'none' || 'write' }}
     strategy:
       matrix: *matrix
     runs-on: ${{ matrix.runs-on }}
