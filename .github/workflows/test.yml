@@ -213,7 +213,7 @@ jobs:
       - wait: download-artifact
 
       - name: Grant the binary execute permission
-        run: chmod +x "${BIN_PATH}/php-matrix"
+        run: chmod +x "${BIN_DIR}/php-matrix"
         env:
           BIN_DIR: ${{ runner.temp }}/bin
 
