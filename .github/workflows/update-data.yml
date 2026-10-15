@@ -14,10 +14,13 @@ concurrency:
 
 permissions: {}
 
+cache-mode: none
+
 jobs:
   update-data:
     permissions:
       contents: read
+    cache-mode: none
     runs-on: ubuntu-26.04
     steps:
       - parallel:

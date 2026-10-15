@@ -76,7 +76,6 @@ jobs:
   phar:
     permissions:
       contents: read
-      id-token: write
     runs-on: ubuntu-26.04
     outputs:
       php-version: ${{ steps.setup-php.outputs.php-version }}
