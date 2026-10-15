@@ -115,10 +115,10 @@ jobs:
     strategy:
       matrix: &matrix
         include:
-          - runs-on: ubuntu-24.04-arm
+          - runs-on: ubuntu-26.04-arm
             variant: linux_arm64
             spc-variant: linux-aarch64
-          - runs-on: ubuntu-24.04
+          - runs-on: ubuntu-26.04
             variant: linux_amd64
             spc-variant: linux-x86_64
           - runs-on: macos-15
@@ -134,9 +134,13 @@ jobs:
       - parallel:
         - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
           with:
+            persist-credentials: false
             sparse-checkout: craft.yml
             sparse-checkout-cone-mode: false
 
+        # TODO: Refactor to single step
+        # TODO: Add spc version into cache key
+        # TODO: Skip caching for tag pushes
         - name: Install spc
           run: |
             gh release download --repo crazywhalecc/static-php-cli --pattern "${PATTERN}" --output spc.tar.gz && \
@@ -197,17 +201,18 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
-        with:
-          go-version-file: 'go.mod'
+      # - run: echo OS="$(go env GOOS)" >> "$GITHUB_ENV"
+      # - run: echo ARCH="$(go env GOARCH)" >> "$GITHUB_ENV"
 
-      - run: echo OS="$(go env GOOS)" >> "$GITHUB_ENV"
-      - run: echo ARCH="$(go env GOARCH)" >> "$GITHUB_ENV"
+      - parallel:
+        - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+          with:
+            go-version-file: 'go.mod'
 
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          artifact-ids: ${{ needs.build.outputs.build-artifact-id }}
-          path: out
+        - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+          with:
+            artifact-ids: ${{ needs.build.outputs.build-artifact-id }}
+            path: out
 
       - name: Grant the binary execute permission
         run: chmod +x out/php-matrix
@@ -229,7 +234,7 @@ jobs:
   #     - e2e
   #   permissions:
   #     actions: write
-  #   runs-on: ubuntu-24.04
+  #   runs-on: ubuntu-26.04
   #   steps:
   #     - name: Dispatch Release Workflow
   #       run: |
