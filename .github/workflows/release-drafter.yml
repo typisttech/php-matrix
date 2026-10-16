@@ -3,6 +3,9 @@ name: Test DEBUG
 on:
   pull_request:
 
+permissions:
+  content: read
+
 jobs:
   test-omnit:
     runs-on: ubuntu-slim
@@ -12,6 +15,9 @@ jobs:
         with:
           script: |
             console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - name: foo ACTIONS_CACHE_MODE
+        uses: $/.github/actions/foo
 
       - name: Inspect cache mode
         run: |
@@ -26,6 +32,9 @@ jobs:
         with:
           script: |
             console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - name: foo ACTIONS_CACHE_MODE
+        uses: $/.github/actions/foo
 
       - name: Inspect cache mode
         run: |
