@@ -105,6 +105,8 @@ jobs:
           path: buildroot/bin/micro.sfx
           key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ env.SPC_VERSION }}-${{ env.PHP_VERSION }}-${{ hashFiles('craft.yml') }}
 
+      - run: ls -R buildroot/bin
+
       - name: Build micro.sfx
         if: steps.cache-micro-sfx.outputs.cache-hit != 'true'
         run: spc craft
