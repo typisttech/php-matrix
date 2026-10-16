@@ -1,20 +1,46 @@
-name: Release Drafter
+name: Test DEBUG
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
-permissions: {}
+  pull_request:
 
 jobs:
-  release-drafter:
-    permissions:
-      contents: write
-      pull-requests: read
-    uses: typisttech/.github/.github/workflows/release-drafter.yml@51e7a334c027d04864092d8b5469d1ccc5dcfcb6 # v9.0.1
+  test-omnit:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Print ACTIONS_CACHE_MODE
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - name: Inspect cache mode
+        run: |
+          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
+
+  test-none:
+    cache-mode: none
+    runs-on: ubuntu-slim
+    steps:
+      - name: Print ACTIONS_CACHE_MODE
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - name: Inspect cache mode
+        run: |
+          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
+
+  test-wo:
+    cache-mode: write-only
+    runs-on: ubuntu-slim
+    steps:
+      - name: Print ACTIONS_CACHE_MODE
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - name: Inspect cache mode
+        run: |
+          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
