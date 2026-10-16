@@ -43,6 +43,7 @@ jobs:
             FOO: ${{ job.cache-mode }}
 
         - run: printenv
+        - run: env
 
   cache-mode-read:
     permissions:
@@ -72,6 +73,7 @@ jobs:
             FOO: ${{ job.cache-mode }}
 
         - run: printenv
+        - run: env
 
   cache-mode-none:
     permissions:
@@ -101,6 +103,7 @@ jobs:
             FOO: ${{ job.cache-mode }}
 
         - run: printenv
+        - run: env
 
   cache-mode-write:
     permissions:
@@ -130,6 +133,7 @@ jobs:
             FOO: ${{ job.cache-mode }}
 
         - run: printenv
+        - run: env
 
   cache-mode-write-only:
     permissions:
@@ -159,6 +163,7 @@ jobs:
             FOO: ${{ job.cache-mode }}
 
         - run: printenv
+        - run: env
 
   unit:
     permissions:
