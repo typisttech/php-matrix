@@ -41,7 +41,8 @@ jobs:
           script: |
             console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
 
-      - uses: $/.github/actions/foo
+      - name: foo ACTIONS_CACHE_MODE
+        uses: $/.github/actions/foo
 
       - name: Inspect cache mode
         run: |
