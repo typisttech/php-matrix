@@ -33,30 +33,16 @@ jobs:
             php-version: '8.5'
             coverage: xdebug
 
-        - name: Dump GitHub Actions contexts
+        - name: Dump contexts
           env:
-            GITHUB_CONTEXT: ${{ toJSON(github) }}
-            JOB_CONTEXT: ${{ toJSON(job) }}
-            RUNNER_CONTEXT: ${{ toJSON(runner) }}
-            STEPS_CONTEXT: ${{ toJSON(steps) }}
-            NEEDS_CONTEXT: ${{ toJSON(needs) }}
-            STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-            MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+            ENV_CONTEXT: ${{ toJSON(env) }}
           run: |
-            echo "=== github ==="
-            echo "$GITHUB_CONTEXT"
-            echo "=== job ==="
-            echo "$JOB_CONTEXT"
-            echo "=== runner ==="
-            echo "$RUNNER_CONTEXT"
-            echo "=== steps ==="
-            echo "$STEPS_CONTEXT"
-            echo "=== needs ==="
-            echo "$NEEDS_CONTEXT"
-            echo "=== strategy ==="
-            echo "$STRATEGY_CONTEXT"
-            echo "=== matrix ==="
-            echo "$MATRIX_CONTEXT"
+            echo "=== env ==="
+            echo "$ENV_CONTEXT"
+
+        - run:
+            echo "=== env.ACTIONS_CACHE_MODE ==="
+            echo "${{ env.ACTIONS_CACHE_MODE }}"
 
       - uses: typisttech/.github/.github/actions/composer-install@51e7a334c027d04864092d8b5469d1ccc5dcfcb6 # v9.0.1
         with:
