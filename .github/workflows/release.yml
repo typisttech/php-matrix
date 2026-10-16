@@ -3,10 +3,10 @@ name: Release
 on:
   push:
     tags:
-      - "*"
+      - '*'
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
+  group: release-${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions: {}
@@ -32,6 +32,7 @@ jobs:
 
   goreleaser:
     needs:
+      - test
       - release-drafter
     permissions:
       # For $ gh run download
@@ -50,6 +51,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+        background: true
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: php-matrix_-*
+          merge-multiple: true
         background: true
 
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -74,11 +81,6 @@ jobs:
           cache: false
 
       - wait-all:
-
-      - run: gh run download "${RUN_ID}" --dir out --pattern 'php-matrix_*'
-        env:
-          RUN_ID: ${{ inputs.run_id }}
-          GH_TOKEN: ${{ github.token }}
 
       - uses: goreleaser/goreleaser-action@a4f02ab5355a589de60d917a659ce617ed19b3de # v7.3.0
         with:
