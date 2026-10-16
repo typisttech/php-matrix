@@ -9,7 +9,13 @@ branding:
 runs:
   using: "composite"
   steps:
-    - name: Inspect cache mode
+    - name: foo cache mode
       run: |
-        echo "(in action) ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
+        echo "(in action) ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-foo-env-uuuuuuuuuuunset}"
       shell: bash
+
+    - name: foo github-script ACTIONS_CACHE_MODE
+      uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+      with:
+        script: |
+          console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(foo script unssssssset)'}`)
