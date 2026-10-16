@@ -55,8 +55,8 @@ jobs:
 
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          pattern: php-matrix_-*
-          merge-multiple: true
+          pattern: php-matrix_*_*
+          path: out
         background: true
 
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
