@@ -1,64 +1,23 @@
-name: Test DEBUG
+name: Release Drafter
 
 on:
-  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
-permissions:
-  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions: {}
+
+cache-mode: none
 
 jobs:
-  test-omnit:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: github-script ACTIONS_CACHE_MODE
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          script: |
-            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
-
-      - name: foo ACTIONS_CACHE_MODE
-        uses: ./.github/actions/foo
-
-      - name: Inspect cache mode
-        run: |
-          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
-
-  test-none:
+  release-drafter:
+    permissions:
+      contents: write
+      pull-requests: read
     cache-mode: none
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: github-script ACTIONS_CACHE_MODE
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          script: |
-            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
-
-      - name: foo ACTIONS_CACHE_MODE
-        uses: ./.github/actions/foo
-
-      - name: Inspect cache mode
-        run: |
-          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
-
-  test-wo:
-    cache-mode: write-only
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: github-script ACTIONS_CACHE_MODE
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          script: |
-            console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
-
-      - name: foo ACTIONS_CACHE_MODE
-        uses: ./.github/actions/foo
-
-      - name: Inspect cache mode
-        run: |
-          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
+    uses: typisttech/.github/.github/workflows/release-drafter.yml@51e7a334c027d04864092d8b5469d1ccc5dcfcb6 # v9.0.1
