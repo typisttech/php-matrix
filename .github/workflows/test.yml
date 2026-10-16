@@ -21,7 +21,11 @@ jobs:
       contents: read
     runs-on: ubuntu-slim
     steps:
+      - uses: actions/checkout@v7
       - parallel:
+        - name: Check cache mode
+          run: |
+            echo "Cache mode: ${ACTIONS_CACHE_MODE:-unset}"
         - run: echo ${ACTIONS_CACHE_MODE}
         - run: echo $ACTIONS_CACHE_MODE
         - run: echo "${ACTIONS_CACHE_MODE}"
@@ -46,7 +50,11 @@ jobs:
     runs-on: ubuntu-slim
     cache-mode: read
     steps:
+      - uses: actions/checkout@v7
       - parallel:
+        - name: Check cache mode
+          run: |
+            echo "Cache mode: ${ACTIONS_CACHE_MODE:-unset}"
         - run: echo ${ACTIONS_CACHE_MODE}
         - run: echo $ACTIONS_CACHE_MODE
         - run: echo "${ACTIONS_CACHE_MODE}"
@@ -71,7 +79,11 @@ jobs:
     runs-on: ubuntu-slim
     cache-mode: none
     steps:
+      - uses: actions/checkout@v7
       - parallel:
+        - name: Check cache mode
+          run: |
+            echo "Cache mode: ${ACTIONS_CACHE_MODE:-unset}"
         - run: echo ${ACTIONS_CACHE_MODE}
         - run: echo $ACTIONS_CACHE_MODE
         - run: echo "${ACTIONS_CACHE_MODE}"
@@ -96,7 +108,11 @@ jobs:
     runs-on: ubuntu-slim
     cache-mode: write
     steps:
+      - uses: actions/checkout@v7
       - parallel:
+        - name: Check cache mode
+          run: |
+            echo "Cache mode: ${ACTIONS_CACHE_MODE:-unset}"
         - run: echo ${ACTIONS_CACHE_MODE}
         - run: echo $ACTIONS_CACHE_MODE
         - run: echo "${ACTIONS_CACHE_MODE}"
@@ -121,7 +137,11 @@ jobs:
     runs-on: ubuntu-slim
     cache-mode: write-only
     steps:
+      - uses: actions/checkout@v7
       - parallel:
+        - name: Check cache mode
+          run: |
+            echo "Cache mode: ${ACTIONS_CACHE_MODE:-unset}"
         - run: echo ${ACTIONS_CACHE_MODE}
         - run: echo $ACTIONS_CACHE_MODE
         - run: echo "${ACTIONS_CACHE_MODE}"
