@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
       - parallel:
         - name: Check cache mode
           run: |
@@ -52,6 +55,9 @@ jobs:
     cache-mode: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
       - parallel:
         - name: Check cache mode
           run: |
@@ -82,6 +88,9 @@ jobs:
     cache-mode: none
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
       - parallel:
         - name: Check cache mode
           run: |
@@ -112,6 +121,9 @@ jobs:
     cache-mode: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
       - parallel:
         - name: Check cache mode
           run: |
@@ -142,6 +154,9 @@ jobs:
     cache-mode: write-only
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
       - parallel:
         - name: Check cache mode
           run: |
@@ -174,6 +189,9 @@ jobs:
     steps:
       - parallel:
         - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
           with:
             persist-credentials: false
 
@@ -206,6 +224,9 @@ jobs:
     steps:
       - parallel:
         - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
           with:
             persist-credentials: false
 
@@ -253,6 +274,9 @@ jobs:
     steps:
       - parallel:
         - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Show effective cache access
+        run: echo "Cache mode is $ACTIONS_CACHE_MODE"
+
           with:
             persist-credentials: false
 
