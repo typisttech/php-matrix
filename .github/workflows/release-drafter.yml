@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: Display cache mode
+        run: node -p '"ACTIONS_CACHE_MODE=" + (process.env.ACTIONS_CACHE_MODE ?? "<unsssssset>")'
+
       - name: Inspect cache mode
         run: |
-          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-unset}"
+          echo "ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
