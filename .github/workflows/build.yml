@@ -98,11 +98,9 @@ jobs:
             artifact-ids: ${{ needs.phar.outputs.phar-artifact-id }}
             path: phar
 
-      - run: ls -R ${{ runner.temp }}
-
       - name: Cache micro.sfx
         id: cache-micro-sfx
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: buildroot/bin/micro.sfx
           key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ env.SPC_VERSION }}-${{ env.PHP_VERSION }}-${{ hashFiles('craft.yml') }}
@@ -115,6 +113,8 @@ jobs:
 
       - run: mkdir -p out
       - run: spc micro:combine phar/php-matrix --output out/php-matrix
+
+      - run: ls -R buildroot/bin
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
