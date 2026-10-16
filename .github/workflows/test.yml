@@ -23,6 +23,7 @@ jobs:
     steps:
       - parallel:
         - run: echo "${ACTIONS_CACHE_MODE}"
+        - run: echo "$ACTIONS_CACHE_MODE"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -45,6 +46,7 @@ jobs:
     steps:
       - parallel:
         - run: echo "${ACTIONS_CACHE_MODE}"
+        - run: echo "$ACTIONS_CACHE_MODE"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -67,6 +69,7 @@ jobs:
     steps:
       - parallel:
         - run: echo "${ACTIONS_CACHE_MODE}"
+        - run: echo "$ACTIONS_CACHE_MODE"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -89,6 +92,7 @@ jobs:
     steps:
       - parallel:
         - run: echo "${ACTIONS_CACHE_MODE}"
+        - run: echo "$ACTIONS_CACHE_MODE"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -111,6 +115,7 @@ jobs:
     steps:
       - parallel:
         - run: echo "${ACTIONS_CACHE_MODE}"
+        - run: echo "$ACTIONS_CACHE_MODE"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
