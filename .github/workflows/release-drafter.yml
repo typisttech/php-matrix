@@ -4,7 +4,7 @@ on:
   pull_request:
 
 permissions:
-  content: read
+  contents: read
 
 jobs:
   test-omnit:
