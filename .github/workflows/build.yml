@@ -1,0 +1,121 @@
+name: Build
+
+on:
+  workflow_call:
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+permissions: {}
+
+env:
+  PHP_VERSION: '8.5'
+  SPC_VERSION: '2.8.5' # Needs manual update.
+
+jobs:
+  phar:
+    permissions:
+      contents: read
+    runs-on: ubuntu-26.04
+    outputs:
+      phar-artifact-id: ${{ steps.upload-phar.outputs.artifact-id }}
+    steps:
+      - parallel:
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+          with:
+            persist-credentials: false
+            fetch-depth: 0
+
+        - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+          id: setup-php
+          with:
+            php-version: ${{ env.PHP_VERSION }}
+            coverage: none
+            tools: box:4
+
+      - uses: typisttech/.github/.github/actions/composer-install@51e7a334c027d04864092d8b5469d1ccc5dcfcb6 # v9.0.1
+        with:
+          prefer: locked
+          composer-options: --no-dev --prefer-dist --optimize-autoloader
+
+      - run: box compile
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        id: upload-phar
+        with:
+          path: phar/php-matrix
+          archive: false
+          if-no-files-found: error
+
+  bin:
+    name: Bin (${{ matrix.runs-on }})
+    needs:
+      - phar
+    permissions:
+      contents: read
+    strategy:
+      matrix: # Must be kept in sync with test.yml
+        include:
+          - runs-on: ubuntu-26.04-arm
+            variant: linux_arm64
+            spc-variant: linux-aarch64
+          - runs-on: ubuntu-26.04
+            variant: linux_amd64
+            spc-variant: linux-x86_64
+          - runs-on: macos-26
+            variant: darwin_arm64
+            spc-variant: macos-aarch64
+          - runs-on: macos-26-intel
+            variant: darwin_amd64
+            spc-variant: macos-x86_64
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - parallel:
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+          with:
+            persist-credentials: false
+            sparse-checkout: craft.yml
+            sparse-checkout-cone-mode: false
+
+        # TODO: Skip caching for tag pushes
+        - name: Install spc
+          run: |
+            gh release download --repo crazywhalecc/static-php-cli "${SPC_VERSION}" --pattern "${PATTERN}" --output spc.tar.gz && \
+            mkdir spc && \
+            tar -xvf spc.tar.gz --directory spc && \
+            mkdir bin && \
+            cp spc/spc bin/spc && \
+            echo "$(pwd)/bin" >> "$GITHUB_PATH"
+          env:
+            SPC_VERSION: ${{ env.SPC_VERSION }}
+            PATTERN: spc-${{ matrix.spc-variant }}.tar.gz
+            GH_TOKEN: ${{ github.token }}
+          working-directory: ${{ runner.temp }}
+
+        - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+          with:
+            artifact-ids: ${{ needs.phar.outputs.phar-artifact-id }}
+            path: phar
+
+      - name: Cache micro.sfx
+        id: cache-micro-sfx
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: buildroot/bin/micro.sfx
+          key: micro-sfx-${{ runner.os }}-${{ runner.arch }}-${{ env.SPC_VERSION }}-${{ env.PHP_VERSION }}-${{ hashFiles('craft.yml') }}
+
+      - name: Build micro.sfx
+        if: steps.cache-micro-sfx.outputs.cache-hit != 'true'
+        run: spc craft
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # Not a typo.
+
+      - run: mkdir -p out
+      - run: spc micro:combine phar/php-matrix --output out/php-matrix
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: php-matrix_${{ matrix.variant }}
+          path: out/php-matrix
+          if-no-files-found: error
