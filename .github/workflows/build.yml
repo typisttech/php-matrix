@@ -55,7 +55,7 @@ jobs:
     permissions:
       contents: read
     strategy:
-      matrix: &matrix
+      matrix: # Must be kept in sync with test.yml
         include:
           - runs-on: ubuntu-26.04-arm
             variant: linux_arm64
@@ -63,10 +63,10 @@ jobs:
           - runs-on: ubuntu-26.04
             variant: linux_amd64
             spc-variant: linux-x86_64
-          - runs-on: macos-15
+          - runs-on: macos-26
             variant: darwin_arm64
             spc-variant: macos-aarch64
-          - runs-on: macos-15-intel
+          - runs-on: macos-26-intel
             variant: darwin_amd64
             spc-variant: macos-x86_64
     runs-on: ${{ matrix.runs-on }}
