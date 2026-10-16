@@ -16,7 +16,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  cache-mdoe-default:
+  cache-mode-default:
     permissions:
       contents: read
     runs-on: ubuntu-slim
@@ -36,11 +36,11 @@ jobs:
 
         - run: printenv
 
-  cache-mdoe-read:
+  cache-mode-read:
     permissions:
       contents: read
     runs-on: ubuntu-slim
-    cache-mdoe: read
+    cache-mode: read
     steps:
       - parallel:
         - run: echo "${FOO}"
@@ -57,11 +57,11 @@ jobs:
 
         - run: printenv
 
-  cache-mdoe-none:
+  cache-mode-none:
     permissions:
       contents: read
     runs-on: ubuntu-slim
-    cache-mdoe: none
+    cache-mode: none
     steps:
       - parallel:
         - run: echo "${FOO}"
@@ -78,11 +78,11 @@ jobs:
 
         - run: printenv
 
-  cache-mdoe-write:
+  cache-mode-write:
     permissions:
       contents: read
     runs-on: ubuntu-slim
-    cache-mdoe: write
+    cache-mode: write
     steps:
       - parallel:
         - run: echo "${FOO}"
@@ -99,11 +99,11 @@ jobs:
 
         - run: printenv
 
-  cache-mdoe-write-only:
+  cache-mode-write-only:
     permissions:
       contents: read
     runs-on: ubuntu-slim
-    cache-mdoe: write-only
+    cache-mode: write-only
     steps:
       - parallel:
         - run: echo "${FOO}"
