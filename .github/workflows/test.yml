@@ -16,6 +16,110 @@ concurrency:
 permissions: {}
 
 jobs:
+  cache-mdoe-default:
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
+    steps:
+      - parallel:
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ env.ACTIONS_CACHE_MODE }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job['cache-mode'] }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job.cache-mode }}
+
+        - run: printenv
+
+  cache-mdoe-read:
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
+    cache-mdoe: read
+    steps:
+      - parallel:
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ env.ACTIONS_CACHE_MODE }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job['cache-mode'] }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job.cache-mode }}
+
+        - run: printenv
+
+  cache-mdoe-none:
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
+    cache-mdoe: none
+    steps:
+      - parallel:
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ env.ACTIONS_CACHE_MODE }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job['cache-mode'] }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job.cache-mode }}
+
+        - run: printenv
+
+  cache-mdoe-write:
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
+    cache-mdoe: write
+    steps:
+      - parallel:
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ env.ACTIONS_CACHE_MODE }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job['cache-mode'] }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job.cache-mode }}
+
+        - run: printenv
+
+  cache-mdoe-write-only:
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
+    cache-mdoe: write-only
+    steps:
+      - parallel:
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ env.ACTIONS_CACHE_MODE }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job['cache-mode'] }}
+
+        - run: echo "${FOO}"
+          env:
+            FOO: ${{ job.cache-mode }}
+
+        - run: printenv
+
   unit:
     permissions:
       contents: read
@@ -32,33 +136,6 @@ jobs:
           with:
             php-version: '8.5'
             coverage: xdebug
-
-        - name: Dump contexts
-          env:
-            ENV_CONTEXT: ${{ toJSON(env) }}
-          run: |
-            echo "=== env ==="
-            echo "$ENV_CONTEXT"
-
-        - run:
-            echo "=== env.ACTIONS_CACHE_MODE ==="
-            echo "${{ env.ACTIONS_CACHE_MODE }}"
-
-        - run:
-            echo "=== ACTIONS_CACHE_MODE ==="
-            echo "${ACTIONS_CACHE_MODE}"
-
-        - run:
-            echo "=== job['cache-mode'] ==="
-            echo "${{ job['cache-mode'] }}"
-
-        - run:
-            echo "=== job.cache-mode ==="
-            echo "${{ job.cache-mode }}"
-
-        - run:
-            echo "=== printenv ==="
-            printenv
 
       - uses: typisttech/.github/.github/actions/composer-install@51e7a334c027d04864092d8b5469d1ccc5dcfcb6 # v9.0.1
         with:
