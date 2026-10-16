@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - parallel:
+        - run: echo "${ACTIONS_CACHE_MODE}"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -43,6 +44,7 @@ jobs:
     cache-mode: read
     steps:
       - parallel:
+        - run: echo "${ACTIONS_CACHE_MODE}"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -64,6 +66,7 @@ jobs:
     cache-mode: none
     steps:
       - parallel:
+        - run: echo "${ACTIONS_CACHE_MODE}"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -85,6 +88,7 @@ jobs:
     cache-mode: write
     steps:
       - parallel:
+        - run: echo "${ACTIONS_CACHE_MODE}"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
@@ -106,6 +110,7 @@ jobs:
     cache-mode: write-only
     steps:
       - parallel:
+        - run: echo "${ACTIONS_CACHE_MODE}"
         - run: echo "${FOO}"
           env:
             FOO: ${{ env.ACTIONS_CACHE_MODE }}
