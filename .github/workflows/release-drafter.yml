@@ -35,11 +35,13 @@ jobs:
     cache-mode: write-only
     runs-on: ubuntu-slim
     steps:
-      - name: Print ACTIONS_CACHE_MODE
+      - name: github-script ACTIONS_CACHE_MODE
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             console.log(`ACTIONS_CACHE_MODE=${process.env.ACTIONS_CACHE_MODE ?? '(unssssssset)'}`)
+
+      - uses: $/.github/actions/foo
 
       - name: Inspect cache mode
         run: |

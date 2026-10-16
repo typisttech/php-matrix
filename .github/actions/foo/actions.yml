@@ -1,0 +1,15 @@
+name: foo
+description: foo
+
+author: Typist Tech Limited
+branding:
+  icon: type
+  color: blue
+
+runs:
+  using: "composite"
+  steps:
+    - name: Inspect cache mode
+      run: |
+        echo "(in action) ACTIONS_CACHE_MODE=${ACTIONS_CACHE_MODE-uuuuuuuuuuunset}"
+      shell: bash
