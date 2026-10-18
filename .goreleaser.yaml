@@ -13,6 +13,9 @@ builds:
     goarch:
       - arm64
       - amd64
+    ignore:
+      - goos: darwin
+        goarch: amd64
     hooks:
       # Overwrite the binary with the prebuilt one, which is what we actually want to release.
       post:
