@@ -11,7 +11,8 @@ func RunTestscript(t *testing.T) {
 	testscript.Run(t, testscript.Params{
 		Dir: "testdata",
 		Setup: func(env *testscript.Env) error {
-			env.Setenv("COLUMNS", "120") // https://github.com/symfony/console/blob/2b9c5fafbac0399a20a2e82429e2bd735dcfb7db/Style/SymfonyStyle.php#L44
+			// https://github.com/symfony/console/blob/4d889acb39a9b534b6adcf67771b098c860dd569/Style/SymfonyStyle.php#L47
+			env.Setenv("COLUMNS", "120")
 			return nil
 		},
 		UpdateScripts: os.Getenv("UPDATE_SCRIPTS") == "1",
