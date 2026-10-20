@@ -1,6 +1,6 @@
-#:schema https://mago.carthage.software/1.30.0/schema.json
+#:schema https://mago.carthage.software/1.58.2/schema.json
 # Welcome to Mago!
-# For full documentation, see https://mago.carthage.software/1.30.0/en/tools/overview/
+# For full documentation, see https://mago.carthage.software/1.58.2/en/tools/overview/
 version = "1"
 php-version = "8.5.0"
 
@@ -25,13 +25,14 @@ literal-named-argument = { enabled = false }
 halstead = { effort-threshold = 7000 }
 
 [analyzer]
-excludes = ["tests/**/*.php"]
 plugins = []
+excludes = ["tests/"] # Doesn't work well with mockery.
 find-unused-definitions = true
 find-unused-expressions = true
 analyze-dead-code = true
 memoize-properties = true
-check-throws = false
+check-throws = false # Adding @throws yields little benefits.
+check-dead-catch = false
 unchecked-exceptions = ["Error", "LogicException"]
 unchecked-exception-classes = []
 check-missing-override = true
@@ -39,6 +40,7 @@ find-unused-parameters = true
 strict-list-index-checks = true
 strict-array-index-existence = true
 allow-array-truthy-operand = false
+allow-operator-overloading = false
 no-boolean-literal-comparison = true
 check-missing-type-hints = true
 register-super-globals = true

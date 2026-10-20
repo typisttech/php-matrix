@@ -30,7 +30,7 @@ jobs:
     with:
       phpstan: true
       mago: true
-      mago-version: '1.30'
+      mago-version: '1.58' # # Must be kept in sync with @../../mise.toml
       box: true
       box-php-version: '8.5'
       box-version: '4'
