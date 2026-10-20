@@ -56,8 +56,8 @@ jobs:
     needs:
       - unit
     permissions:
-      contents: read
       id-token: write
+      contents: read
     cache-mode: none
     runs-on: ubuntu-slim
     steps:
