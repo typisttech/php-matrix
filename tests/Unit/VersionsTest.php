@@ -9,21 +9,24 @@ use UnexpectedValueException;
 
 covers(Versions::class);
 
-describe(Versions::class, static function (): void {
-    describe('::sort()', static function (): void {
+describe(Versions::class, function (): void {
+    describe('::sort()', function (): void {
         dataset('sort', [
             [['1.2.3']],
             [['1.2.3', '1.2.3']],
             [['1.2.3', '2.2.3']],
             [['1.2.3', '2.2.3', '3.2.3']],
+            [['1.2.3', '2.2.3', '2.2.3', '4.2.3']],
 
             [['1.2']],
             [['1.2', '1.2']],
             [['1.2', '2.2']],
             [['1.2', '2.2', '3.2']],
+            [['1.2', '2.2', '2.2', '4.2']],
         ]);
 
         it('sorts the versions', function (array $versions): void {
+            /** @var string[] $versions */
             $expected = $versions;
 
             shuffle($versions);
@@ -31,7 +34,9 @@ describe(Versions::class, static function (): void {
             $actual = Versions::sort(...$versions);
 
             expect($actual)->toBe($expected);
-        })->with('sort');
+        })
+            ->with('sort')
+            ->repeat(10);
 
         it('throws exception when argument is empty', function (): void {
             Versions::sort();
