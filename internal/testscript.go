@@ -7,7 +7,7 @@ import (
 	"github.com/rogpeppe/go-internal/testscript"
 )
 
-func RunTestscript(t *testing.T) {
+func RunTestscript(t *testing.T) { //nolint:thelper
 	testscript.Run(t, testscript.Params{
 		Dir: "testdata",
 		Setup: func(env *testscript.Env) error {

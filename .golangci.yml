@@ -13,10 +13,12 @@ linters:
     - asciicheck
     - bidichk
     - bodyclose
+    # - canonicalheader # Wait for https://github.com/golangci/golangci-lint/issues/6829
     - containedctx
     - contextcheck
     - copyloopvar
     - cyclop
+    - decorder
     - depguard
     - dogsled
     - dupl
@@ -31,18 +33,60 @@ linters:
     - fatcontext
     - forcetypeassert
     - gocheckcompilerdirectives
+    # - gochecknoglobals # This is not a Go project.
     - gochecknoinits
+    - gochecksumtype
+    - gocognit
+    - goconst
     - gocritic
+    - gocyclo
     - godoclint
     - godot
+    - gomoddirectives
+    - goprintffuncname
     - gosec
+    - gosmopolitan
+    - grouper
+    - iface
+    - importas
+    - inamedparam
+    - ineffassign
+    - interfacebloat
+    - intrange
+    - iotamixing
+    - loggercheck
+    - makezero
+    - mirror
     - misspell
+    - modernize
+    - musttag
+    - nestif
+    - nilerr
+    - nilnesserr
+    - nilnil
+    - noctx
     - nolintlint
     - nonamedreturns
+    - nosprintfhostport
+    - perfsprint
+    - predeclared
+    - promlinter
+    - reassign
+    - recvcheck
     - revive
     - sloglint
+    - spancheck
+    - tagalign
+    - testableexamples
+    - thelper
+    - unconvert
     - unparam
+    - unused
     - usestdlibvars
+    - usetesting
+    - wastedassign
+    - whitespace
+    # - wrapcheck # This is not a Go project.
 
   settings:
     govet:
@@ -62,18 +106,11 @@ linters:
           list-mode: strict
           files:
             - $all
-            - "!$test"
           allow:
             - $gostd
             - golang.org/x
             - github.com/typisttech/php-matrix
             - github.com/rogpeppe/go-internal/testscript
-        test:
-          files:
-            - $test
-          deny:
-            - pkg: github.com/stretchr/testify
-              desc: Use standard library or 'github.com/google/go-cmp/cmp'
 
     errorlint:
       errorf: false
@@ -85,6 +122,9 @@ linters:
       enabled-checks:
         - emptyStringTest
         - preferStringWriter
+
+    gocyclo:
+      min-complexity: 10
 
     godoclint:
       enable:
@@ -100,12 +140,23 @@ linters:
       excludes:
         - G104 # Handled by errcheck
 
+    iface:
+      enable:
+        - identical
+        - unused
+        - opaque
+        - unusedmethod
+
     nolintlint:
       require-specific: true
 
     revive:
+      enable-default-rules: true
       rules:
         - name: exported
+          disabled: true
+
+        - name: package-comments
           disabled: true
 
   exclusions:
