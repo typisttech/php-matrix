@@ -47,6 +47,11 @@
     "phpstan/phpstan-strict-rules": "^2.0",
     "phpstan/phpstan-symfony": "^2.0"
   },
+  "replace": {
+    "symfony/polyfill-php80": "*",
+    "symfony/polyfill-php82": "*",
+    "symfony/polyfill-php85": "*"
+  },
   "autoload": {
     "psr-4": {
       "TypistTech\\PhpMatrix\\": "src/"
