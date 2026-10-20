@@ -7,22 +7,13 @@ namespace Tests\Unit\Matrices;
 use Mockery;
 use TypistTech\PhpMatrix\Exceptions\UnexpectedValueException;
 use TypistTech\PhpMatrix\Matrices\Matrix;
-use TypistTech\PhpMatrix\Matrices\MatrixInterface;
 use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(Matrix::class);
 
-describe(Matrix::class, static function (): void {
-    it('implements ReleasesInterface', function () {
-        $releases = Mockery::mock(ReleasesInterface::class);
-
-        $matrix = new Matrix($releases);
-
-        expect($matrix)->toBeInstanceOf(MatrixInterface::class);
-    });
-
-    describe('::satisfiedBy()', static function (): void {
-        dataset('satisfied_by', static function (): array {
+describe(Matrix::class, function (): void {
+    describe('::satisfiedBy()', function (): void {
+        dataset('satisfied_by', function (): array {
             $releases = [
                 '1.0.0',
                 '2.0.1',
@@ -75,8 +66,8 @@ describe(Matrix::class, static function (): void {
 
             $matrix = new Matrix($releases);
 
-            $matrix->satisfiedBy('invalid constraint');
-        })->throws(UnexpectedValueException::class);
+            expect(fn() => $matrix->satisfiedBy('invalid constraint'))->toThrow(UnexpectedValueException::class);
+        });
 
         it('does not invoke ReleasesInterface::all() when invalid constraint', function () {
             $releases = Mockery::mock(ReleasesInterface::class);

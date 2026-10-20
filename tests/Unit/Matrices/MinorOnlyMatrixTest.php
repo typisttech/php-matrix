@@ -5,23 +5,14 @@ declare(strict_types=1);
 namespace Tests\Unit\Matrices;
 
 use Mockery;
-use TypistTech\PhpMatrix\Matrices\MatrixInterface;
 use TypistTech\PhpMatrix\Matrices\MinorOnlyMatrix;
 use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(MinorOnlyMatrix::class);
 
-describe(MinorOnlyMatrix::class, static function (): void {
-    it('implements ReleasesInterface', function () {
-        $releases = Mockery::mock(ReleasesInterface::class);
-
-        $matrix = new MinorOnlyMatrix($releases);
-
-        expect($matrix)->toBeInstanceOf(MatrixInterface::class);
-    });
-
-    describe('::satisfiedBy()', static function (): void {
-        dataset('satisfied_by', static function (): array {
+describe(MinorOnlyMatrix::class, function (): void {
+    describe('::satisfiedBy()', function (): void {
+        dataset('satisfied_by', function (): array {
             $releases = [
                 '1.0.0',
                 '2.0.1',

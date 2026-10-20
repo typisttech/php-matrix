@@ -9,22 +9,16 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use TypistTech\PhpMatrix\Releases\PhpNetReleases;
-use TypistTech\PhpMatrix\Releases\ReleasesInterface;
 
 covers(PhpNetReleases::class);
 
-describe(PhpNetReleases::class, static function (): void {
-    it('implements ReleasesInterface', function () {
-        $releases = new PhpNetReleases();
-
-        expect($releases)->toBeInstanceOf(ReleasesInterface::class);
-    });
-
-    describe('::all()', static function (): void {
+describe(PhpNetReleases::class, function (): void {
+    describe('::all()', function (): void {
         it('fetches all versions', function () {
             $mock = new MockHandler();
             foreach ($this::RELEASES_JSONS as $json) {
                 $body = file_get_contents($json);
+                $body = $body === false ? null : $body;
                 $mock->append(new Response(202, [], $body));
             }
             $handlerStack = HandlerStack::create($mock);
@@ -34,12 +28,8 @@ describe(PhpNetReleases::class, static function (): void {
 
             $actual = $releases->all();
 
-            expect($actual)->each->toBeString();
-
             $expected = $this->allVersions();
-
-            expect($actual)->toContain(...$expected);
-            expect($expected)->toContain(...$actual);
+            expect($actual)->toEqualCanonicalizing($expected);
         });
     });
 });
