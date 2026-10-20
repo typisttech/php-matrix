@@ -16,8 +16,8 @@ cache-mode: none
 jobs:
   test:
     permissions:
-      contents: read
       id-token: write
+      contents: read
     cache-mode: none
     uses: $/.github/workflows/test.yml
 
