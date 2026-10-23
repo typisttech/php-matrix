@@ -47,9 +47,9 @@ homebrew_casks:
       List PHP versions that satisfy the required PHP constraint in composer.json
     hooks:
       post:
-        install: |
-          if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/php-matrix"]
+        install_steps: |
+          on_macos do
+            run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{ .StagedPath }}/php-matrix"]
           end
     repository:
       owner: typisttech
