@@ -15,13 +15,26 @@ cache-mode: none
 
 jobs:
   release-drafter:
+    runs-on: ubuntu-slim
     permissions:
       contents: write
       pull-requests: read
     cache-mode: none
-    uses: typisttech/.github/.github/workflows/release-drafter.yml@d07e39f5248e110bc9f91de14346175ba0a0c270 # v9.3.3
-    with:
-      tag: ${{ github.ref_name }}
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.TASTENDRUCK_CLIENT_ID }}
+          private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: php-matrix
+          permission-contents: write
+          permission-pull-requests: read
+
+      - uses: release-drafter/release-drafter@978bb0b30c5ee8cdd332ced253758157150d43f0 # v7.10.0
+        with:
+          tag: ${{ github.ref_name }}
+          token: ${{ steps.app-token.outputs.token }}
 
   test:
     permissions:
