@@ -38,7 +38,7 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
           coverage: xdebug
 
-      - uses: typisttech/.github/.github/actions/composer-install@d4c46e1552c88b1e50307c79456ae6570fbc562e # v9.3.5
+      - uses: typisttech/.github/.github/actions/composer-install@7f8e4bee87908e531322f94def0a609f8cc6eb5a # v9.3.6
         with:
           prefer: locked
 
@@ -95,7 +95,7 @@ jobs:
           coverage: none
           tools: "box:${{ env.BOX_VERSION }}"
 
-      - uses: typisttech/.github/.github/actions/composer-install@d4c46e1552c88b1e50307c79456ae6570fbc562e # v9.3.5
+      - uses: typisttech/.github/.github/actions/composer-install@7f8e4bee87908e531322f94def0a609f8cc6eb5a # v9.3.6
         with:
           prefer: locked
           composer-options: --no-dev --prefer-dist --optimize-autoloader
