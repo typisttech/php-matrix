@@ -1,6 +1,141 @@
 {
-  "8.5.12": {
+  "8.6.0": {
     "announcement": true,
+    "tags": [],
+    "date": "19 Nov 2026",
+    "source": [
+      {
+        "filename": "php-8.6.0.tar.gz",
+        "name": "PHP 8.6.0 (tar.gz)",
+        "sha256": "62337dccde3d9fcc39797d4529f42637613036eaf3875353c206874e5813a3c1",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.6.0.tar.bz2",
+        "name": "PHP 8.6.0 (tar.bz2)",
+        "sha256": "9e233e38999a89f351a33ae6a7276d1caf5addcba11e09e3bbe3a8d25f411ff1",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.6.0.tar.xz",
+        "name": "PHP 8.6.0 (tar.xz)",
+        "sha256": "5f84beaa3d763aee1e4feed99bf54ec692c383b322e25626807b589238c3a087",
+        "date": "19 Nov 2026"
+      }
+    ]
+  },
+  "8.5.13": {
+    "announcement": true,
+    "tags": [
+      "security"
+    ],
+    "date": "19 Nov 2026",
+    "source": [
+      {
+        "filename": "php-8.5.13.tar.gz",
+        "name": "PHP 8.5.13 (tar.gz)",
+        "sha256": "3aeb20a7e667e197929747f76047409196f91f0172357439319cba344df8b3e1",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.5.13.tar.bz2",
+        "name": "PHP 8.5.13 (tar.bz2)",
+        "sha256": "47d50c36016784a4a71f019cd7bfa29c31e4be0de22d3fa06095b280a6299e2f",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.5.13.tar.xz",
+        "name": "PHP 8.5.13 (tar.xz)",
+        "sha256": "607602acaf0c3061818e9916ec44a058e8b3d43959a83862b9cd3ec7bf5b785f",
+        "date": "19 Nov 2026"
+      }
+    ]
+  },
+  "8.4.28": {
+    "announcement": true,
+    "tags": [
+      "security"
+    ],
+    "date": "19 Nov 2026",
+    "source": [
+      {
+        "filename": "php-8.4.28.tar.gz",
+        "name": "PHP 8.4.28 (tar.gz)",
+        "sha256": "deffc88c60fcfb99f683a9f6689e9c91cf41b7cba50bd5f01a232a98c27f2cd4",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.4.28.tar.bz2",
+        "name": "PHP 8.4.28 (tar.bz2)",
+        "sha256": "b23aa1be5b74629ad624fd01365c0e4df6d8878473983f337349433ef349c1f7",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.4.28.tar.xz",
+        "name": "PHP 8.4.28 (tar.xz)",
+        "sha256": "0c8ec360e5dd8154f270b2fd50cd44ecc824e6ee39c85f911312b80d4daecd72",
+        "date": "19 Nov 2026"
+      }
+    ]
+  },
+  "8.3.37": {
+    "announcement": true,
+    "tags": [
+      "security"
+    ],
+    "date": "19 Nov 2026",
+    "source": [
+      {
+        "filename": "php-8.3.37.tar.gz",
+        "name": "PHP 8.3.37 (tar.gz)",
+        "sha256": "cdd2ed867cb104ececff7c0292142c807c68a6b6da1b114ead4d586fba628a4f",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.3.37.tar.bz2",
+        "name": "PHP 8.3.37 (tar.bz2)",
+        "sha256": "7837b43cd4e18db5deac21ee6f00866e4779a705f2e54faea83c8a6cf56fd1d8",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.3.37.tar.xz",
+        "name": "PHP 8.3.37 (tar.xz)",
+        "sha256": "0237af84478b7a7649d3964153f1b8653d622550b846f56d63062de683fb86bb",
+        "date": "19 Nov 2026"
+      }
+    ]
+  },
+  "8.2.36": {
+    "announcement": true,
+    "tags": [
+      "security"
+    ],
+    "date": "19 Nov 2026",
+    "source": [
+      {
+        "filename": "php-8.2.36.tar.gz",
+        "name": "PHP 8.2.36 (tar.gz)",
+        "sha256": "c871dbdc1cd3d898e48632c8b5fcc73f1b0e1cbb15ef816579ced7f2ae1696a8",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.2.36.tar.bz2",
+        "name": "PHP 8.2.36 (tar.bz2)",
+        "sha256": "f4306b4ada602637ef35df2e0f4aa059d559952bc87926ed746fad2b0a777b72",
+        "date": "19 Nov 2026"
+      },
+      {
+        "filename": "php-8.2.36.tar.xz",
+        "name": "PHP 8.2.36 (tar.xz)",
+        "sha256": "df50a00d2b453096608bf2bd98a9fab9a3df8678a77b93011b65c3cfe9a018fa",
+        "date": "19 Nov 2026"
+      }
+    ]
+  },
+  "8.5.12": {
+    "announcement": {
+      "English": "/releases/8_5_12.php"
+    },
     "tags": [
       "security"
     ],
@@ -24,10 +159,13 @@
         "sha256": "08bc2eba2a588654ade1357174aa646b761556c862dda0678345ee29ed481209",
         "date": "21 Oct 2026"
       }
-    ]
+    ],
+    "museum": false
   },
   "8.4.27": {
-    "announcement": true,
+    "announcement": {
+      "English": "/releases/8_4_27.php"
+    },
     "tags": [
       "security"
     ],
@@ -51,10 +189,13 @@
         "sha256": "dcf93923b0e38e0d5252b25b796520b5a47761a08b3488b6d0b5d1115764d3f0",
         "date": "21 Oct 2026"
       }
-    ]
+    ],
+    "museum": false
   },
   "8.3.36": {
-    "announcement": true,
+    "announcement": {
+      "English": "/releases/8_3_36.php"
+    },
     "tags": [
       "security"
     ],
@@ -78,10 +219,13 @@
         "sha256": "dd54693aa334c5c4d72e9aee96b082c2473750a18a6c1d105789c93a3b1692fd",
         "date": "21 Oct 2026"
       }
-    ]
+    ],
+    "museum": false
   },
   "8.2.35": {
-    "announcement": true,
+    "announcement": {
+      "English": "/releases/8_2_35.php"
+    },
     "tags": [
       "security"
     ],
@@ -105,7 +249,8 @@
         "sha256": "5737b98601fe5ab1b8c5db0c82ed3158acb9283ed3081ffe2faffb9ac81455e6",
         "date": "21 Oct 2026"
       }
-    ]
+    ],
+    "museum": false
   },
   "8.5.11": {
     "announcement": {
