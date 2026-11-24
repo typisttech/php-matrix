@@ -21,12 +21,12 @@ jobs:
       security-events: write
       contents: read
       actions: read
-    uses: typisttech/.github/.github/workflows/lint-actions.yml@1eabd1e94ac14316f6a0978ecc759239d4c0210d # v9.4.0
+    uses: typisttech/.github/.github/workflows/lint-actions.yml@69031c104ed759ad5fae81ac8f4b2d939615e5ef # v9.4.2
 
   php:
     permissions:
       contents: read
-    uses: typisttech/.github/.github/workflows/lint-php.yml@1eabd1e94ac14316f6a0978ecc759239d4c0210d # v9.4.0
+    uses: typisttech/.github/.github/workflows/lint-php.yml@69031c104ed759ad5fae81ac8f4b2d939615e5ef # v9.4.2
     with:
       phpstan: true
       mago: true
@@ -40,7 +40,7 @@ jobs:
       security-events: write
       contents: read
       actions: read
-    uses: typisttech/.github/.github/workflows/lint-go.yml@1eabd1e94ac14316f6a0978ecc759239d4c0210d # v9.4.0
+    uses: typisttech/.github/.github/workflows/lint-go.yml@69031c104ed759ad5fae81ac8f4b2d939615e5ef # v9.4.2
     with:
       golangci-lint: true
       golangci-lint-version-file: .tool-versions
