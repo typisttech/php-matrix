@@ -33,7 +33,7 @@ jobs:
             php-version: '8.5'
             coverage: none
 
-      - uses: typisttech/.github/.github/actions/composer-install@1eabd1e94ac14316f6a0978ecc759239d4c0210d # v9.4.0
+      - uses: typisttech/.github/.github/actions/composer-install@69031c104ed759ad5fae81ac8f4b2d939615e5ef # v9.4.2
         with:
           prefer: locked
 
@@ -41,7 +41,7 @@ jobs:
         - run: ./bin/generate-data
         - run: ./bin/generate-test-data
 
-      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@1eabd1e94ac14316f6a0978ecc759239d4c0210d # v9.4.0
+      - uses: typisttech/.github/.github/actions/create-auto-merged-pull-request@69031c104ed759ad5fae81ac8f4b2d939615e5ef # v9.4.2
         with:
           client-id: ${{ vars.TASTENDRUCK_CLIENT_ID }}
           private-key: ${{ secrets.TASTENDRUCK_PRIVATE_KEY }}
