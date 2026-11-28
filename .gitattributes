@@ -3,8 +3,12 @@
 # Ignore everything.
 /* export-ignore
 
-# Export white-listed production code only.
+# Exclude production executable only.
+/bin/*          export-ignore
+/bin            -export-ignore
 /bin/php-matrix -export-ignore
+
+# Export production code only.
 /data           -export-ignore
 /src            -export-ignore
 /composer.json  -export-ignore
