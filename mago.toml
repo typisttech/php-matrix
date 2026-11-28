@@ -1,6 +1,6 @@
-#:schema https://mago.carthage.software/1.60.1/schema.json
+#:schema https://mago.carthage.software/1.61.0/schema.json
 # Welcome to Mago!
-# For full documentation, see https://mago.carthage.software/1.60.1/en/tools/overview/
+# For full documentation, see https://mago.carthage.software/1.61.0/en/tools/overview/
 version = "1"
 php-version = "8.5.0"
 
@@ -33,6 +33,7 @@ analyze-dead-code = true
 memoize-properties = true
 # allow-possibly-undefined-array-keys = false # Depercated.
 check-throws = false # Adding @throws yields little benefits.
+find-overly-wide-throw-types = true
 check-dead-catch = false
 check-throw-type-covariance = false
 unchecked-exceptions = ["Error", "LogicException"]
